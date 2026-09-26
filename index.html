@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Exam Hall System</title>
+</head>
+
+<body>
+
+    <h1>SMART EXAM HALL ALLOCATION SYSTEM</h1>
+
+    <p>College Examination Management Portal</p>
+
+    <hr>
+
+    <h2>Student Search</h2>
+
+    <input
+        type="text"
+        id="registerNumber"
+        placeholder="Enter Register Number"
+    >
+
+    <button onclick="searchStudent()">Search Student</button>
+
+    <div id="studentDetails"></div>
+
+    <script>
+        function searchStudent() {
+
+            const registerNumber =
+                document.getElementById("registerNumber").value.trim();
+
+            const result =
+                document.getElementById("studentDetails");
+
+            if (registerNumber === "24AD001") {
+
+                result.innerHTML = `
+                    <h2>Student Details</h2>
+                    <p><b>Name:</b> Samuvel R</p>
+                    <p><b>Register Number:</b> 24AD001</p>
+                    <p><b>Department:</b> AI & DS</p>
+                    <p><b>Year:</b> II Year</p>
+                    <p><b>Exam Hall:</b> Hall 07</p>
+                    <p><b>Seat Number:</b> B-14</p>
+                `;
+
+            } else {
+
+                result.innerHTML =
+                    "<p>No student found. Check the register number.</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
