@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Smart Exam Cell</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     margin:0;
@@ -14,18 +18,38 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     min-height:100vh;
     font-family:Arial,Helvetica,sans-serif;
     color:#eefaff;
+
     background:
-        radial-gradient(circle at 10% 5%,rgba(0,234,255,.12),transparent 28%),
-        radial-gradient(circle at 90% 15%,rgba(70,80,255,.12),transparent 30%),
-        linear-gradient(135deg,#02050c,#07111f 50%,#02050b);
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(0,234,255,.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(70,80,255,.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #02050c,
+            #07111f 50%,
+            #02050b
+        );
+
     overflow-x:hidden;
 }
 
-button,input{
+button,
+input{
     font-family:inherit;
 }
 
@@ -33,21 +57,28 @@ button{
     cursor:pointer;
 }
 
-/* ================= HEADER ================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
 header{
     position:sticky;
     top:0;
     z-index:1000;
+
     background:rgba(2,7,17,.96);
+
     backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(0,234,255,.12);
+
+    border-bottom:
+        1px solid rgba(0,234,255,.12);
 }
 
 .header-inner{
     width:min(1180px,92%);
     min-height:78px;
     margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -62,12 +93,23 @@ header{
 .brand-icon{
     width:46px;
     height:46px;
+
     display:grid;
     place-items:center;
+
     border-radius:13px;
-    background:linear-gradient(135deg,#00eaff,#5578ff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #5578ff
+        );
+
     font-size:21px;
-    box-shadow:0 0 28px rgba(0,234,255,.25);
+
+    box-shadow:
+        0 0 28px rgba(0,234,255,.25);
 }
 
 .brand-name{
@@ -78,9 +120,12 @@ header{
 
 .brand-subtitle{
     margin-top:4px;
+
     color:#60768d;
+
     font-size:9px;
     font-weight:900;
+
     letter-spacing:1px;
 }
 
@@ -88,7 +133,9 @@ header{
     display:flex;
     align-items:center;
     gap:8px;
+
     color:#00f5a0;
+
     font-size:10px;
     font-weight:900;
 }
@@ -96,12 +143,18 @@ header{
 .online-dot{
     width:8px;
     height:8px;
+
     border-radius:50%;
+
     background:#00f5a0;
-    box-shadow:0 0 14px #00f5a0;
+
+    box-shadow:
+        0 0 14px #00f5a0;
 }
 
-/* ================= MAIN ================= */
+/* =====================================================
+   MAIN
+===================================================== */
 
 main{
     width:min(1160px,92%);
@@ -110,31 +163,45 @@ main{
 
 .hero{
     text-align:center;
-    padding:40px 0 25px;
+    padding:38px 0 25px;
 }
 
 .hero h1{
     font-size:clamp(30px,5vw,50px);
     font-weight:1000;
     letter-spacing:-2px;
-    background:linear-gradient(90deg,#fff,#00eaff,#7288ff);
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #00eaff,
+            #7288ff
+        );
+
     -webkit-background-clip:text;
     color:transparent;
 }
 
 .hero p{
     margin:12px auto;
+
     max-width:700px;
+
     color:#70849a;
+
     font-size:13px;
 }
 
-/* ================= PROGRESS ================= */
+/* =====================================================
+   PROGRESS
+===================================================== */
 
 .progress{
     display:flex;
     align-items:center;
     justify-content:center;
+
     margin-bottom:30px;
 }
 
@@ -142,19 +209,27 @@ main{
     display:flex;
     align-items:center;
     gap:7px;
+
     color:#506378;
+
     font-size:9px;
     font-weight:1000;
+
     white-space:nowrap;
 }
 
 .progress-circle{
     width:34px;
     height:34px;
+
     display:grid;
     place-items:center;
+
     border-radius:50%;
-    border:1px solid rgba(0,234,255,.15);
+
+    border:
+        1px solid rgba(0,234,255,.15);
+
     background:#07111f;
 }
 
@@ -164,9 +239,13 @@ main{
 
 .progress-item.active .progress-circle{
     color:#00151c;
+
     background:#00eaff;
+
     border-color:#00eaff;
-    box-shadow:0 0 25px rgba(0,234,255,.5);
+
+    box-shadow:
+        0 0 25px rgba(0,234,255,.5);
 }
 
 .progress-item.done{
@@ -181,19 +260,26 @@ main{
 .progress-line{
     width:60px;
     height:1px;
+
     margin:0 8px;
-    background:rgba(0,234,255,.12);
+
+    background:
+        rgba(0,234,255,.12);
 }
 
 .progress-line.done{
     background:#00eaff;
 }
 
-/* ================= STEP ================= */
+/* =====================================================
+   STEPS
+===================================================== */
 
 .step{
     display:none;
-    animation:stepIn .4s ease;
+
+    animation:
+        stepIn .4s ease;
 }
 
 .step.active{
@@ -201,28 +287,40 @@ main{
 }
 
 @keyframes stepIn{
+
     from{
         opacity:0;
         transform:translateX(25px);
     }
+
     to{
         opacity:1;
         transform:translateX(0);
     }
+
 }
 
-/* ================= CARD ================= */
+/* =====================================================
+   CARD
+===================================================== */
 
 .card{
     padding:30px;
+
     border-radius:20px;
-    border:1px solid rgba(0,234,255,.14);
-    background:linear-gradient(
-        145deg,
-        rgba(8,22,38,.96),
-        rgba(3,10,20,.98)
-    );
-    box-shadow:0 20px 70px rgba(0,0,0,.28);
+
+    border:
+        1px solid rgba(0,234,255,.14);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8,22,38,.96),
+            rgba(3,10,20,.98)
+        );
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.28);
 }
 
 .card-title{
@@ -233,15 +331,23 @@ main{
 .card-subtitle{
     margin-top:8px;
     margin-bottom:25px;
+
     color:#71859a;
+
     font-size:12px;
+
+    line-height:1.7;
 }
 
-/* ================= FORM ================= */
+/* =====================================================
+   FORM
+===================================================== */
 
 .form-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:18px;
 }
 
@@ -253,96 +359,148 @@ main{
 
 label{
     color:#8296aa;
+
     font-size:9px;
     font-weight:900;
+
     letter-spacing:.8px;
 }
 
 input{
     width:100%;
+
     padding:14px 15px;
+
     border-radius:11px;
-    border:1px solid rgba(0,234,255,.15);
+
+    border:
+        1px solid rgba(0,234,255,.15);
+
     outline:none;
+
     background:#030b15;
+
     color:#fff;
+
     font-size:13px;
+
     transition:.25s;
 }
 
 input:focus{
     border-color:#00eaff;
-    box-shadow:0 0 25px rgba(0,234,255,.1);
+
+    box-shadow:
+        0 0 25px rgba(0,234,255,.1);
 }
 
-/* ================= FIXED PREFIX ================= */
+/* =====================================================
+   FIXED 9527
+===================================================== */
 
 .fixed-register-box{
     margin-top:25px;
+
     padding:20px;
+
     border-radius:15px;
-    border:1px solid rgba(0,234,255,.15);
-    background:rgba(0,234,255,.035);
+
+    border:
+        1px solid rgba(0,234,255,.15);
+
+    background:
+        rgba(0,234,255,.035);
 }
 
 .fixed-title{
     color:#00eaff;
+
     font-size:10px;
     font-weight:1000;
 }
 
 .fixed-number{
     display:inline-block;
+
     margin-top:12px;
+
     padding:10px 18px;
+
     border-radius:9px;
-    border:1px solid #00eaff;
+
+    border:
+        1px solid #00eaff;
+
     color:#00eaff;
+
     font-size:22px;
     font-weight:1000;
+
     letter-spacing:4px;
+
+    box-shadow:
+        0 0 15px rgba(0,234,255,.15);
 }
 
 .lock-text{
     margin-left:10px;
+
     color:#00f5a0;
+
     font-size:9px;
     font-weight:900;
 }
 
-/* ================= DEPARTMENT ================= */
+/* =====================================================
+   DEPARTMENT
+===================================================== */
 
 .department-container{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+        repeat(2,1fr);
+
     gap:18px;
 }
 
 .department-box{
     padding:21px;
+
     border-radius:16px;
-    border:1px solid rgba(0,234,255,.13);
-    background:rgba(5,16,29,.82);
+
+    border:
+        1px solid rgba(0,234,255,.13);
+
+    background:
+        rgba(5,16,29,.82);
 }
 
 .department-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:17px;
 }
 
 .department-title{
     color:#00eaff;
+
     font-size:12px;
     font-weight:1000;
 }
 
 .auto-tag{
     padding:5px 8px;
+
     border-radius:20px;
-    background:rgba(0,245,160,.06);
+
+    background:
+        rgba(0,245,160,.06);
+
     color:#00f5a0;
+
     font-size:8px;
     font-weight:900;
 }
@@ -357,19 +515,29 @@ input:focus{
     margin-bottom:6px;
 }
 
-/* ================= REGISTER BLOCK ================= */
+/* =====================================================
+   REGISTER BLOCK
+===================================================== */
 
 .register-block{
     margin-top:5px;
+
     padding:15px;
+
     border-radius:12px;
-    border:1px solid rgba(0,234,255,.12);
-    background:rgba(0,0,0,.18);
+
+    border:
+        1px solid rgba(0,234,255,.12);
+
+    background:
+        rgba(0,0,0,.18);
 }
 
 .register-block-title{
     margin-bottom:13px;
+
     color:#00eaff;
+
     font-size:9px;
     font-weight:1000;
 }
@@ -378,29 +546,41 @@ input:focus{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:12px;
     margin-bottom:12px;
+
     border-radius:9px;
-    border:1px solid rgba(0,245,160,.15);
-    background:rgba(0,245,160,.035);
+
+    border:
+        1px solid rgba(0,245,160,.15);
+
+    background:
+        rgba(0,245,160,.035);
 }
 
 .fixed-prefix-value{
     color:#00f5a0;
+
     font-size:20px;
     font-weight:1000;
+
     letter-spacing:3px;
 }
 
 .fixed-lock{
     color:#00f5a0;
+
     font-size:9px;
     font-weight:900;
 }
 
 .register-range-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:10px;
 }
 
@@ -412,16 +592,25 @@ input:focus{
 
 .register-end{
     color:#00f5a0!important;
-    border-color:rgba(0,245,160,.25)!important;
+
+    border-color:
+        rgba(0,245,160,.25)!important;
 }
 
 .register-preview{
     margin-top:11px;
+
     padding:10px;
+
     border-radius:8px;
-    background:rgba(0,234,255,.035);
+
+    background:
+        rgba(0,234,255,.035);
+
     color:#6e8498;
+
     font-size:9px;
+
     line-height:1.7;
 }
 
@@ -429,78 +618,135 @@ input:focus{
     color:#00f5a0;
 }
 
-/* ================= BUTTON ================= */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .buttons{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
+
     gap:12px;
+
     margin-top:25px;
 }
 
 .primary{
     padding:14px 23px;
+
     border:0;
+
     border-radius:11px;
-    background:linear-gradient(135deg,#00eaff,#577cff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #577cff
+        );
+
     color:#00131b;
+
     font-size:10px;
     font-weight:1000;
+
+    box-shadow:
+        0 0 25px rgba(0,234,255,.1);
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 35px rgba(0,234,255,.25);
 }
 
 .secondary{
     padding:14px 21px;
+
     border-radius:11px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.03);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    background:
+        rgba(255,255,255,.03);
+
     color:#91a4b8;
+
     font-size:10px;
     font-weight:900;
 }
 
-/* ================= SUMMARY ================= */
+/* =====================================================
+   SUMMARY
+===================================================== */
 
 .summary{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:12px;
+
     margin-bottom:20px;
 }
 
 .summary-box{
     padding:17px;
+
     text-align:center;
+
     border-radius:13px;
-    border:1px solid rgba(0,234,255,.12);
-    background:rgba(5,15,28,.8);
+
+    border:
+        1px solid rgba(0,234,255,.12);
+
+    background:
+        rgba(5,15,28,.8);
 }
 
 .summary-box span{
     display:block;
+
     margin-bottom:7px;
+
     color:#62778c;
+
     font-size:8px;
     font-weight:900;
 }
 
 .summary-box strong{
     color:#00eaff;
+
     font-size:22px;
 }
 
-/* ================= HALL ================= */
+/* =====================================================
+   HALL
+===================================================== */
 
 .halls{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
     gap:18px;
 }
 
 .hall{
     padding:18px;
+
     border-radius:18px;
-    border:1px solid rgba(0,234,255,.15);
+
+    border:
+        1px solid rgba(0,234,255,.15);
+
     background:#050d18;
 }
 
@@ -508,9 +754,12 @@ input:focus{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding-bottom:15px;
     margin-bottom:15px;
-    border-bottom:1px solid rgba(255,255,255,.06);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
 }
 
 .hall-name{
@@ -520,6 +769,7 @@ input:focus{
 
 .hall-active{
     color:#00f5a0;
+
     font-size:8px;
     font-weight:1000;
 }
@@ -530,61 +780,95 @@ input:focus{
 
 .bench-title{
     margin-bottom:8px;
+
     color:#00eaff;
+
     font-size:9px;
     font-weight:1000;
+
     text-transform:uppercase;
 }
 
 .seats{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+        repeat(2,1fr);
+
     gap:8px;
 }
 
 .seat{
     min-height:135px;
+
     padding:14px;
+
     border-radius:12px;
-    border:1px solid rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
     background:#101925;
-    transition:.3s;
+
+    transition:
+        .3s;
+}
+
+.seat:hover{
+    border-color:
+        rgba(0,234,255,.3);
+
+    transform:translateY(-2px);
 }
 
 .seat-label{
     margin-bottom:10px;
+
     color:#00eaff;
+
     font-size:8px;
     font-weight:1000;
 }
 
 .reg{
     margin-bottom:7px;
+
     color:#fff;
+
     font-size:12px;
     font-weight:1000;
+
     word-break:break-all;
 }
 
 .dept{
     margin-bottom:5px;
+
     color:#dce7ef;
+
     font-size:10px;
     font-weight:900;
 }
 
 .subject{
     color:#00f5a0;
+
     font-size:9px;
     font-weight:900;
+
     text-transform:uppercase;
 }
 
-/* ================= EXTRA PLACE ================= */
+/* =====================================================
+   EMPTY / EXTRA PLACE
+===================================================== */
 
 .empty{
-    border-color:#ff304f!important;
-    background:rgba(255,48,79,.05)!important;
+    border:
+        2px solid #ff304f!important;
+
+    background:
+        rgba(255,48,79,.05)!important;
 }
 
 .empty .seat-label{
@@ -593,228 +877,368 @@ input:focus{
 
 .empty-text{
     margin-top:25px;
+
     color:#ff5065;
+
     font-size:9px;
     font-weight:1000;
 }
 
-/* ================= SEARCH ================= */
+/* =====================================================
+   SEARCH BOX
+===================================================== */
 
 .search-box{
     padding:20px;
+
     margin-bottom:20px;
+
     border-radius:15px;
-    border:1px solid rgba(0,234,255,.16);
-    background:rgba(5,15,28,.8);
+
+    border:
+        1px solid rgba(0,234,255,.16);
+
+    background:
+        rgba(5,15,28,.8);
 }
 
 .search-title{
     margin-bottom:12px;
+
     color:#00eaff;
+
     font-size:12px;
     font-weight:1000;
 }
 
 .search-row{
     display:flex;
+
     gap:10px;
 }
 
 .search-button{
     padding:0 25px;
+
     border:0;
+
     border-radius:10px;
-    background:linear-gradient(135deg,#00eaff,#587aff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #587aff
+        );
+
     color:#00131b;
+
     font-weight:1000;
 }
 
-/* ================= SEARCH RESULT ================= */
+/* =====================================================
+   SEARCH RESULT
+===================================================== */
 
 .search-result{
     margin-top:15px;
+
     padding:18px;
+
     border-radius:13px;
-    border:1px solid #ff304f;
-    background:rgba(255,48,79,.07);
+
+    border:
+        1px solid #00f5a0;
+
+    background:
+        rgba(0,245,160,.04);
+
     box-shadow:
-        0 0 20px rgba(255,48,79,.25),
-        0 0 50px rgba(255,48,79,.1);
+        0 0 20px rgba(0,245,160,.12);
 }
 
 .result-title{
     margin-bottom:14px;
-    color:#ff4058;
+
+    color:#00f5a0;
+
     font-size:11px;
     font-weight:1000;
 }
 
 .result-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:10px;
 }
 
 .result-item{
     padding:12px;
+
     border-radius:9px;
-    background:rgba(255,48,79,.06);
-    border:1px solid rgba(255,48,79,.15);
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(0,245,160,.12);
 }
 
 .result-item span{
     display:block;
+
     margin-bottom:5px;
-    color:#a87880;
+
+    color:#708697;
+
     font-size:8px;
     font-weight:900;
 }
 
 .result-item strong{
-    color:#ff4058;
+    color:#fff;
+
     font-size:11px;
+
     word-break:break-all;
 }
 
 .not-found{
     margin-top:15px;
+
     padding:14px;
+
     border-radius:10px;
-    border:1px solid #ff304f;
-    background:rgba(255,48,79,.05);
+
+    border:
+        1px solid #ff304f;
+
+    background:
+        rgba(255,48,79,.05);
+
     color:#ff5065;
+
     font-size:10px;
 }
 
-/* ================= RED SEAT SEARCH ================= */
+/* =====================================================
+   🔴 SEARCHED SEAT - RED GLOW
+===================================================== */
 
 .search-highlight{
-    position:relative;
-    z-index:50;
 
-    border:2px solid #ff203f!important;
+    position:relative !important;
+
+    z-index:999 !important;
+
+    border:
+        3px solid #ff1744 !important;
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(255,48,79,.25),
-            rgba(255,48,79,.08)
-        )!important;
+        linear-gradient(
+            145deg,
+            rgba(255,20,55,.38),
+            rgba(120,0,20,.22)
+        ) !important;
 
-    transform:scale(1.04);
+    transform:
+        scale(1.045);
 
     box-shadow:
-        0 0 15px #ff304f,
-        0 0 35px rgba(255,48,79,.9),
-        0 0 75px rgba(255,48,79,.6)!important;
+        0 0 10px #ff1744,
+        0 0 25px #ff1744,
+        0 0 50px rgba(255,23,68,.9),
+        0 0 90px rgba(255,23,68,.65),
+        0 0 130px rgba(255,23,68,.35) !important;
 
-    animation:redSearchPulse .7s infinite alternate;
+    animation:
+        studentRedGlow
+        .7s
+        ease-in-out
+        infinite
+        alternate !important;
 }
 
 .search-highlight .reg{
-    color:#ff203f!important;
+
+    color:#ff1744 !important;
+
     text-shadow:
-        0 0 8px #ff304f,
-        0 0 20px rgba(255,48,79,.8);
+        0 0 8px #ff1744,
+        0 0 18px #ff1744,
+        0 0 30px rgba(255,23,68,.9) !important;
 }
 
-.search-highlight .dept,
-.search-highlight .subject,
 .search-highlight .seat-label{
-    color:#ff4058!important;
+
+    color:#ff1744 !important;
 }
 
-@keyframes redSearchPulse{
+.search-highlight .dept{
+
+    color:#ff6680 !important;
+}
+
+.search-highlight .subject{
+
+    color:#ff6680 !important;
+}
+
+@keyframes studentRedGlow{
 
     from{
+
+        border-color:#ff1744;
+
         box-shadow:
-            0 0 12px #ff304f,
-            0 0 25px rgba(255,48,79,.5);
+            0 0 10px #ff1744,
+            0 0 25px rgba(255,23,68,.7),
+            0 0 45px rgba(255,23,68,.4);
+
     }
 
     to{
+
+        border-color:#ff0033;
+
         box-shadow:
-            0 0 25px #ff304f,
-            0 0 60px rgba(255,48,79,.9),
-            0 0 100px rgba(255,48,79,.4);
+            0 0 20px #ff1744,
+            0 0 45px #ff1744,
+            0 0 80px rgba(255,23,68,.85),
+            0 0 120px rgba(255,23,68,.45);
+
     }
 
 }
 
-/* ================= SONIC CURSOR ================= */
+/* =====================================================
+   SONIC CURSOR
+===================================================== */
 
 #cursorRing{
+
     position:fixed;
+
     width:28px;
     height:28px;
-    border:1px solid #00eaff;
+
+    border:
+        1px solid #00eaff;
+
     border-radius:50%;
+
     pointer-events:none;
+
     z-index:99999;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     box-shadow:
         0 0 10px rgba(0,234,255,.6),
         inset 0 0 8px rgba(0,234,255,.15);
-    transition:
-        width .15s,
-        height .15s,
-        border-color .15s;
 }
 
 #cursorDot{
+
     position:fixed;
+
     width:5px;
     height:5px;
+
     background:#00eaff;
+
     border-radius:50%;
+
     pointer-events:none;
+
     z-index:100000;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 12px #00eaff;
+
+    transform:
+        translate(-50%,-50%);
+
+    box-shadow:
+        0 0 12px #00eaff;
 }
 
 .sonic-ripple{
+
     position:fixed;
+
     width:10px;
     height:10px;
-    border:2px solid #00eaff;
+
+    border:
+        2px solid #00eaff;
+
     border-radius:50%;
+
     pointer-events:none;
+
     z-index:99998;
-    transform:translate(-50%,-50%);
-    animation:ripple .7s ease-out forwards;
+
+    transform:
+        translate(-50%,-50%);
+
+    animation:
+        ripple
+        .7s
+        ease-out
+        forwards;
 }
 
 @keyframes ripple{
 
     0%{
+
         opacity:1;
+
         width:10px;
         height:10px;
-        box-shadow:0 0 10px #00eaff;
+
+        box-shadow:
+            0 0 10px #00eaff;
     }
 
     100%{
+
         opacity:0;
+
         width:90px;
         height:90px;
-        box-shadow:0 0 35px rgba(0,234,255,.3);
+
+        box-shadow:
+            0 0 35px rgba(0,234,255,.3);
     }
 
 }
 
-/* ================= FOOTER ================= */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer{
+
     margin-top:50px;
+
     padding:25px 0;
-    border-top:1px solid rgba(0,234,255,.08);
+
+    border-top:
+        1px solid rgba(0,234,255,.08);
+
     text-align:center;
+
     color:#506276;
+
     font-size:9px;
 }
 
-/* ================= MOBILE ================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:850px){
 
@@ -831,7 +1255,8 @@ footer{
     }
 
     .summary{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
 }
@@ -894,11 +1319,17 @@ footer{
 
 <body>
 
-<!-- ================= SONIC CURSOR ================= -->
+<!-- =====================================================
+     SONIC CURSOR
+===================================================== -->
 
 <div id="cursorRing"></div>
 <div id="cursorDot"></div>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -924,6 +1355,7 @@ HALL ALLOCATION & STUDENT LOCATOR
 
 </div>
 
+
 <div class="online">
 
 <div class="online-dot"></div>
@@ -940,6 +1372,10 @@ SYSTEM ONLINE
 <main>
 
 
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
 <h1>
@@ -954,11 +1390,16 @@ and student seat locator.
 </section>
 
 
-<!-- ================= PROGRESS ================= -->
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
 
 <div class="progress">
 
-<div class="progress-item active" id="p1">
+<div
+class="progress-item active"
+id="p1"
+>
 
 <div class="progress-circle">
 01
@@ -969,10 +1410,16 @@ and student seat locator.
 </div>
 
 
-<div class="progress-line" id="l1"></div>
+<div
+class="progress-line"
+id="l1"
+></div>
 
 
-<div class="progress-item" id="p2">
+<div
+class="progress-item"
+id="p2"
+>
 
 <div class="progress-circle">
 02
@@ -983,10 +1430,16 @@ and student seat locator.
 </div>
 
 
-<div class="progress-line" id="l2"></div>
+<div
+class="progress-line"
+id="l2"
+></div>
 
 
-<div class="progress-item" id="p3">
+<div
+class="progress-item"
+id="p3"
+>
 
 <div class="progress-circle">
 03
@@ -997,10 +1450,16 @@ and student seat locator.
 </div>
 
 
-<div class="progress-line" id="l3"></div>
+<div
+class="progress-line"
+id="l3"
+></div>
 
 
-<div class="progress-item" id="p4">
+<div
+class="progress-item"
+id="p4"
+>
 
 <div class="progress-circle">
 04
@@ -1013,9 +1472,14 @@ and student seat locator.
 </div>
 
 
-<!-- ================= STEP 1 ================= -->
+<!-- =====================================================
+     STEP 1
+===================================================== -->
 
-<section class="step active" id="step1">
+<section
+class="step active"
+id="step1"
+>
 
 <div class="card">
 
@@ -1029,6 +1493,7 @@ Enter total students, departments and exam halls.
 
 
 <div class="form-grid">
+
 
 <div class="form-group">
 
@@ -1094,15 +1559,24 @@ FIXED REGISTER PREFIX
 🔒 FIXED — CANNOT BE CHANGED
 </span>
 
-<p style="
+<p
+style="
 margin-top:12px;
 color:#6f8397;
 font-size:10px;
-">
+line-height:1.7;
+"
+>
 
-Every department uses 9527.
-Only the START number is entered.
-END will be calculated automatically from student count.
+Every department uses the same fixed prefix
+<strong style="color:#00eaff">
+9527
+</strong>.
+
+Only the 8-digit START number is entered
+for each department.
+
+The END number is automatically calculated.
 
 </p>
 
@@ -1117,7 +1591,9 @@ END will be calculated automatically from student count.
 class="primary"
 onclick="createDepartments()"
 >
+
 CONTINUE TO DEPARTMENTS →
+
 </button>
 
 </div>
@@ -1127,9 +1603,14 @@ CONTINUE TO DEPARTMENTS →
 </section>
 
 
-<!-- ================= STEP 2 ================= -->
+<!-- =====================================================
+     STEP 2
+===================================================== -->
 
-<section class="step" id="step2">
+<section
+class="step"
+id="step2"
+>
 
 <div class="card">
 
@@ -1139,13 +1620,13 @@ CONTINUE TO DEPARTMENTS →
 
 <div class="card-subtitle">
 
-Enter department, subject, student count and
-START register number.
+Enter department name, exam subject,
+number of students and START register number.
 
 <br>
 
 <strong style="color:#00f5a0">
-END register number will calculate automatically.
+END register number will be calculated automatically.
 </strong>
 
 </div>
@@ -1181,9 +1662,14 @@ GENERATE ARRANGEMENT →
 </section>
 
 
-<!-- ================= STEP 3 ================= -->
+<!-- =====================================================
+     STEP 3
+===================================================== -->
 
-<section class="step" id="step3">
+<section
+class="step"
+id="step3"
+>
 
 <div class="card">
 
@@ -1193,7 +1679,7 @@ GENERATE ARRANGEMENT →
 
 <div class="card-subtitle">
 
-Different departments are automatically mixed
+Students from different departments are mixed
 across benches whenever possible.
 
 </div>
@@ -1201,11 +1687,16 @@ across benches whenever possible.
 
 <div class="summary">
 
+
 <div class="summary-box">
 
-<span>STUDENTS</span>
+<span>
+STUDENTS
+</span>
 
-<strong id="summaryStudents">
+<strong
+id="summaryStudents"
+>
 0
 </strong>
 
@@ -1214,9 +1705,13 @@ across benches whenever possible.
 
 <div class="summary-box">
 
-<span>DEPARTMENTS</span>
+<span>
+DEPARTMENTS
+</span>
 
-<strong id="summaryDepartments">
+<strong
+id="summaryDepartments"
+>
 0
 </strong>
 
@@ -1225,9 +1720,13 @@ across benches whenever possible.
 
 <div class="summary-box">
 
-<span>HALLS</span>
+<span>
+HALLS
+</span>
 
-<strong id="summaryHalls">
+<strong
+id="summaryHalls"
+>
 0
 </strong>
 
@@ -1236,7 +1735,9 @@ across benches whenever possible.
 
 <div class="summary-box">
 
-<span>PREFIX</span>
+<span>
+PREFIX
+</span>
 
 <strong>
 9527
@@ -1277,9 +1778,14 @@ GO TO SEARCH →
 </section>
 
 
-<!-- ================= STEP 4 ================= -->
+<!-- =====================================================
+     STEP 4
+===================================================== -->
 
-<section class="step" id="step4">
+<section
+class="step"
+id="step4"
+>
 
 <div class="card">
 
@@ -1290,7 +1796,12 @@ GO TO SEARCH →
 <div class="card-subtitle">
 
 Search using the complete 12-digit register number.
-The matching seat will turn RED.
+
+The exact matching seat will turn
+<strong style="color:#ff1744">
+RED
+</strong>
+with a glowing animation.
 
 </div>
 
@@ -1323,10 +1834,18 @@ SEARCH
 </div>
 
 
-<div id="searchOutput"></div>
+<div
+id="searchOutput"
+></div>
 
 </div>
 
+
+<!-- IMPORTANT:
+     SEARCH SCREEN HAS ITS OWN HALL LAYOUT
+     This is what allows RED highlighting
+     on the visible result.
+-->
 
 <div
 class="halls"
@@ -1359,7 +1878,11 @@ NEW EXAM SETUP
 
 
 <footer>
-SMART EXAM CELL • AUTOMATED HALL ALLOCATION SYSTEM
+
+SMART EXAM CELL
+•
+AUTOMATED HALL ALLOCATION SYSTEM
+
 </footer>
 
 </main>
@@ -1368,18 +1891,20 @@ SMART EXAM CELL • AUTOMATED HALL ALLOCATION SYSTEM
 <script>
 
 /* =====================================================
-   FIXED PREFIX
+   GLOBAL DATA
 ===================================================== */
 
 const FIXED_PREFIX = "9527";
 
 let departments = [];
+
 let students = [];
+
 let halls = [];
 
 
 /* =====================================================
-   REGISTER NUMBER
+   CREATE 12 DIGIT REGISTER NUMBER
    9527 + 8 DIGITS
 ===================================================== */
 
@@ -1392,6 +1917,7 @@ function makeRegisterNumber(number){
         .slice(-8);
 
     return FIXED_PREFIX + last8;
+
 }
 
 
@@ -1403,68 +1929,125 @@ function goStep(step){
 
     document
     .querySelectorAll(".step")
-    .forEach(el=>{
-        el.classList.remove("active");
-    });
+    .forEach(
+        element=>{
+            element.classList.remove(
+                "active"
+            );
+        }
+    );
 
 
-    document
-    .getElementById("step"+step)
-    .classList.add("active");
+    const currentStep =
+        document.getElementById(
+            "step"+step
+        );
 
 
-    for(let i=1;i<=4;i++){
+    if(currentStep){
 
-        const p =
-            document.getElementById("p"+i);
+        currentStep.classList.add(
+            "active"
+        );
+
+    }
+
+
+    for(
+        let i=1;
+        i<=4;
+        i++
+    ){
+
+        const progress =
+            document.getElementById(
+                "p"+i
+            );
+
 
         if(i < step){
 
-            p.classList.remove("active");
-            p.classList.add("done");
+            progress.classList.remove(
+                "active"
+            );
+
+            progress.classList.add(
+                "done"
+            );
 
         }
+
         else if(i === step){
 
-            p.classList.add("active");
-            p.classList.remove("done");
+            progress.classList.add(
+                "active"
+            );
+
+            progress.classList.remove(
+                "done"
+            );
 
         }
+
         else{
 
-            p.classList.remove("active");
-            p.classList.remove("done");
+            progress.classList.remove(
+                "active"
+            );
+
+            progress.classList.remove(
+                "done"
+            );
 
         }
 
     }
 
 
-    for(let i=1;i<=3;i++){
+    for(
+        let i=1;
+        i<=3;
+        i++
+    ){
 
         const line =
-            document.getElementById("l"+i);
+            document.getElementById(
+                "l"+i
+            );
+
 
         if(i < step){
-            line.classList.add("done");
+
+            line.classList.add(
+                "done"
+            );
+
         }
+
         else{
-            line.classList.remove("done");
+
+            line.classList.remove(
+                "done"
+            );
+
         }
 
     }
 
 
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 
 }
 
 
 /* =====================================================
-   CREATE DEPARTMENTS
+   CREATE DEPARTMENT BOXES
 ===================================================== */
 
 function createDepartments(){
@@ -1504,6 +2087,7 @@ function createDepartments(){
         );
 
         return;
+
     }
 
 
@@ -1523,7 +2107,9 @@ function createDepartments(){
     ){
 
         const box =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         box.className =
@@ -1605,11 +2191,13 @@ REGISTER NUMBER BLOCK
 
 <div>
 
-<div style="
+<div
+style="
 color:#6d8296;
 font-size:8px;
 font-weight:900;
-">
+"
+>
 FIXED PREFIX
 </div>
 
@@ -1628,6 +2216,7 @@ FIXED PREFIX
 
 
 <div class="register-range-grid">
+
 
 <div>
 
@@ -1661,6 +2250,7 @@ placeholder="AUTO"
 
 </div>
 
+
 </div>
 
 
@@ -1669,7 +2259,7 @@ placeholder="AUTO"
 Register range:
 
 <strong>
-Enter student count + START
+Enter START + student count
 </strong>
 
 </div>
@@ -1681,7 +2271,9 @@ Enter student count + START
 `;
 
 
-        container.appendChild(box);
+        container.appendChild(
+            box
+        );
 
     }
 
@@ -1694,151 +2286,174 @@ Enter student count + START
 
 
 /* =====================================================
-   AUTO CALCULATE END
+   AUTO CALCULATE END NUMBER
 ===================================================== */
 
 function addAutoCalculation(){
 
     document
-    .querySelectorAll(".department-box")
-    .forEach(box=>{
+    .querySelectorAll(
+        ".department-box"
+    )
+    .forEach(
+        box=>{
 
-        const startInput =
-            box.querySelector(".reg-start");
-
-
-        const countInput =
-            box.querySelector(".dept-count");
-
-
-        const endInput =
-            box.querySelector(".reg-end");
+            const startInput =
+                box.querySelector(
+                    ".reg-start"
+                );
 
 
-        const preview =
-            box.querySelector(".register-preview");
+            const countInput =
+                box.querySelector(
+                    ".dept-count"
+                );
 
 
-        function calculate(){
-
-            let start =
-                startInput.value
-                .replace(/\D/g,"")
-                .slice(0,8);
+            const endInput =
+                box.querySelector(
+                    ".reg-end"
+                );
 
 
-            startInput.value =
-                start;
+            const preview =
+                box.querySelector(
+                    ".register-preview"
+                );
 
 
-            const count =
-                Number(countInput.value);
+            function calculate(){
+
+                let start =
+                    startInput.value
+                    .replace(/\D/g,"")
+                    .slice(0,8);
 
 
-            if(
-                start.length === 8 &&
-                count > 0
-            ){
-
-                const startNumber =
-                    Number(start);
+                startInput.value =
+                    start;
 
 
-                const endNumber =
-                    startNumber +
-                    count -
-                    1;
+                const count =
+                    Number(
+                        countInput.value
+                    );
 
 
-                if(endNumber > 99999999){
+                if(
+                    start.length === 8 &&
+                    count > 0
+                ){
+
+                    const startNumber =
+                        Number(start);
+
+
+                    const endNumber =
+                        startNumber +
+                        count -
+                        1;
+
+
+                    if(
+                        endNumber >
+                        99999999
+                    ){
+
+                        endInput.value =
+                            "OVERFLOW";
+
+
+                        preview.innerHTML = `
+
+<strong
+style="color:#ff304f"
+>
+Register range exceeds 8 digits.
+</strong>
+
+`;
+
+                        return;
+
+                    }
+
+
+                    const end =
+                        String(endNumber)
+                        .padStart(8,"0");
+
 
                     endInput.value =
-                        "OVERFLOW";
+                        end;
+
 
                     preview.innerHTML = `
 
-                        <strong style="color:#ff304f">
-                        Register range exceeds 8 digits.
-                        </strong>
+Register range:
 
-                    `;
+<strong>
+${makeRegisterNumber(start)}
+→
+${makeRegisterNumber(end)}
+</strong>
 
-                    return;
+<br>
+
+<span style="color:#6e8498">
+${count}
+students automatically calculated
+</span>
+
+`;
 
                 }
 
+                else{
 
-                const end =
-                    String(endNumber)
-                    .padStart(8,"0");
-
-
-                endInput.value =
-                    end;
+                    endInput.value = "";
 
 
-                preview.innerHTML = `
+                    preview.innerHTML = `
 
-                    Register range:
+Register range:
 
-                    <strong>
-                        ${makeRegisterNumber(start)}
-                        →
-                        ${makeRegisterNumber(end)}
-                    </strong>
+<strong>
+Enter START and student count
+</strong>
 
-                    <br>
+`;
 
-                    <span style="color:#6e8498">
-                    ${count} students automatically calculated
-                    </span>
-
-                `;
+                }
 
             }
-            else{
-
-                endInput.value = "";
 
 
-                preview.innerHTML = `
+            startInput.addEventListener(
+                "input",
+                calculate
+            );
 
-                    Register range:
 
-                    <strong>
-                    Enter START and student count
-                    </strong>
-
-                `;
-
-            }
+            countInput.addEventListener(
+                "input",
+                calculate
+            );
 
         }
-
-
-        startInput.addEventListener(
-            "input",
-            calculate
-        );
-
-
-        countInput.addEventListener(
-            "input",
-            calculate
-        );
-
-    });
+    );
 
 }
 
 
 /* =====================================================
-   COLLECT DATA
+   COLLECT DEPARTMENT DATA
 ===================================================== */
 
 function collectData(){
 
     departments = [];
+
     students = [];
 
 
@@ -1848,8 +2463,7 @@ function collectData(){
         );
 
 
-    let total =
-        0;
+    let total = 0;
 
 
     boxes.forEach(
@@ -1857,14 +2471,18 @@ function collectData(){
 
             const name =
                 box
-                .querySelector(".dept-name")
+                .querySelector(
+                    ".dept-name"
+                )
                 .value
                 .trim();
 
 
             const subject =
                 box
-                .querySelector(".dept-subject")
+                .querySelector(
+                    ".dept-subject"
+                )
                 .value
                 .trim();
 
@@ -1872,21 +2490,18 @@ function collectData(){
             const count =
                 Number(
                     box
-                    .querySelector(".dept-count")
+                    .querySelector(
+                        ".dept-count"
+                    )
                     .value
                 );
 
 
             const startText =
                 box
-                .querySelector(".reg-start")
-                .value
-                .replace(/\D/g,"");
-
-
-            const endText =
-                box
-                .querySelector(".reg-end")
+                .querySelector(
+                    ".reg-start"
+                )
                 .value
                 .replace(/\D/g,"");
 
@@ -1912,7 +2527,10 @@ function collectData(){
             }
 
 
-            if(!count || count<1){
+            if(
+                !count ||
+                count < 1
+            ){
 
                 throw new Error(
                     "Enter student count for Department "+
@@ -1922,11 +2540,14 @@ function collectData(){
             }
 
 
-            if(startText.length!==8){
+            if(
+                startText.length !== 8
+            ){
 
                 throw new Error(
-                    "START register number must contain exactly 8 digits for "+
-                    name+"."
+                    "START register number for "+
+                    name+
+                    " must contain exactly 8 digits."
                 );
 
             }
@@ -1942,7 +2563,9 @@ function collectData(){
                 1;
 
 
-            if(end>99999999){
+            if(
+                end > 99999999
+            ){
 
                 throw new Error(
                     "Register number overflow for "+
@@ -1950,11 +2573,6 @@ function collectData(){
                 );
 
             }
-
-
-            const endFormatted =
-                String(end)
-                .padStart(8,"0");
 
 
             departments.push({
@@ -1975,7 +2593,9 @@ function collectData(){
             total += count;
 
 
-            /* CREATE STUDENTS */
+            /* =========================================
+               CREATE STUDENTS
+            ========================================= */
 
             for(
                 let i=0;
@@ -2012,7 +2632,9 @@ function collectData(){
         );
 
 
-    if(total !== totalEntered){
+    if(
+        total !== totalEntered
+    ){
 
         throw new Error(
 
@@ -2026,7 +2648,9 @@ function collectData(){
     }
 
 
-    /* CHECK REGISTER OVERLAP */
+    /* =========================================
+       CHECK REGISTER OVERLAP
+    ========================================= */
 
     for(
         let i=0;
@@ -2043,13 +2667,14 @@ function collectData(){
             const a =
                 departments[i];
 
+
             const b =
                 departments[j];
 
 
             if(
-                a.start<=b.end &&
-                b.start<=a.end
+                a.start <= b.end &&
+                b.start <= a.end
             ){
 
                 throw new Error(
@@ -2084,9 +2709,9 @@ function createBenchList(){
 
             groups[dept.name] =
                 students.filter(
-                    s =>
-                    s.department ===
-                    dept.name
+                    student =>
+                        student.department ===
+                        dept.name
                 );
 
         }
@@ -2102,21 +2727,27 @@ function createBenchList(){
             Object.keys(groups)
             .filter(
                 dept =>
-                groups[dept].length>0
+                    groups[dept].length > 0
             );
 
 
         if(
-            available.length===0
+            available.length === 0
         ){
+
             break;
+
         }
 
 
+        /*
+           Sort departments by remaining students.
+        */
+
         available.sort(
             (a,b)=>
-            groups[b].length -
-            groups[a].length
+                groups[b].length -
+                groups[a].length
         );
 
 
@@ -2131,11 +2762,15 @@ function createBenchList(){
         let seatB = null;
 
 
+        /*
+           Find another department.
+        */
+
         const secondDept =
             available.find(
                 dept =>
-                dept!==firstDept &&
-                groups[dept].length>0
+                    dept !== firstDept &&
+                    groups[dept].length > 0
             );
 
 
@@ -2164,7 +2799,7 @@ function createBenchList(){
 
 
 /* =====================================================
-   GENERATE HALL
+   GENERATE ARRANGEMENT
 ===================================================== */
 
 function generateArrangement(){
@@ -2174,9 +2809,12 @@ function generateArrangement(){
         collectData();
 
     }
+
     catch(error){
 
-        alert(error.message);
+        alert(
+            error.message
+        );
 
         return;
 
@@ -2216,6 +2854,10 @@ function generateArrangement(){
         createBenchList();
 
 
+    /*
+       Distribute benches across halls.
+    */
+
     benches.forEach(
         (bench,index)=>{
 
@@ -2229,7 +2871,8 @@ function generateArrangement(){
 
                 number:
                     halls[hallIndex]
-                    .benches.length+1,
+                    .benches
+                    .length + 1,
 
                 seatA:
                     bench.seatA,
@@ -2244,19 +2887,25 @@ function generateArrangement(){
 
 
     document
-    .getElementById("summaryStudents")
+    .getElementById(
+        "summaryStudents"
+    )
     .textContent =
         students.length;
 
 
     document
-    .getElementById("summaryDepartments")
+    .getElementById(
+        "summaryDepartments"
+    )
     .textContent =
         departments.length;
 
 
     document
-    .getElementById("summaryHalls")
+    .getElementById(
+        "summaryHalls"
+    )
     .textContent =
         hallCount;
 
@@ -2272,7 +2921,10 @@ function generateArrangement(){
    SEAT HTML
 ===================================================== */
 
-function seatHTML(student,label){
+function seatHTML(
+    student,
+    label
+){
 
     if(!student){
 
@@ -2306,13 +2958,16 @@ data-register="${student.register}"
 ${label}
 </div>
 
+
 <div class="reg">
 REG: ${student.register}
 </div>
 
+
 <div class="dept">
 ${student.department}
 </div>
+
 
 <div class="subject">
 ${student.subject}
@@ -2332,7 +2987,8 @@ ${student.subject}
 function renderHalls(){
 
     const html =
-        halls.map(
+        halls
+        .map(
             hall=>{
 
                 const benches =
@@ -2364,7 +3020,10 @@ BENCH ${bench.number}
 
 ${deptA}
 
-${deptB ? " + "+deptB : ""}
+${deptB
+    ? " + "+deptB
+    : ""
+}
 
 </div>
 
@@ -2375,6 +3034,7 @@ ${seatHTML(
     bench.seatA,
     "SEAT A"
 )}
+
 
 ${seatHTML(
     bench.seatB,
@@ -2419,14 +3079,30 @@ ${benches}
         .join("");
 
 
+    /*
+       Arrangement screen
+    */
+
     document
-    .getElementById("hallLayout")
+    .getElementById(
+        "hallLayout"
+    )
     .innerHTML =
         html;
 
 
+    /*
+       SEARCH SCREEN
+
+       IMPORTANT:
+       Search highlighting happens ONLY
+       inside this visible container.
+    */
+
     document
-    .getElementById("searchHallLayout")
+    .getElementById(
+        "searchHallLayout"
+    )
     .innerHTML =
         html;
 
@@ -2434,7 +3110,7 @@ ${benches}
 
 
 /* =====================================================
-   SEARCH
+   SEARCH STUDENT
 ===================================================== */
 
 function searchStudent(){
@@ -2455,13 +3131,18 @@ function searchStudent(){
         query;
 
 
+    /*
+       Remove previous RED highlight
+       ONLY from search screen.
+    */
+
     document
     .querySelectorAll(
-        ".search-highlight"
+        "#searchHallLayout .search-highlight"
     )
     .forEach(
-        el=>{
-            el.classList.remove(
+        seat=>{
+            seat.classList.remove(
                 "search-highlight"
             );
         }
@@ -2474,13 +3155,17 @@ function searchStudent(){
         );
 
 
-    if(query.length!==12){
+    if(
+        query.length !== 12
+    ){
 
         output.innerHTML = `
 
 <div class="not-found">
 
-Enter complete 12-digit register number.
+⚠️ Enter complete
+<strong>12-digit</strong>
+register number.
 
 </div>
 
@@ -2491,10 +3176,15 @@ Enter complete 12-digit register number.
     }
 
 
+    /*
+       Find student
+    */
+
     const student =
         students.find(
             s =>
-            s.register===query
+                s.register ===
+                query
         );
 
 
@@ -2515,6 +3205,10 @@ Enter complete 12-digit register number.
     }
 
 
+    /*
+       Find exact hall / bench / seat
+    */
+
     let location = null;
 
 
@@ -2526,11 +3220,11 @@ Enter complete 12-digit register number.
 
                     if(
                         bench.seatA &&
-                        bench.seatA.register===
+                        bench.seatA.register ===
                         student.register
                     ){
 
-                        location={
+                        location = {
 
                             hall:
                                 hall.name,
@@ -2548,11 +3242,11 @@ Enter complete 12-digit register number.
 
                     if(
                         bench.seatB &&
-                        bench.seatB.register===
+                        bench.seatB.register ===
                         student.register
                     ){
 
-                        location={
+                        location = {
 
                             hall:
                                 hall.name,
@@ -2574,7 +3268,9 @@ Enter complete 12-digit register number.
     );
 
 
-    /* RED SEARCH RESULT */
+    /*
+       SEARCH RESULT
+    */
 
     output.innerHTML = `
 
@@ -2588,6 +3284,7 @@ Enter complete 12-digit register number.
 
 
 <div class="result-grid">
+
 
 <div class="result-item">
 
@@ -2666,6 +3363,7 @@ ${location.seat}
 
 </div>
 
+
 </div>
 
 </div>
@@ -2673,28 +3371,80 @@ ${location.seat}
 `;
 
 
-    /* FIND SEAT */
+    /*
+       =================================================
+       IMPORTANT FIX
+       =================================================
+
+       Search only inside:
+
+       #searchHallLayout
+
+       So the visible seat is highlighted.
+    */
 
     const seat =
         document.querySelector(
-            `[data-register="${student.register}"]`
+            `#searchHallLayout [data-register="${student.register}"]`
         );
 
 
     if(seat){
+
+        /*
+           Remove previous highlight
+        */
+
+        document
+        .querySelectorAll(
+            "#searchHallLayout .search-highlight"
+        )
+        .forEach(
+            element=>{
+                element.classList.remove(
+                    "search-highlight"
+                );
+            }
+        );
+
+
+        /*
+           Force browser repaint
+           so animation restarts.
+        */
+
+        void seat.offsetWidth;
+
+
+        /*
+           Add RED glow
+        */
 
         seat.classList.add(
             "search-highlight"
         );
 
 
-        seat.scrollIntoView({
+        /*
+           Scroll exact seat to center
+        */
 
-            behavior:"smooth",
+        setTimeout(
+            ()=>{
 
-            block:"center"
+                seat.scrollIntoView({
 
-        });
+                    behavior:"smooth",
+
+                    block:"center",
+
+                    inline:"center"
+
+                });
+
+            },
+            100
+        );
 
     }
 
@@ -2702,16 +3452,21 @@ ${location.seat}
 
 
 /* =====================================================
-   ENTER SEARCH
+   ENTER KEY SEARCH
 ===================================================== */
 
 document
-.getElementById("searchInput")
+.getElementById(
+    "searchInput"
+)
 .addEventListener(
     "keydown",
     function(event){
 
-        if(event.key==="Enter"){
+        if(
+            event.key ===
+            "Enter"
+        ){
 
             searchStudent();
 
@@ -2742,21 +3497,25 @@ document.addEventListener(
     function(event){
 
         cursorRing.style.left =
-            event.clientX+"px";
+            event.clientX + "px";
 
         cursorRing.style.top =
-            event.clientY+"px";
+            event.clientY + "px";
 
 
         cursorDot.style.left =
-            event.clientX+"px";
+            event.clientX + "px";
 
         cursorDot.style.top =
-            event.clientY+"px";
+            event.clientY + "px";
 
     }
 );
 
+
+/* =====================================================
+   SONIC CLICK RIPPLE
+===================================================== */
 
 document.addEventListener(
     "click",
@@ -2773,11 +3532,11 @@ document.addEventListener(
 
 
         ripple.style.left =
-            event.clientX+"px";
+            event.clientX + "px";
 
 
         ripple.style.top =
-            event.clientY+"px";
+            event.clientY + "px";
 
 
         document.body.appendChild(
