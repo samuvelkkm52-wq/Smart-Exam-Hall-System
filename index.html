@@ -1,59 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Smart Exam Hall System</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>SMART EXAM HALL ALLOCATION SYSTEM</h1>
+    <!-- HEADER -->
 
-    <p>College Examination Management Portal</p>
+    <header>
 
-    <hr>
+        <div class="logo">
 
-    <h2>Student Search</h2>
+            <div class="logo-icon">
+                🎓
+            </div>
 
-    <input
-        type="text"
-        id="registerNumber"
-        placeholder="Enter Register Number"
-    >
+            <div>
+                <h1>SMART EXAM <span>CELL</span></h1>
+                <p>Hall Allocation & Student Locator</p>
+            </div>
 
-    <button onclick="searchStudent()">Search Student</button>
+        </div>
 
-    <div id="studentDetails"></div>
+        <div class="status">
 
-    <script>
-        function searchStudent() {
+            <div class="status-dot"></div>
 
-            const registerNumber =
-                document.getElementById("registerNumber").value.trim();
+            SYSTEM ONLINE
 
-            const result =
-                document.getElementById("studentDetails");
+        </div>
 
-            if (registerNumber === "24AD001") {
+    </header>
 
-                result.innerHTML = `
-                    <h2>Student Details</h2>
-                    <p><b>Name:</b> Samuvel R</p>
-                    <p><b>Register Number:</b> 24AD001</p>
-                    <p><b>Department:</b> AI & DS</p>
-                    <p><b>Year:</b> II Year</p>
-                    <p><b>Exam Hall:</b> Hall 07</p>
-                    <p><b>Seat Number:</b> B-14</p>
-                `;
 
-            } else {
+    <!-- MAIN -->
 
-                result.innerHTML =
-                    "<p>No student found. Check the register number.</p>";
-            }
-        }
-    </script>
+    <main class="container">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <h2>Examination Dashboard</h2>
+
+            <p>
+                Manage students, examination halls and
+                real-time student location.
+            </p>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    TOTAL STUDENTS
+                </div>
+
+                <div class="stat-number blue">
+                    500
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    DEPARTMENTS
+                </div>
+
+                <div class="stat-number purple">
+                    05
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    EXAM HALLS
+                </div>
+
+                <div class="stat-number orange">
+                    10
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    ALLOCATED
+                </div>
+
+                <div class="stat-number green">
+                    480
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- MAIN CONTENT -->
+
+        <section class="main-grid">
+
+
+            <!-- STUDENT SEARCH -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+
+                    <h3>
+                        🔍 Student Locator
+                    </h3>
+
+                    <span>
+                        REGISTER NUMBER SEARCH
+                    </span>
+
+                </div>
+
+
+                <div class="search-area">
+
+                    <input
+                        type="text"
+                        id="registerNumber"
+                        placeholder="Enter Student Register Number..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        class="search-btn"
+                        onclick="searchStudent()"
+                    >
+                        SEARCH
+                    </button>
+
+                </div>
+
+
+                <div id="studentDetails">
+
+                    <div style="
+                        color:#64748b;
+                        padding:25px 0;
+                        text-align:center;
+                    ">
+
+                        Enter a register number
+                        to locate the student.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HALL STATUS -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+
+                    <h3>
+                        🏫 Examination Halls
+                    </h3>
+
+                    <span>
+                        LIVE STATUS
+                    </span>
+
+                </div>
+
+
+                <div class="hall-grid">
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 01
+                        </div>
+
+                        <div class="hall-status">
+                            ● AVAILABLE
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 02
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 03
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 04
+                        </div>
+
+                        <div class="hall-status">
+                            ● AVAILABLE
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 05
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 06
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 07
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 08
+                        </div>
+
+                        <div class="hall-status">
+                            ● AVAILABLE
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 09
+                        </div>
+
+                        <div class="hall-status">
+                            ● OCCUPIED
+                        </div>
+
+                    </div>
+
+
+                    <div class="hall">
+
+                        <div class="hall-name">
+                            HALL 10
+                        </div>
+
+                        <div class="hall-status">
+                            ● AVAILABLE
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            SMART EXAM HALL ALLOCATION SYSTEM
+
+            <br>
+
+            College Examination Cell • 2026
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
