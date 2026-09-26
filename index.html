@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Smart Exam Cell</title>
 
 <style>
 
 /* =========================================================
-   GLOBAL
-   ========================================================= */
+   RESET
+========================================================= */
 
 *{
     margin:0;
@@ -26,445 +23,341 @@ html{
 }
 
 body{
-
-    font-family:
-        Inter,
-        Arial,
-        Helvetica,
-        sans-serif;
-
     min-height:100vh;
-
-    color:#eef8ff;
-
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    color:#edfaff;
     background:
-
-        radial-gradient(
-            circle at 8% 10%,
-            rgba(0,225,255,.12),
-            transparent 28%
-        ),
-
-        radial-gradient(
-            circle at 92% 18%,
-            rgba(72,91,255,.14),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 50% 90%,
-            rgba(0,245,160,.05),
-            transparent 25%
-        ),
-
-        linear-gradient(
-            135deg,
-            #02050d,
-            #06101e 50%,
-            #02050c
-        );
-
+        radial-gradient(circle at 10% 5%,rgba(0,234,255,.12),transparent 28%),
+        radial-gradient(circle at 90% 15%,rgba(76,92,255,.13),transparent 30%),
+        radial-gradient(circle at 50% 100%,rgba(0,245,160,.05),transparent 30%),
+        linear-gradient(135deg,#02050c,#07111f 50%,#02050b);
     overflow-x:hidden;
 }
 
-
-/* BACKGROUND GRID */
+/* background grid */
 
 body::before{
-
     content:"";
-
     position:fixed;
-
     inset:0;
-
     pointer-events:none;
-
     background-image:
-
-        linear-gradient(
-            rgba(0,234,255,.035) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(0,234,255,.035) 1px,
-            transparent 1px
-        );
-
+        linear-gradient(rgba(0,234,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,234,255,.035) 1px,transparent 1px);
     background-size:45px 45px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            black,
-            transparent
-        );
-
+    mask-image:linear-gradient(to bottom,black,transparent);
 }
-
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 .header{
-
     position:sticky;
-
     top:0;
-
-    z-index:100;
+    z-index:1000;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
-    padding:
-        20px
-        6%;
+    padding:18px 6%;
 
-    background:
-        rgba(2,7,18,.78);
+    background:rgba(2,7,18,.78);
+    backdrop-filter:blur(18px);
 
-    backdrop-filter:
-        blur(18px);
-
-    border-bottom:
-        1px solid
-        rgba(0,234,255,.14);
-
+    border-bottom:1px solid rgba(0,234,255,.14);
 }
-
 
 .brand{
-
     display:flex;
-
     align-items:center;
-
-    gap:14px;
-
+    gap:13px;
 }
 
-
 .logo{
-
-    width:50px;
-
-    height:50px;
+    width:48px;
+    height:48px;
 
     display:grid;
-
     place-items:center;
 
     border-radius:15px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #00eaff,
-            #4f75ff
-        );
+    background:linear-gradient(135deg,#00eaff,#5b78ff);
 
-    color:#00131b;
-
-    font-size:23px;
-
+    color:#00151d;
+    font-size:22px;
     font-weight:900;
 
-    box-shadow:
-        0 0 30px
-        rgba(0,234,255,.32);
-
+    box-shadow:0 0 30px rgba(0,234,255,.30);
 }
-
 
 .brand h1{
-
-    font-size:20px;
-
+    font-size:19px;
     letter-spacing:2px;
-
 }
-
 
 .brand p{
-
     margin-top:4px;
-
-    color:#7f95ae;
-
-    font-size:10px;
-
+    color:#758aa2;
+    font-size:9px;
     letter-spacing:1.5px;
-
 }
-
 
 .system-status{
-
     display:flex;
-
     align-items:center;
-
     gap:8px;
 
-    color:#9cafc4;
-
-    font-size:12px;
-
+    color:#91a4b9;
+    font-size:11px;
 }
 
-
 .status-dot{
-
     width:9px;
-
     height:9px;
-
     border-radius:50%;
 
     background:#00f5a0;
-
-    box-shadow:
-        0 0 15px
-        #00f5a0;
-
+    box-shadow:0 0 15px #00f5a0;
 }
-
 
 /* =========================================================
    MAIN
-   ========================================================= */
+========================================================= */
 
 .main{
-
-    width:min(
-        1180px,
-        92%
-    );
-
-    margin:
-        48px
-        auto
-        90px;
-
+    width:min(1160px,92%);
+    margin:45px auto 90px;
 }
-
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
 .hero{
-
-    margin-bottom:35px;
-
+    margin-bottom:32px;
 }
-
 
 .hero-badge{
-
     display:inline-flex;
+    padding:8px 14px;
 
-    align-items:center;
+    border:1px solid rgba(0,234,255,.20);
+    border-radius:30px;
 
-    padding:
-        8px
-        14px;
-
-    border:
-        1px solid
-        rgba(0,234,255,.22);
-
-    border-radius:50px;
-
-    background:
-        rgba(0,234,255,.045);
+    background:rgba(0,234,255,.04);
 
     color:#00eaff;
-
-    font-size:11px;
-
+    font-size:10px;
     letter-spacing:1.5px;
 
-    margin-bottom:17px;
-
+    margin-bottom:15px;
 }
-
 
 .hero h2{
-
-    font-size:
-        clamp(
-            36px,
-            6vw,
-            65px
-        );
-
-    line-height:1.03;
-
+    font-size:clamp(35px,6vw,62px);
+    line-height:1.04;
 }
 
-
-.gradient-text{
-
-    background:
-
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #00eaff,
-            #698bff
-        );
-
+.gradient{
+    background:linear-gradient(90deg,#fff,#00eaff,#7188ff);
     -webkit-background-clip:text;
-
     background-clip:text;
-
     color:transparent;
-
 }
-
 
 .hero p{
+    max-width:720px;
+    margin-top:17px;
 
-    max-width:750px;
-
-    margin-top:18px;
-
-    color:#8da2b9;
-
-    line-height:1.75;
-
+    color:#879bb1;
     font-size:14px;
-
+    line-height:1.75;
 }
 
+/* =========================================================
+   WIZARD PROGRESS
+========================================================= */
+
+.wizard-progress{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    max-width:900px;
+    margin:0 auto 32px;
+
+    overflow-x:auto;
+    padding-bottom:5px;
+}
+
+.progress-step{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#52677e;
+    font-size:10px;
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+.progress-circle{
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:#07111f;
+
+    border:1px solid rgba(0,234,255,.15);
+
+    transition:.3s;
+}
+
+.progress-line{
+    width:65px;
+    height:1px;
+
+    margin:0 8px;
+
+    background:rgba(0,234,255,.12);
+
+    transition:.3s;
+}
+
+.progress-step.active{
+    color:#00eaff;
+}
+
+.progress-step.active .progress-circle{
+    color:#00151c;
+    background:#00eaff;
+    border-color:#00eaff;
+
+    box-shadow:
+        0 0 20px rgba(0,234,255,.4);
+}
+
+.progress-step.completed{
+    color:#00f5a0;
+}
+
+.progress-step.completed .progress-circle{
+    color:#00150d;
+    background:#00f5a0;
+    border-color:#00f5a0;
+}
+
+.progress-line.completed{
+    background:#00eaff;
+}
 
 /* =========================================================
-   CARD
-   ========================================================= */
+   CARD / STEP
+========================================================= */
 
 .card{
-
     position:relative;
-
     overflow:hidden;
 
     padding:28px;
 
-    margin-bottom:25px;
-
     border-radius:23px;
 
-    border:
-        1px solid
-        rgba(0,234,255,.15);
+    border:1px solid rgba(0,234,255,.14);
 
     background:
-
         linear-gradient(
             145deg,
-            rgba(16,29,51,.93),
-            rgba(4,10,21,.95)
+            rgba(15,29,50,.94),
+            rgba(3,9,19,.97)
         );
 
     box-shadow:
-
-        0 25px 80px
-        rgba(0,0,0,.35),
-
-        inset 0 1px
-        rgba(255,255,255,.025);
-
+        0 25px 80px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.025);
 }
 
-
 .card::after{
-
     content:"";
 
     position:absolute;
 
-    width:240px;
+    width:220px;
+    height:220px;
 
-    height:240px;
-
-    right:-120px;
-
-    top:-120px;
+    right:-110px;
+    top:-110px;
 
     border-radius:50%;
 
-    background:
-        rgba(0,234,255,.06);
+    background:rgba(0,234,255,.06);
 
-    filter:blur(55px);
+    filter:blur(50px);
 
     pointer-events:none;
-
 }
 
+.wizard-step{
+    display:none;
+    animation:stepIn .4s ease;
+}
+
+.wizard-step.active{
+    display:block;
+}
+
+@keyframes stepIn{
+    from{
+        opacity:0;
+        transform:translateX(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
 
 .section-title{
-
     font-size:21px;
-
     margin-bottom:7px;
-
 }
-
 
 .section-subtitle{
-
-    color:#8095ad;
-
+    color:#8195ab;
     font-size:13px;
-
-    margin-bottom:24px;
-
+    margin-bottom:25px;
 }
-
 
 /* =========================================================
    FORM
-   ========================================================= */
+========================================================= */
 
 .form-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:17px;
-
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
 }
-
 
 .field label{
-
     display:block;
-
     margin-bottom:8px;
 
-    color:#95a9bf;
-
-    font-size:11px;
-
-    letter-spacing:.3px;
-
+    color:#91a5ba;
+    font-size:10px;
+    letter-spacing:.5px;
 }
-
 
 input,
 select{
-
     width:100%;
 
     padding:14px 15px;
@@ -473,923 +366,596 @@ select{
 
     outline:none;
 
-    border:
-        1px solid
-        rgba(0,234,255,.15);
+    border:1px solid rgba(0,234,255,.14);
 
-    background:
-        rgba(1,7,16,.94);
+    background:#020811;
 
     color:#fff;
 
     font-size:14px;
 
-    transition:
-        .25s ease;
-
+    transition:.25s;
 }
-
 
 input::placeholder{
-
-    color:#64768c;
-
+    color:#5e7188;
 }
-
 
 input:focus,
 select:focus{
-
     border-color:#00eaff;
 
     box-shadow:
-
-        0 0 0 3px
-        rgba(0,234,255,.055),
-
-        0 0 24px
-        rgba(0,234,255,.12);
-
+        0 0 0 3px rgba(0,234,255,.05),
+        0 0 25px rgba(0,234,255,.12);
 }
-
 
 input[readonly]{
-
     color:#00eaff;
-
-    background:
-        rgba(0,234,255,.035);
-
+    background:rgba(0,234,255,.035);
 }
 
-
-/* BUTTON */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .primary-btn{
-
     margin-top:20px;
 
-    padding:
-        14px
-        22px;
+    padding:14px 22px;
 
     border:none;
+    border-radius:12px;
+
+    background:linear-gradient(90deg,#00eaff,#607eff);
+
+    color:#00141b;
+
+    font-weight:900;
+    font-size:12px;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 35px rgba(0,234,255,.17);
+
+    transition:.25s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 15px 45px rgba(0,234,255,.28);
+}
+
+.back-btn{
+    margin-top:20px;
+
+    padding:14px 20px;
 
     border-radius:12px;
 
-    background:
+    border:1px solid rgba(255,255,255,.10);
 
-        linear-gradient(
-            90deg,
-            #00eaff,
-            #5b86ff
-        );
+    background:rgba(255,255,255,.035);
 
-    color:#00131b;
-
-    font-weight:900;
-
-    letter-spacing:.3px;
+    color:#9eb0c3;
 
     cursor:pointer;
-
-    box-shadow:
-        0 10px 35px
-        rgba(0,234,255,.18);
 
     transition:.25s;
-
 }
 
-
-.primary-btn:hover{
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 15px 42px
-        rgba(0,234,255,.3);
-
+.back-btn:hover{
+    color:#fff;
+    border-color:rgba(0,234,255,.3);
 }
 
+.wizard-buttons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 
-.secondary-btn{
-
-    margin-top:9px;
-
-    padding:
-        9px
-        13px;
-
-    border-radius:9px;
-
-    background:
-        rgba(0,234,255,.055);
-
-    color:#00eaff;
-
-    border:
-        1px solid
-        rgba(0,234,255,.16);
-
-    cursor:pointer;
-
+    margin-top:5px;
 }
-
 
 /* =========================================================
    DEPARTMENT
-   ========================================================= */
-
-#departmentSection,
-#studentSection,
-#allocationSection,
-#searchSection{
-
-    display:none;
-
-}
-
+========================================================= */
 
 .department-box{
-
     padding:20px;
-
-    margin-bottom:14px;
+    margin-bottom:15px;
 
     border-radius:17px;
 
-    background:
-        rgba(0,0,0,.16);
+    background:rgba(0,0,0,.17);
 
-    border:
-        1px solid
-        rgba(0,234,255,.12);
-
+    border:1px solid rgba(0,234,255,.11);
 }
 
-
 .department-head{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     margin-bottom:17px;
-
 }
-
 
 .department-number{
-
     color:#00eaff;
-
-    font-size:15px;
-
+    font-size:14px;
     font-weight:900;
-
 }
-
 
 .subject-tag{
+    color:#7388a0;
+    font-size:9px;
+    letter-spacing:1px;
+}
 
-    color:#7389a1;
+.department-note{
+    margin-top:10px;
 
+    color:#657a91;
     font-size:10px;
-
-    letter-spacing:.8px;
-
+    line-height:1.5;
 }
-
-
-.subject-row{
-
-    display:flex;
-
-    gap:8px;
-
-    margin-top:9px;
-
-}
-
-
-.remove-subject{
-
-    width:45px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:
-        rgba(255,60,85,.08);
-
-    color:#ff7289;
-
-    cursor:pointer;
-
-}
-
 
 /* =========================================================
    STUDENT LIST
-   ========================================================= */
+========================================================= */
 
 .student-list{
-
-    margin-top:20px;
-
     display:grid;
-
     gap:9px;
-
+    margin-top:20px;
 }
 
-
 .student-row{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
-    gap:15px;
-
-    padding:15px;
+    padding:14px;
 
     border-radius:14px;
 
-    background:
-        rgba(0,234,255,.025);
+    background:rgba(0,234,255,.025);
 
-    border:
-        1px solid
-        rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.055);
 
     transition:.2s;
-
 }
-
 
 .student-row:hover{
-
-    border-color:
-        rgba(0,234,255,.25);
-
-    background:
-        rgba(0,234,255,.045);
-
+    border-color:rgba(0,234,255,.25);
+    background:rgba(0,234,255,.045);
 }
 
-
-.student-row-name{
-
+.student-name{
     color:#fff;
-
+    font-size:13px;
     font-weight:800;
-
 }
 
-
-.student-row-reg{
-
+.student-reg{
     color:#00eaff;
-
-    font-size:11px;
-
+    font-size:10px;
     margin-top:5px;
-
 }
 
-
-.student-row-info{
-
+.student-info{
     text-align:right;
-
-    color:#8297ae;
-
-    font-size:11px;
-
+    color:#7f94ab;
+    font-size:10px;
     line-height:1.7;
-
 }
-
 
 /* =========================================================
-   STATISTICS
-   ========================================================= */
+   STATS
+========================================================= */
 
 .stats{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:13px;
-
     margin-bottom:23px;
-
 }
 
-
 .stat{
-
     padding:18px;
 
     border-radius:16px;
 
-    background:
-        rgba(0,234,255,.035);
+    background:rgba(0,234,255,.035);
 
-    border:
-        1px solid
-        rgba(0,234,255,.12);
-
+    border:1px solid rgba(0,234,255,.11);
 }
 
-
 .stat-value{
-
     display:block;
 
     color:#00eaff;
 
     font-size:27px;
-
     font-weight:900;
-
 }
 
-
 .stat-label{
-
     display:block;
 
     margin-top:5px;
 
-    color:#71869e;
+    color:#70859d;
 
-    font-size:10px;
-
-    letter-spacing:.8px;
-
+    font-size:9px;
+    letter-spacing:1px;
 }
 
-
 /* =========================================================
-   EXTRA WARNING
-   ========================================================= */
+   WARNING
+========================================================= */
 
-.extra-warning{
-
+.warning{
     display:none;
 
-    margin:
-        20px
-        0;
+    margin:20px 0;
 
-    padding:18px;
+    padding:17px;
 
     border-radius:15px;
 
-    background:
-        rgba(255,45,70,.07);
+    background:rgba(255,40,65,.07);
 
-    border:
-        1px solid
-        rgba(255,60,80,.65);
+    border:1px solid rgba(255,55,75,.65);
 
-    color:#ff6f87;
+    color:#ff7186;
 
-    box-shadow:
-        0 0 30px
-        rgba(255,50,70,.08);
-
+    animation:warningPulse 1.5s infinite alternate;
 }
 
-
-.extra-warning.show{
-
+.warning.show{
     display:block;
-
-    animation:
-        warningPulse
-        1.5s
-        infinite
-        alternate;
-
 }
-
 
 @keyframes warningPulse{
-
     from{
-        box-shadow:
-            0 0 12px
-            rgba(255,50,70,.08);
+        box-shadow:0 0 10px rgba(255,50,70,.05);
     }
 
     to{
-        box-shadow:
-            0 0 30px
-            rgba(255,50,70,.2);
+        box-shadow:0 0 28px rgba(255,50,70,.18);
     }
-
 }
-
 
 /* =========================================================
-   HALLS
-   ========================================================= */
+   HALL
+========================================================= */
 
 .hall-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
     gap:18px;
-
     margin-top:22px;
-
 }
 
-
 .hall{
-
-    padding:19px;
+    padding:18px;
 
     border-radius:18px;
 
-    background:
-        rgba(0,0,0,.16);
+    background:rgba(0,0,0,.16);
 
-    border:
-        1px solid
-        rgba(0,234,255,.13);
-
+    border:1px solid rgba(0,234,255,.12);
 }
 
-
 .hall-header{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     padding-bottom:14px;
-
     margin-bottom:12px;
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.05);
-
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
-
 
 .hall-name{
-
+    font-size:14px;
     font-weight:900;
-
 }
-
 
 .active-label{
-
     color:#00f5a0;
-
-    font-size:10px;
-
+    font-size:9px;
     letter-spacing:1px;
-
 }
 
-
-.bench-department{
+.bench-title{
+    margin:13px 0 7px;
 
     color:#00eaff;
 
     font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:.8px;
-
-    margin:
-        13px
-        0
-        7px;
-
+    font-weight:900;
+    letter-spacing:.6px;
 }
-
 
 .bench{
-
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:8px;
 
-    margin-bottom:7px;
-
+    margin-bottom:8px;
 }
 
-
 .seat{
-
-    min-height:105px;
+    min-height:110px;
 
     padding:12px;
 
     border-radius:12px;
 
-    background:
-        rgba(255,255,255,.03);
+    background:rgba(255,255,255,.03);
 
-    border:
-        1px solid
-        rgba(255,255,255,.055);
-
+    border:1px solid rgba(255,255,255,.055);
 }
 
-
 .seat-label{
-
     display:block;
 
     color:#00eaff;
 
-    font-size:10px;
-
+    font-size:9px;
     font-weight:900;
 
     margin-bottom:6px;
-
 }
 
-
 .seat-name{
-
     color:#fff;
 
     font-size:12px;
-
     font-weight:800;
 
     line-height:1.4;
-
 }
-
 
 .seat-reg{
-
-    color:#8fa4bb;
-
-    font-size:10px;
-
     margin-top:4px;
 
+    color:#8da2b9;
+
+    font-size:9px;
 }
 
-
 .seat-subject{
+    margin-top:5px;
 
     color:#00f5a0;
 
     font-size:9px;
-
-    margin-top:5px;
-
 }
 
+/* EMPTY SEAT RED */
 
 .empty-seat{
+    border-color:rgba(255,55,75,.65);
 
-    opacity:.35;
+    background:rgba(255,40,60,.07);
 
+    box-shadow:
+        inset 0 0 20px rgba(255,40,60,.035);
 }
 
+.empty-seat .seat-label{
+    color:#ff667d;
+}
+
+.empty-text{
+    color:#ff6f84;
+
+    font-size:11px;
+    font-weight:800;
+
+    margin-top:8px;
+}
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
-.search-wrapper{
-
+.search-input{
     position:relative;
-
 }
 
-
-.search-wrapper input{
-
-    padding:
-        18px
-        20px;
-
-    font-size:16px;
-
+.search-input input{
+    padding:17px 20px;
+    font-size:15px;
 }
-
 
 .search-result{
-
     display:none;
-
     margin-top:20px;
-
 }
-
 
 .search-result.show{
-
     display:block;
-
-    animation:
-        searchIn
-        .45s
-        ease;
-
+    animation:searchIn .4s ease;
 }
 
-
 @keyframes searchIn{
-
     from{
-
         opacity:0;
-
-        transform:
-            translateY(15px)
-            scale(.98);
-
+        transform:translateY(15px) scale(.98);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
+        transform:translateY(0) scale(1);
     }
-
 }
 
-
-/* STUDENT GLOW CARD */
-
-.student-result-card{
-
+.student-result{
     padding:25px;
 
     border-radius:22px;
 
-    border:
-        1px solid
-        #00eaff;
+    border:1px solid #00eaff;
 
     background:
-
         radial-gradient(
             circle at 90% 0%,
             rgba(0,234,255,.18),
             transparent 34%
         ),
-
         rgba(3,12,25,.97);
 
     box-shadow:
+        0 0 25px rgba(0,234,255,.28),
+        0 0 70px rgba(0,234,255,.08);
 
-        0 0 22px
-        rgba(0,234,255,.28),
-
-        0 0 70px
-        rgba(0,234,255,.1),
-
-        inset 0 0 35px
-        rgba(0,234,255,.025);
-
-    animation:
-        studentGlow
-        1.8s
-        infinite
-        alternate;
-
+    animation:studentGlow 1.8s infinite alternate;
 }
 
-
 @keyframes studentGlow{
-
     from{
-
         box-shadow:
-
-            0 0 18px
-            rgba(0,234,255,.18),
-
-            0 0 45px
-            rgba(0,234,255,.06);
-
+            0 0 17px rgba(0,234,255,.18),
+            0 0 45px rgba(0,234,255,.06);
     }
 
     to{
-
         box-shadow:
-
-            0 0 30px
-            rgba(0,234,255,.4),
-
-            0 0 80px
-            rgba(0,234,255,.14);
-
+            0 0 30px rgba(0,234,255,.38),
+            0 0 80px rgba(0,234,255,.13);
     }
-
 }
-
 
 .result-top{
-
     display:flex;
-
-    align-items:center;
-
     justify-content:space-between;
-
+    align-items:center;
     gap:20px;
-
 }
-
 
 .result-name{
-
-    font-size:26px;
-
+    font-size:25px;
     font-weight:900;
-
 }
-
 
 .result-reg{
-
-    margin-top:6px;
-
     color:#00eaff;
-
-    font-size:13px;
-
+    font-size:12px;
+    margin-top:6px;
 }
 
-
 .location-pill{
-
-    padding:
-        10px
-        15px;
+    padding:10px 15px;
 
     border-radius:30px;
 
     background:#00f5a0;
-
     color:#00150d;
 
-    font-size:11px;
-
+    font-size:10px;
     font-weight:900;
 
-    box-shadow:
-        0 0 20px
-        rgba(0,245,160,.22);
-
+    box-shadow:0 0 20px rgba(0,245,160,.20);
 }
-
 
 .result-details{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:11px;
-
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
     margin-top:22px;
-
 }
 
-
-.detail-box{
-
+.detail{
     padding:15px;
 
     border-radius:13px;
 
-    background:
-        rgba(255,255,255,.025);
+    background:rgba(255,255,255,.025);
 
-    border:
-        1px solid
-        rgba(255,255,255,.055);
-
+    border:1px solid rgba(255,255,255,.055);
 }
 
-
-.detail-box small{
-
+.detail small{
     display:block;
 
-    color:#71869e;
+    color:#71859c;
 
-    font-size:9px;
-
+    font-size:8px;
     text-transform:uppercase;
 
     margin-bottom:7px;
-
 }
 
-
-.detail-box strong{
-
-    font-size:13px;
-
+.detail strong{
+    font-size:12px;
 }
 
-
-.big-location{
-
+.location-box{
     margin-top:17px;
 
     padding:17px;
 
     border-radius:14px;
 
-    background:
-        rgba(0,234,255,.045);
+    background:rgba(0,234,255,.045);
 
-    border:
-        1px solid
-        rgba(0,234,255,.16);
+    border:1px solid rgba(0,234,255,.17);
 
-    line-height:1.7;
+    line-height:1.8;
 
+    font-size:13px;
 }
 
-
-.big-location strong{
-
+.location-box strong{
     color:#00eaff;
-
 }
-
-
-/* NOT FOUND */
 
 .not-found{
-
     padding:20px;
 
-    border-radius:16px;
+    border-radius:15px;
 
-    border:
-        1px solid
-        rgba(255,70,95,.5);
+    background:rgba(255,45,65,.06);
 
-    background:
-        rgba(255,50,70,.06);
+    border:1px solid rgba(255,55,75,.55);
 
-    color:#ff7087;
-
+    color:#ff7186;
 }
 
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+
+    padding:25px;
+
+    color:#4f637b;
+
+    font-size:9px;
+    letter-spacing:.5px;
+}
 
 /* =========================================================
    SONIC CURSOR
-   ========================================================= */
+========================================================= */
 
 .sonic-ripple{
-
     position:fixed;
 
-    width:11px;
+    width:10px;
+    height:10px;
 
-    height:11px;
-
-    border:
-        2px solid
-        rgba(0,234,255,.95);
+    border:2px solid rgba(0,234,255,.95);
 
     border-radius:50%;
 
@@ -1397,210 +963,144 @@ input[readonly]{
 
     z-index:99999;
 
-    transform:
-        translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
     box-shadow:
-
-        0 0 8px
-        #00eaff,
-
-        0 0 18px
-        rgba(0,150,255,.8);
+        0 0 8px #00eaff,
+        0 0 18px rgba(0,150,255,.7);
 
     animation:
         sonicExpand
         .7s
-        cubic-bezier(
-            .16,
-            1,
-            .3,
-            1
-        )
+        cubic-bezier(.16,1,.3,1)
         forwards;
-
 }
 
-
 .sonic-ripple::after{
-
     content:"";
 
     position:absolute;
 
     left:50%;
-
     top:50%;
 
     width:4px;
-
     height:4px;
 
     border-radius:50%;
 
     background:#00eaff;
 
-    transform:
-        translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
-    box-shadow:
-        0 0 10px
-        #00eaff;
-
+    box-shadow:0 0 10px #00eaff;
 }
 
-
 @keyframes sonicExpand{
-
     0%{
-
         opacity:1;
-
         width:10px;
-
         height:10px;
-
     }
 
     100%{
-
         opacity:0;
-
         width:68px;
-
         height:68px;
-
     }
-
 }
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-
-    text-align:center;
-
-    padding:25px;
-
-    color:#52667d;
-
-    font-size:10px;
-
-}
-
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:850px){
 
     .form-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
     .stats{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
     .result-details{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
     .hall-grid{
-
         grid-template-columns:1fr;
-
     }
 
+    .progress-line{
+        width:25px;
+    }
 }
-
 
 @media(max-width:560px){
 
     .header{
-
-        padding:
-            17px
-            4%;
-
+        padding:15px 4%;
     }
 
     .system-status{
-
         display:none;
-
     }
 
     .main{
-
         width:94%;
-
         margin-top:30px;
-
     }
 
     .card{
-
         padding:19px;
-
     }
 
     .form-grid,
     .stats,
     .result-details{
-
         grid-template-columns:1fr;
-
     }
 
     .result-top{
-
         flex-direction:column;
-
         align-items:flex-start;
-
     }
 
     .student-row{
-
         flex-direction:column;
-
         align-items:flex-start;
-
     }
 
-    .student-row-info{
-
+    .student-info{
         text-align:left;
-
     }
 
+    .wizard-buttons{
+        flex-direction:column-reverse;
+        align-items:stretch;
+    }
+
+    .primary-btn,
+    .back-btn{
+        width:100%;
+    }
+
+    .progress-step span:not(.progress-circle){
+        display:none;
+    }
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================================
      HEADER
-     ===================================================== -->
+========================================================= -->
 
 <header class="header">
 
@@ -1612,9 +1112,7 @@ input[readonly]{
 
         <div>
 
-            <h1>
-                SMART EXAM CELL
-            </h1>
+            <h1>SMART EXAM CELL</h1>
 
             <p>
                 HALL ALLOCATION & STUDENT LOCATOR
@@ -1640,9 +1138,9 @@ input[readonly]{
 <main class="main">
 
 
-<!-- =====================================================
+<!-- =========================================================
      HERO
-     ===================================================== -->
+========================================================= -->
 
 <section class="hero">
 
@@ -1650,11 +1148,10 @@ input[readonly]{
         ⚡ EXAMINATION MANAGEMENT SYSTEM
     </div>
 
-
     <h2>
 
         Smart
-        <span class="gradient-text">
+        <span class="gradient">
             Exam Hall
         </span>
 
@@ -1664,13 +1161,11 @@ input[readonly]{
 
     </h2>
 
-
     <p>
 
-        Configure your departments, subjects,
-        students and examination halls.
-        Generate department-wise bench allocation
-        and locate any student instantly.
+        Configure departments, subjects and students,
+        automatically generate register numbers and
+        locate every student by hall, bench and seat.
 
     </p>
 
@@ -1678,20 +1173,119 @@ input[readonly]{
 
 
 
-<!-- =====================================================
-     STEP 1
-     ===================================================== -->
+<!-- =========================================================
+     PROGRESS
+========================================================= -->
 
-<section class="card">
+<div class="wizard-progress">
+
+
+    <div
+        class="progress-step active"
+        id="progress1">
+
+        <div class="progress-circle">
+            01
+        </div>
+
+        <span>SETUP</span>
+
+    </div>
+
+
+    <div
+        class="progress-line"
+        id="line1">
+    </div>
+
+
+    <div
+        class="progress-step"
+        id="progress2">
+
+        <div class="progress-circle">
+            02
+        </div>
+
+        <span>DEPARTMENT</span>
+
+    </div>
+
+
+    <div
+        class="progress-line"
+        id="line2">
+    </div>
+
+
+    <div
+        class="progress-step"
+        id="progress3">
+
+        <div class="progress-circle">
+            03
+        </div>
+
+        <span>STUDENTS</span>
+
+    </div>
+
+
+    <div
+        class="progress-line"
+        id="line3">
+    </div>
+
+
+    <div
+        class="progress-step"
+        id="progress4">
+
+        <div class="progress-circle">
+            04
+        </div>
+
+        <span>ARRANGEMENT</span>
+
+    </div>
+
+
+    <div
+        class="progress-line"
+        id="line4">
+    </div>
+
+
+    <div
+        class="progress-step"
+        id="progress5">
+
+        <div class="progress-circle">
+            05
+        </div>
+
+        <span>SEARCH</span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     STEP 1
+========================================================= -->
+
+<section
+    class="card wizard-step active"
+    id="step1">
 
     <h3 class="section-title">
         01. Exam Setup
     </h3>
 
     <p class="section-subtitle">
-
         Enter your examination requirements manually.
-
     </p>
 
 
@@ -1708,7 +1302,7 @@ input[readonly]{
                 id="totalStudents"
                 type="number"
                 min="1"
-                placeholder="Example: 300">
+                placeholder="Example: 60">
 
         </div>
 
@@ -1746,78 +1340,84 @@ input[readonly]{
     </div>
 
 
-    <button
-        class="primary-btn"
-        onclick="createExamSetup()">
+    <div class="wizard-buttons">
 
-        CREATE EXAM SETUP →
+        <div></div>
 
-    </button>
+        <button
+            class="primary-btn"
+            onclick="goToStep2()">
+
+            CREATE EXAM SETUP →
+
+        </button>
+
+    </div>
 
 </section>
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      STEP 2
-     ===================================================== -->
+========================================================= -->
 
 <section
-    class="card"
-    id="departmentSection">
-
+    class="card wizard-step"
+    id="step2">
 
     <h3 class="section-title">
-
         02. Department Configuration
-
     </h3>
 
-
     <p class="section-subtitle">
-
-        Enter each department and its examination subject.
-
+        Enter department name, subject and student count.
     </p>
 
 
     <div id="departmentList"></div>
 
 
-    <button
-        class="primary-btn"
-        onclick="saveDepartments()">
+    <div class="wizard-buttons">
 
-        SAVE DEPARTMENT DETAILS →
+        <button
+            class="back-btn"
+            onclick="showStep(1)">
 
-    </button>
+            ← BACK
 
+        </button>
+
+
+        <button
+            class="primary-btn"
+            onclick="goToStep3()">
+
+            SAVE & CONTINUE →
+
+        </button>
+
+    </div>
 
 </section>
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      STEP 3
-     ===================================================== -->
+========================================================= -->
 
 <section
-    class="card"
-    id="studentSection">
-
+    class="card wizard-step"
+    id="step3">
 
     <h3 class="section-title">
-
         03. Student Registration
-
     </h3>
 
-
     <p class="section-subtitle">
-
-        Add students. Register numbers are generated
-        automatically from the department name.
-
+        Add students. Register number is automatically
+        generated from the department.
     </p>
 
 
@@ -1863,21 +1463,10 @@ input[readonly]{
                     Select Year
                 </option>
 
-                <option>
-                    1st Year
-                </option>
-
-                <option>
-                    2nd Year
-                </option>
-
-                <option>
-                    3rd Year
-                </option>
-
-                <option>
-                    4th Year
-                </option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
 
             </select>
 
@@ -1887,9 +1476,9 @@ input[readonly]{
     </div>
 
 
-
-    <div class="form-grid"
-         style="margin-top:16px;">
+    <div
+        class="form-grid"
+        style="margin-top:16px;">
 
 
         <div class="field">
@@ -1900,7 +1489,7 @@ input[readonly]{
 
             <select
                 id="studentDepartment"
-                onchange="updateStudentSubject()">
+                onchange="updateStudentDetails()">
 
                 <option value="">
                     Select Department
@@ -1925,6 +1514,20 @@ input[readonly]{
         </div>
 
 
+        <div class="field">
+
+            <label>
+                DEPARTMENT STUDENT COUNT
+            </label>
+
+            <input
+                id="departmentStudentCount"
+                readonly
+                placeholder="0">
+
+        </div>
+
+
     </div>
 
 
@@ -1944,31 +1547,48 @@ input[readonly]{
     </div>
 
 
+    <div class="wizard-buttons">
+
+        <button
+            class="back-btn"
+            onclick="showStep(2)">
+
+            ← BACK
+
+        </button>
+
+
+        <button
+            class="primary-btn"
+            onclick="goToStep4()">
+
+            CONTINUE TO ARRANGEMENT →
+
+        </button>
+
+    </div>
+
 </section>
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      STEP 4
-     ===================================================== -->
+========================================================= -->
 
 <section
-    class="card"
-    id="allocationSection">
-
+    class="card wizard-step"
+    id="step4">
 
     <h3 class="section-title">
-
         04. Smart Hall Arrangement
-
     </h3>
-
 
     <p class="section-subtitle">
 
-        Students from the same department are kept
-        together on the same bench. Different departments
-        will not be mixed on one bench.
+        Two students share one bench.
+        Students from different departments are
+        never mixed on the same bench.
 
     </p>
 
@@ -1981,9 +1601,7 @@ input[readonly]{
             <span
                 class="stat-value"
                 id="studentStat">
-
                 0
-
             </span>
 
             <span class="stat-label">
@@ -1998,9 +1616,7 @@ input[readonly]{
             <span
                 class="stat-value"
                 id="departmentStat">
-
                 0
-
             </span>
 
             <span class="stat-label">
@@ -2015,9 +1631,7 @@ input[readonly]{
             <span
                 class="stat-value"
                 id="hallStat">
-
                 0
-
             </span>
 
             <span class="stat-label">
@@ -2032,9 +1646,7 @@ input[readonly]{
             <span
                 class="stat-value"
                 id="benchStat">
-
                 0
-
             </span>
 
             <span class="stat-label">
@@ -2047,7 +1659,6 @@ input[readonly]{
     </div>
 
 
-
     <button
         class="primary-btn"
         onclick="generateAllocation()">
@@ -2058,8 +1669,8 @@ input[readonly]{
 
 
     <div
-        id="extraWarning"
-        class="extra-warning">
+        id="warning"
+        class="warning">
 
     </div>
 
@@ -2071,39 +1682,57 @@ input[readonly]{
     </div>
 
 
+    <div class="wizard-buttons">
+
+        <button
+            class="back-btn"
+            onclick="showStep(3)">
+
+            ← BACK
+
+        </button>
+
+
+        <button
+            class="primary-btn"
+            onclick="goToStep5()">
+
+            STUDENT LOCATOR →
+
+        </button>
+
+    </div>
+
 </section>
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      STEP 5
-     ===================================================== -->
+========================================================= -->
 
 <section
-    class="card"
-    id="searchSection">
-
+    class="card wizard-step"
+    id="step5">
 
     <h3 class="section-title">
-
         05. Student Locator
-
     </h3>
-
 
     <p class="section-subtitle">
 
-        Search using Student Name or Register Number.
+        Search using student name or register number.
+        The result will show the exact hall, bench and seat.
 
     </p>
 
 
-    <div class="search-wrapper">
+    <div class="search-input">
 
         <input
             id="studentSearch"
             oninput="searchStudent()"
-            placeholder="🔍  Search student name or register number...">
+            placeholder="🔍  Search Student Name or Register Number...">
 
     </div>
 
@@ -2114,6 +1743,18 @@ input[readonly]{
 
     </div>
 
+
+    <div class="wizard-buttons">
+
+        <button
+            class="back-btn"
+            onclick="showStep(4)">
+
+            ← BACK TO ARRANGEMENT
+
+        </button>
+
+    </div>
 
 </section>
 
@@ -2136,13 +1777,13 @@ input[readonly]{
 
 /* =========================================================
    DATA
-   ========================================================= */
+========================================================= */
 
 const examData = {
 
     totalStudents:0,
 
-    halls:0,
+    hallCount:0,
 
     departments:[],
 
@@ -2153,12 +1794,105 @@ const examData = {
 };
 
 
+let currentStep = 1;
+
 
 /* =========================================================
-   CREATE EXAM SETUP
-   ========================================================= */
+   STEP NAVIGATION
+========================================================= */
 
-function createExamSetup(){
+function showStep(step){
+
+    currentStep = step;
+
+
+    document
+        .querySelectorAll(".wizard-step")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(
+            "step" + step
+        );
+
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    for(let i=1;i<=5;i++){
+
+        const progress =
+            document.getElementById(
+                "progress" + i
+            );
+
+        if(!progress) continue;
+
+        progress.classList.remove(
+            "active",
+            "completed"
+        );
+
+
+        if(i < step){
+
+            progress.classList.add(
+                "completed"
+            );
+
+        }
+
+
+        if(i === step){
+
+            progress.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    for(let i=1;i<=4;i++){
+
+        const line =
+            document.getElementById(
+                "line" + i
+            );
+
+        if(!line) continue;
+
+        line.classList.toggle(
+            "completed",
+            i < step
+        );
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   STEP 1 → STEP 2
+========================================================= */
+
+function goToStep2(){
 
     const total =
         Number(
@@ -2168,7 +1902,7 @@ function createExamSetup(){
         );
 
 
-    const departmentCount =
+    const departments =
         Number(
             document.getElementById(
                 "departmentCount"
@@ -2176,7 +1910,7 @@ function createExamSetup(){
         );
 
 
-    const hallCount =
+    const halls =
         Number(
             document.getElementById(
                 "hallCount"
@@ -2185,16 +1919,13 @@ function createExamSetup(){
 
 
     if(
-        !total ||
-        !departmentCount ||
-        !hallCount ||
         total < 1 ||
-        departmentCount < 1 ||
-        hallCount < 1
+        departments < 1 ||
+        halls < 1
     ){
 
         alert(
-            "Please enter Total Students, Departments and Halls."
+            "Please enter valid Exam Setup details."
         );
 
         return;
@@ -2205,34 +1936,23 @@ function createExamSetup(){
     examData.totalStudents =
         total;
 
-    examData.halls =
-        hallCount;
+    examData.hallCount =
+        halls;
 
 
     createDepartmentFields(
-        departmentCount
+        departments
     );
 
 
-    document.getElementById(
-        "departmentSection"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "departmentSection"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
+    showStep(2);
 
 }
 
 
-
 /* =========================================================
    CREATE DEPARTMENT FIELDS
-   ========================================================= */
+========================================================= */
 
 function createDepartmentFields(count){
 
@@ -2245,16 +1965,10 @@ function createDepartmentFields(count){
     container.innerHTML = "";
 
 
-    for(
-        let i=1;
-        i<=count;
-        i++
-    ){
+    for(let i=1;i<=count;i++){
 
         const box =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
         box.className =
@@ -2316,9 +2030,9 @@ function createDepartmentFields(count){
                     </label>
 
                     <input
-                        class="department-students"
+                        class="department-count"
                         type="number"
-                        min="0"
+                        min="1"
                         placeholder="Example: 60">
 
                 </div>
@@ -2326,22 +2040,27 @@ function createDepartmentFields(count){
 
             </div>
 
+
+            <div class="department-note">
+
+                Register numbers will be generated automatically
+                using this department name.
+
+            </div>
+
         `;
 
 
-        container.appendChild(
-            box
-        );
+        container.appendChild(box);
 
     }
 
 }
 
 
-
 /* =========================================================
-   SAVE DEPARTMENTS
-   ========================================================= */
+   STEP 2 → SAVE DEPARTMENTS
+========================================================= */
 
 function saveDepartments(){
 
@@ -2351,134 +2070,174 @@ function saveDepartments(){
         );
 
 
-    examData.departments = [];
+    const departments = [];
 
 
-    boxes.forEach(
-        (box,index)=>{
+    let totalDepartmentStudents = 0;
 
 
-            const name =
+    for(const box of boxes){
+
+        const name =
+            box.querySelector(
+                ".department-name"
+            ).value.trim();
+
+
+        const subject =
+            box.querySelector(
+                ".department-subject"
+            ).value.trim();
+
+
+        const count =
+            Number(
                 box.querySelector(
-                    ".department-name"
-                ).value.trim();
+                    ".department-count"
+                ).value
+            );
 
 
-            const subject =
-                box.querySelector(
-                    ".department-subject"
-                ).value.trim();
+        if(
+            !name ||
+            !subject ||
+            count < 1
+        ){
 
+            alert(
+                "Please complete every department."
+            );
 
-            const students =
-                Number(
-                    box.querySelector(
-                        ".department-students"
-                    ).value
-                );
-
-
-            if(
-                !name ||
-                !subject
-            ){
-
-                return;
-
-            }
-
-
-            /*
-             * Create register prefix
-             *
-             * Computer Science -> CS
-             * Electronics -> EL
-             * Mechanical -> MEC
-             */
-
-
-            const words =
-                name
-                    .split(/\s+/)
-                    .filter(Boolean);
-
-
-            let prefix;
-
-
-            if(
-                words.length >= 2
-            ){
-
-                prefix =
-                    words
-                        .map(
-                            word =>
-                                word[0]
-                        )
-                        .join("")
-                        .toUpperCase();
-
-            }
-            else{
-
-                prefix =
-                    name
-                        .replace(
-                            /[^a-zA-Z]/g,
-                            ""
-                        )
-                        .substring(
-                            0,
-                            3
-                        )
-                        .toUpperCase();
-
-            }
-
-
-            if(
-                !prefix
-            ){
-
-                prefix =
-                    "STD";
-
-            }
-
-
-            examData.departments.push({
-
-                name:name,
-
-                subject:subject,
-
-                students:students,
-
-                prefix:prefix
-
-            });
+            return false;
 
         }
-    );
+
+
+        const prefix =
+            createPrefix(name);
+
+
+        departments.push({
+
+            name:name,
+
+            subject:subject,
+
+            count:count,
+
+            prefix:prefix
+
+        });
+
+
+        totalDepartmentStudents +=
+            count;
+
+    }
 
 
     if(
-        !examData.departments.length
+        totalDepartmentStudents !==
+        examData.totalStudents
     ){
 
         alert(
-            "Please enter Department Name and Subject."
+            "Department student counts must equal Total Students.\n\n" +
+            "Total Students: " +
+            examData.totalStudents +
+            "\n" +
+            "Department Students: " +
+            totalDepartmentStudents
         );
+
+        return false;
+
+    }
+
+
+    examData.departments =
+        departments;
+
+
+    populateDepartmentSelect();
+
+
+    document.getElementById(
+        "departmentStat"
+    ).textContent =
+        departments.length;
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   CREATE REGISTER PREFIX
+========================================================= */
+
+function createPrefix(name){
+
+    const words =
+        name
+            .replace(/[^a-zA-Z\s]/g," ")
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+    let prefix = "";
+
+
+    if(words.length >= 2){
+
+        prefix =
+            words
+                .map(word => word[0])
+                .join("")
+                .toUpperCase();
+
+    }
+    else{
+
+        prefix =
+            words[0]
+                .substring(0,3)
+                .toUpperCase();
+
+    }
+
+
+    return prefix || "STD";
+
+}
+
+
+/* =========================================================
+   STEP 2 → STEP 3
+========================================================= */
+
+function goToStep3(){
+
+    if(
+        !saveDepartments()
+    ){
 
         return;
 
     }
 
 
-    /*
-     * Department dropdown
-     */
+    showStep(3);
+
+}
+
+
+/* =========================================================
+   DEPARTMENT SELECT
+========================================================= */
+
+function populateDepartmentSelect(){
 
     const select =
         document.getElementById(
@@ -2486,16 +2245,17 @@ function saveDepartments(){
         );
 
 
-    select.innerHTML =
-        `
+    select.innerHTML = `
+
         <option value="">
             Select Department
         </option>
-        `;
+
+    `;
 
 
     examData.departments.forEach(
-        (department,index)=>{
+        (department,index) => {
 
             select.innerHTML += `
 
@@ -2512,52 +2272,14 @@ function saveDepartments(){
         }
     );
 
-
-    document.getElementById(
-        "studentSection"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "allocationSection"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "searchSection"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "departmentStat"
-    ).textContent =
-        examData.departments.length;
-
-
-    document.getElementById(
-        "hallStat"
-    ).textContent =
-        examData.halls;
-
-
-    document.getElementById(
-        "studentSection"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
-
 }
 
 
-
 /* =========================================================
-   SUBJECT UPDATE
-   ========================================================= */
+   UPDATE SUBJECT + REGISTER
+========================================================= */
 
-function updateStudentSubject(){
+function updateStudentDetails(){
 
     const index =
         document.getElementById(
@@ -2577,13 +2299,17 @@ function updateStudentSubject(){
         );
 
 
-    if(
-        index === ""
-    ){
+    const countBox =
+        document.getElementById(
+            "departmentStudentCount"
+        );
+
+
+    if(index === ""){
 
         subjectBox.value = "";
-
         registerBox.value = "";
+        countBox.value = "";
 
         return;
 
@@ -2600,12 +2326,7 @@ function updateStudentSubject(){
         department.subject;
 
 
-    /*
-     * Preview next register number
-     */
-
-
-    const count =
+    const currentStudents =
         examData.students.filter(
             student =>
                 student.department ===
@@ -2613,45 +2334,41 @@ function updateStudentSubject(){
         ).length;
 
 
+    countBox.value =
+        currentStudents +
+        " / " +
+        department.count;
+
+
     registerBox.value =
         createRegisterNumber(
             department,
-            count + 1
+            currentStudents + 1
         );
 
 }
 
 
-
 /* =========================================================
    REGISTER NUMBER
-   ========================================================= */
+========================================================= */
 
 function createRegisterNumber(
     department,
     number
 ){
 
-    const serial =
-        String(number)
-            .padStart(
-                3,
-                "0"
-            );
-
-
     return (
         department.prefix +
-        serial
+        String(number).padStart(3,"0")
     );
 
 }
 
 
-
 /* =========================================================
    ADD STUDENT
-   ========================================================= */
+========================================================= */
 
 function addStudent(){
 
@@ -2667,7 +2384,7 @@ function addStudent(){
         ).value;
 
 
-    const departmentIndex =
+    const index =
         document.getElementById(
             "studentDepartment"
         ).value;
@@ -2676,7 +2393,7 @@ function addStudent(){
     if(
         !name ||
         !year ||
-        departmentIndex === ""
+        index === ""
     ){
 
         alert(
@@ -2690,40 +2407,41 @@ function addStudent(){
 
     const department =
         examData.departments[
-            Number(
-                departmentIndex
-            )
+            Number(index)
         ];
 
 
-    /*
-     * Existing students
-     * in same department
-     */
-
-
-    const departmentStudents =
+    const currentCount =
         examData.students.filter(
             student =>
                 student.department ===
                 department.name
+        ).length;
+
+
+    if(
+        currentCount >=
+        department.count
+    ){
+
+        alert(
+            department.name +
+            " already has all " +
+            department.count +
+            " students registered."
         );
 
+        return;
 
-    /*
-     * Automatic Register Number
-     */
+    }
+
 
     const registerNumber =
         createRegisterNumber(
             department,
-            departmentStudents.length + 1
+            currentCount + 1
         );
 
-
-    /*
-     * Student object
-     */
 
     const student = {
 
@@ -2754,9 +2472,20 @@ function addStudent(){
     );
 
 
-    /*
-     * Clear fields
-     */
+    clearStudentForm();
+
+    renderStudentList();
+
+    updateStudentStat();
+
+}
+
+
+/* =========================================================
+   CLEAR STUDENT FORM
+========================================================= */
+
+function clearStudentForm(){
 
     document.getElementById(
         "studentName"
@@ -2783,22 +2512,16 @@ function addStudent(){
     ).value = "";
 
 
-    renderStudentList();
-
-
     document.getElementById(
-        "studentStat"
-    ).textContent =
-        examData.students.length;
-
+        "departmentStudentCount"
+    ).value = "";
 
 }
 
 
-
 /* =========================================================
    STUDENT LIST
-   ========================================================= */
+========================================================= */
 
 function renderStudentList(){
 
@@ -2812,8 +2535,7 @@ function renderStudentList(){
 
 
     examData.students.forEach(
-        student=>{
-
+        student => {
 
             container.innerHTML += `
 
@@ -2821,7 +2543,7 @@ function renderStudentList(){
 
                     <div>
 
-                        <div class="student-row-name">
+                        <div class="student-name">
 
                             ${escapeHTML(
                                 student.name
@@ -2829,7 +2551,7 @@ function renderStudentList(){
 
                         </div>
 
-                        <div class="student-row-reg">
+                        <div class="student-reg">
 
                             REGISTER:
                             ${escapeHTML(
@@ -2841,7 +2563,7 @@ function renderStudentList(){
                     </div>
 
 
-                    <div class="student-row-info">
+                    <div class="student-info">
 
                         ${escapeHTML(
                             student.department
@@ -2849,9 +2571,13 @@ function renderStudentList(){
 
                         <br>
 
-                        SUBJECT:
                         ${escapeHTML(
                             student.subject
+                        )}
+
+                        •
+                        ${escapeHTML(
+                            student.year
                         )}
 
                     </div>
@@ -2866,19 +2592,38 @@ function renderStudentList(){
 }
 
 
+/* =========================================================
+   UPDATE STAT
+========================================================= */
+
+function updateStudentStat(){
+
+    document.getElementById(
+        "studentStat"
+    ).textContent =
+        examData.students.length;
+
+}
+
 
 /* =========================================================
-   GENERATE ALLOCATION
-   ========================================================= */
+   STEP 3 → STEP 4
+========================================================= */
 
-function generateAllocation(){
+function goToStep4(){
 
     if(
-        !examData.students.length
+        examData.students.length !==
+        examData.totalStudents
     ){
 
         alert(
-            "Please add students first."
+            "Please register all students first.\n\n" +
+            "Required: " +
+            examData.totalStudents +
+            "\n" +
+            "Registered: " +
+            examData.students.length
         );
 
         return;
@@ -2886,32 +2631,28 @@ function generateAllocation(){
     }
 
 
-    /*
-     * Clear previous locations
-     */
+    generateAllocation();
 
-    examData.students.forEach(
-        student=>{
+    showStep(4);
 
-            student.hall = null;
+}
 
-            student.bench = null;
 
-            student.seat = null;
+/* =========================================================
+   GENERATE ALLOCATION
+========================================================= */
 
-        }
-    );
-
+function generateAllocation(){
 
     /*
-     * Group students by department
+     * Group students by department.
      */
 
     const groups = {};
 
 
     examData.students.forEach(
-        student=>{
+        student => {
 
             if(
                 !groups[
@@ -2928,32 +2669,27 @@ function generateAllocation(){
 
             groups[
                 student.department
-            ].push(
-                student
-            );
+            ].push(student);
 
         }
     );
 
 
     /*
-     * Create benches
+     * Create benches.
      *
      * IMPORTANT:
-     * Same department only.
+     * SAME DEPARTMENT ONLY.
      */
 
     const benches = [];
 
 
     Object.keys(groups).forEach(
-        department=>{
-
+        department => {
 
             const students =
-                groups[
-                    department
-                ];
+                groups[department];
 
 
             for(
@@ -2968,15 +2704,13 @@ function generateAllocation(){
                         department,
 
                     subject:
-                        students[i]
-                            .subject,
+                        students[i].subject,
 
                     studentA:
                         students[i],
 
                     studentB:
-                        students[i+1] ||
-                        null
+                        students[i+1] || null
 
                 });
 
@@ -2987,13 +2721,13 @@ function generateAllocation(){
 
 
     /*
-     * Hall capacity calculation
+     * Distribute benches across halls.
      */
 
     const benchesPerHall =
         Math.ceil(
             benches.length /
-            examData.halls
+            examData.hallCount
         );
 
 
@@ -3005,7 +2739,7 @@ function generateAllocation(){
 
     for(
         let hallNumber=1;
-        hallNumber<=examData.halls;
+        hallNumber<=examData.hallCount;
         hallNumber++
     ){
 
@@ -3013,11 +2747,10 @@ function generateAllocation(){
 
 
         for(
-            let benchNumber=1;
-            benchNumber<=benchesPerHall;
-            benchNumber++
+            let localBench=1;
+            localBench<=benchesPerHall;
+            localBench++
         ){
-
 
             if(
                 benchIndex >=
@@ -3030,46 +2763,30 @@ function generateAllocation(){
 
 
             const bench =
-                benches[
-                    benchIndex
-                ];
+                benches[benchIndex];
 
 
-            const studentA =
-                bench.studentA;
-
-
-            const studentB =
-                bench.studentB;
-
-
-            /*
-             * Location A
-             */
-
-            studentA.hall =
+            bench.studentA.hall =
                 hallNumber;
 
-            studentA.bench =
-                benchNumber;
+            bench.studentA.bench =
+                localBench;
 
-            studentA.seat =
+            bench.studentA.seat =
                 "A";
 
 
-            /*
-             * Location B
-             */
+            if(
+                bench.studentB
+            ){
 
-            if(studentB){
-
-                studentB.hall =
+                bench.studentB.hall =
                     hallNumber;
 
-                studentB.bench =
-                    benchNumber;
+                bench.studentB.bench =
+                    localBench;
 
-                studentB.seat =
+                bench.studentB.seat =
                     "B";
 
             }
@@ -3078,7 +2795,7 @@ function generateAllocation(){
             hallBenches.push({
 
                 number:
-                    benchNumber,
+                    localBench,
 
                 department:
                     bench.department,
@@ -3087,10 +2804,10 @@ function generateAllocation(){
                     bench.subject,
 
                 studentA:
-                    studentA,
+                    bench.studentA,
 
                 studentB:
-                    studentB
+                    bench.studentB
 
             });
 
@@ -3123,10 +2840,6 @@ function generateAllocation(){
         allocation;
 
 
-    /*
-     * Statistics
-     */
-
     document.getElementById(
         "studentStat"
     ).textContent =
@@ -3151,35 +2864,16 @@ function generateAllocation(){
         benches.length;
 
 
-    /*
-     * Render halls
-     */
-
     renderHalls();
 
-
-    /*
-     * Capacity warning
-     */
-
-    checkCapacity(
-        benches
-    );
-
-
-    document.getElementById(
-        "allocationSection"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
+    showCapacityWarning();
 
 }
 
 
-
 /* =========================================================
    RENDER HALLS
-   ========================================================= */
+========================================================= */
 
 function renderHalls(){
 
@@ -3193,8 +2887,7 @@ function renderHalls(){
 
 
     examData.allocation.forEach(
-        hall=>{
-
+        hall => {
 
             let html = `
 
@@ -3221,12 +2914,11 @@ function renderHalls(){
 
 
             hall.benches.forEach(
-                bench=>{
-
+                bench => {
 
                     html += `
 
-                        <div class="bench-department">
+                        <div class="bench-title">
 
                             BENCH ${bench.number}
                             •
@@ -3275,10 +2967,9 @@ function renderHalls(){
 }
 
 
-
 /* =========================================================
    RENDER SEAT
-   ========================================================= */
+========================================================= */
 
 function renderSeat(
     student,
@@ -3292,12 +2983,12 @@ function renderSeat(
             <div class="seat empty-seat">
 
                 <span class="seat-label">
-
                     SEAT ${seat}
-
                 </span>
 
-                EMPTY
+                <div class="empty-text">
+                    🔴 EMPTY SEAT
+                </div>
 
             </div>
 
@@ -3338,6 +3029,7 @@ function renderSeat(
 
             <div class="seat-subject">
 
+                SUBJECT:
                 ${escapeHTML(
                     student.subject
                 )}
@@ -3351,132 +3043,99 @@ function renderSeat(
 }
 
 
-
 /* =========================================================
-   CAPACITY WARNING
-   ========================================================= */
+   CAPACITY / EMPTY SEAT WARNING
+========================================================= */
 
-function checkCapacity(
-    benches
-){
+function showCapacityWarning(){
 
     const warning =
         document.getElementById(
-            "extraWarning"
+            "warning"
         );
 
 
-    warning.classList.remove(
-        "show"
-    );
+    const totalBenches =
+        examData.allocation.reduce(
+            (total,hall) =>
+                total + hall.benches.length,
+            0
+        );
 
 
-    warning.innerHTML = "";
+    const capacity =
+        totalBenches * 2;
 
 
-    /*
-     * Each bench = 2 seats.
-     *
-     * If departments have odd students,
-     * one seat remains empty.
-     */
-
-
-    const totalSeats =
-        benches.length * 2;
-
-
-    const extra =
-        examData.students.length -
-        totalSeats;
+    const emptySeats =
+        capacity -
+        examData.students.length;
 
 
     if(
-        extra > 0
+        emptySeats > 0
     ){
 
         warning.innerHTML = `
 
             <strong>
-                🔴 EXTRA STUDENTS
+                🔴 EMPTY SEATS DETECTED
             </strong>
 
             <br>
 
             <span style="
-                font-size:12px;
+                font-size:11px;
                 color:#ff9aaa;
             ">
 
-                ${extra}
-                student(s) exceed the
-                available seating capacity.
+                ${emptySeats}
+                seat(s) are empty because
+                department student counts
+                cannot always be divided equally
+                into two-seat benches.
 
             </span>
 
         `;
 
-        warning.classList.add(
-            "show"
-        );
+        warning.classList.add("show");
 
     }
     else{
 
-        /*
-         * Show empty seats
-         * if odd department count.
-         */
+        warning.classList.remove("show");
 
-        const emptySeats =
-            totalSeats -
-            examData.students.length;
-
-
-        if(
-            emptySeats > 0
-        ){
-
-            warning.innerHTML = `
-
-                <strong style="
-                    color:#ff8a9b;
-                ">
-
-                    🔴 EMPTY / EXTRA SEATS
-
-                </strong>
-
-                <br>
-
-                <span style="
-                    font-size:12px;
-                    color:#ffabb9;
-                ">
-
-                    ${emptySeats}
-                    seat(s) remain empty
-                    because of student distribution.
-
-                </span>
-
-            `;
-
-            warning.classList.add(
-                "show"
-            );
-
-        }
+        warning.innerHTML = "";
 
     }
 
 }
 
 
+/* =========================================================
+   STEP 4 → STEP 5
+========================================================= */
+
+function goToStep5(){
+
+    if(
+        examData.allocation.length === 0
+    ){
+
+        generateAllocation();
+
+    }
+
+
+    showStep(5);
+
+}
+
 
 /* =========================================================
-   SEARCH
-   ========================================================= */
+   SEARCH STUDENT
+========================================================= */
 
 function searchStudent(){
 
@@ -3509,15 +3168,15 @@ function searchStudent(){
 
     const student =
         examData.students.find(
-            student=>
+            item =>
 
-                student.name
+                item.name
                     .toLowerCase()
                     .includes(query)
 
                 ||
 
-                student.registerNumber
+                item.registerNumber
                     .toLowerCase()
                     .includes(query)
 
@@ -3537,12 +3196,12 @@ function searchStudent(){
                 <br>
 
                 <span style="
-                    font-size:12px;
+                    font-size:11px;
                     color:#ff9aaa;
                 ">
 
-                    Search using the student
-                    name or register number.
+                    Search using Student Name
+                    or Register Number.
 
                 </span>
 
@@ -3550,22 +3209,16 @@ function searchStudent(){
 
         `;
 
-        result.classList.add(
-            "show"
-        );
+        result.classList.add("show");
 
         return;
 
     }
 
 
-    /*
-     * Student found
-     */
-
     result.innerHTML = `
 
-        <div class="student-result-card">
+        <div class="student-result">
 
 
             <div class="result-top">
@@ -3596,12 +3249,9 @@ function searchStudent(){
 
                 <div class="location-pill">
 
-                    HALL
-                    ${student.hall}
-
+                    HALL ${student.hall}
                     •
-                    SEAT
-                    ${student.seat}
+                    SEAT ${student.seat}
 
                 </div>
 
@@ -3613,7 +3263,7 @@ function searchStudent(){
             <div class="result-details">
 
 
-                <div class="detail-box">
+                <div class="detail">
 
                     <small>
                         Department
@@ -3630,7 +3280,7 @@ function searchStudent(){
                 </div>
 
 
-                <div class="detail-box">
+                <div class="detail">
 
                     <small>
                         Subject
@@ -3647,7 +3297,7 @@ function searchStudent(){
                 </div>
 
 
-                <div class="detail-box">
+                <div class="detail">
 
                     <small>
                         Year
@@ -3664,7 +3314,7 @@ function searchStudent(){
                 </div>
 
 
-                <div class="detail-box">
+                <div class="detail">
 
                     <small>
                         Bench
@@ -3683,34 +3333,28 @@ function searchStudent(){
 
 
 
-            <div class="big-location">
+            <div class="location-box">
 
                 📍
 
                 <strong>
-                    STUDENT LOCATION
+                    EXACT EXAM LOCATION
                 </strong>
 
                 <br>
 
-                Exam Hall
-                <b>
-                    ${student.hall}
-                </b>
+                Exam Hall:
+                <b>${student.hall}</b>
 
                 &nbsp; • &nbsp;
 
-                Bench
-                <b>
-                    ${student.bench}
-                </b>
+                Bench:
+                <b>${student.bench}</b>
 
                 &nbsp; • &nbsp;
 
-                Seat
-                <b>
-                    ${student.seat}
-                </b>
+                Seat:
+                <b>${student.seat}</b>
 
             </div>
 
@@ -3720,59 +3364,37 @@ function searchStudent(){
     `;
 
 
-    result.classList.add(
-        "show"
-    );
+    result.classList.add("show");
 
 }
-
 
 
 /* =========================================================
    ESCAPE HTML
-   ========================================================= */
+========================================================= */
 
-function escapeHTML(
-    value
-){
+function escapeHTML(value){
 
     return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+        .replace(/&/g,"&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+        .replace(/</g,"&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+        .replace(/>/g,"&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+        .replace(/"/g,"&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/'/g,"&#039;");
 
 }
 
 
-
 /* =========================================================
    SONIC CURSOR
-   ========================================================= */
+========================================================= */
 
-let lastRipple =
-    0;
+let lastRipple = 0;
 
 
 document.addEventListener(
@@ -3784,9 +3406,7 @@ document.addEventListener(
 
 
         if(
-            now -
-            lastRipple <
-            65
+            now - lastRipple < 70
         ){
 
             return;
@@ -3809,13 +3429,11 @@ document.addEventListener(
 
 
         ripple.style.left =
-            event.clientX +
-            "px";
+            event.clientX + "px";
 
 
         ripple.style.top =
-            event.clientY +
-            "px";
+            event.clientY + "px";
 
 
         document.body.appendChild(
@@ -3824,8 +3442,10 @@ document.addEventListener(
 
 
         setTimeout(
-            ()=>{
+            function(){
+
                 ripple.remove();
+
             },
             750
         );
@@ -3835,28 +3455,10 @@ document.addEventListener(
 
 
 /* =========================================================
-   ENTER KEY SEARCH
-   ========================================================= */
+   START
+========================================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key ===
-            "Enter" &&
-
-            document.activeElement.id ===
-            "studentSearch"
-        ){
-
-            searchStudent();
-
-        }
-
-    }
-);
-
+showStep(1);
 
 </script>
 
