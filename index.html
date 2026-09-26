@@ -5,172 +5,371 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Exam Hall System</title>
+    <title>Smart Exam Hall Allocation System</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
-
+    <!-- TOP HEADER -->
     <header>
 
-        <div class="logo">
+        <div class="brand">
 
-            <div class="logo-icon">
+            <div class="brand-icon">
                 🎓
             </div>
 
             <div>
                 <h1>SMART EXAM <span>CELL</span></h1>
-                <p>Hall Allocation & Student Locator</p>
+                <p>Hall Allocation & Student Locator System</p>
             </div>
 
         </div>
 
-        <div class="status">
-
-            <div class="status-dot"></div>
-
+        <div class="system-status">
+            <span class="status-light"></span>
             SYSTEM ONLINE
-
         </div>
 
     </header>
 
 
     <!-- MAIN -->
-
     <main class="container">
 
+        <!-- SETUP SCREEN -->
+        <section id="setupScreen" class="setup-screen">
 
-        <!-- WELCOME -->
+            <div class="setup-header">
 
-        <section class="welcome">
-
-            <h2>Examination Dashboard</h2>
-
-            <p>
-                Manage students, examination halls and
-                real-time student location.
-            </p>
-
-        </section>
-
-
-        <!-- STATISTICS -->
-
-        <section class="stats">
-
-
-            <div class="stat-card">
-
-                <div class="stat-title">
-                    TOTAL STUDENTS
+                <div class="setup-icon">
+                    ⚙
                 </div>
 
-                <div class="stat-number blue">
-                    500
+                <div>
+                    <h2>Exam Setup</h2>
+                    <p>
+                        Configure examination requirements before allocation.
+                    </p>
                 </div>
 
             </div>
 
 
-            <div class="stat-card">
+            <div class="setup-grid">
 
-                <div class="stat-title">
-                    DEPARTMENTS
-                </div>
+                <!-- STUDENTS -->
+                <div class="setup-card">
 
-                <div class="stat-number purple">
-                    05
-                </div>
+                    <div class="setup-card-icon blue-icon">
+                        👨‍🎓
+                    </div>
 
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-title">
-                    EXAM HALLS
-                </div>
-
-                <div class="stat-number orange">
-                    10
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-title">
-                    ALLOCATED
-                </div>
-
-                <div class="stat-number green">
-                    480
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- MAIN CONTENT -->
-
-        <section class="main-grid">
-
-
-            <!-- STUDENT SEARCH -->
-
-            <div class="panel">
-
-                <div class="panel-title">
-
-                    <h3>
-                        🔍 Student Locator
-                    </h3>
-
-                    <span>
-                        REGISTER NUMBER SEARCH
-                    </span>
-
-                </div>
-
-
-                <div class="search-area">
+                    <div class="setup-label">
+                        TOTAL STUDENTS
+                    </div>
 
                     <input
-                        type="text"
-                        id="registerNumber"
-                        placeholder="Enter Student Register Number..."
-                        autocomplete="off"
+                        type="number"
+                        id="studentCount"
+                        placeholder="Example: 300"
+                        min="1"
                     >
 
-                    <button
-                        class="search-btn"
-                        onclick="searchStudent()"
-                    >
-                        SEARCH
-                    </button>
+                    <small>
+                        Enter total number of students
+                    </small>
 
                 </div>
 
 
-                <div id="studentDetails">
+                <!-- DEPARTMENTS -->
+                <div class="setup-card">
 
-                    <div style="
-                        color:#64748b;
-                        padding:25px 0;
-                        text-align:center;
-                    ">
+                    <div class="setup-card-icon purple-icon">
+                        🏢
+                    </div>
 
-                        Enter a register number
-                        to locate the student.
+                    <div class="setup-label">
+                        NUMBER OF DEPARTMENTS
+                    </div>
 
+                    <input
+                        type="number"
+                        id="departmentCount"
+                        placeholder="Example: 4"
+                        min="1"
+                    >
+
+                    <small>
+                        Enter number of departments
+                    </small>
+
+                </div>
+
+
+                <!-- HALLS -->
+                <div class="setup-card">
+
+                    <div class="setup-card-icon orange-icon">
+                        🏫
+                    </div>
+
+                    <div class="setup-label">
+                        NUMBER OF EXAM HALLS
+                    </div>
+
+                    <input
+                        type="number"
+                        id="hallCount"
+                        placeholder="Example: 8"
+                        min="1"
+                    >
+
+                    <small>
+                        Enter number of examination halls
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- CREATE BUTTON -->
+            <button
+                class="create-button"
+                onclick="createExamSetup()"
+            >
+
+                <span>CREATE EXAM SETUP</span>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <div class="setup-note">
+
+                <span>●</span>
+
+                Your selected configuration will be used
+                for the examination allocation.
+
+            </div>
+
+        </section>
+
+
+        <!-- CONFIGURATION SCREEN -->
+        <section
+            id="configurationScreen"
+            class="configuration-screen hidden"
+        >
+
+            <div class="page-heading">
+
+                <div>
+                    <div class="eyebrow">
+                        EXAMINATION CONFIGURATION
+                    </div>
+
+                    <h2>Configure Your Examination</h2>
+
+                    <p>
+                        Enter department and examination hall information.
+                    </p>
+                </div>
+
+                <button
+                    class="back-button"
+                    onclick="backToSetup()"
+                >
+                    ← BACK
+                </button>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+            <div class="summary-grid">
+
+                <div class="summary-card">
+                    <span>STUDENTS</span>
+                    <strong id="summaryStudents">0</strong>
+                </div>
+
+                <div class="summary-card">
+                    <span>DEPARTMENTS</span>
+                    <strong id="summaryDepartments">0</strong>
+                </div>
+
+                <div class="summary-card">
+                    <span>HALLS</span>
+                    <strong id="summaryHalls">0</strong>
+                </div>
+
+            </div>
+
+
+            <!-- DEPARTMENT SECTION -->
+            <div class="config-panel">
+
+                <div class="config-title">
+
+                    <div>
+                        <h3>🏢 Department Configuration</h3>
+
+                        <p>
+                            Enter the department names.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="departmentInputs"
+                    class="dynamic-input-grid"
+                ></div>
+
+            </div>
+
+
+            <!-- HALL SECTION -->
+            <div class="config-panel">
+
+                <div class="config-title">
+
+                    <div>
+                        <h3>🏫 Examination Hall Configuration</h3>
+
+                        <p>
+                            Enter hall names and seating capacity.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="hallInputs"
+                    class="hall-input-grid"
+                ></div>
+
+            </div>
+
+
+            <!-- GENERATE -->
+            <button
+                class="generate-button"
+                onclick="generateAllocation()"
+            >
+
+                <span>⚡ GENERATE SMART ALLOCATION</span>
+
+                <span>→</span>
+
+            </button>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+        <section
+            id="dashboardScreen"
+            class="dashboard-screen hidden"
+        >
+
+            <div class="dashboard-heading">
+
+                <div>
+
+                    <div class="eyebrow">
+                        EXAM CELL CONTROL CENTER
+                    </div>
+
+                    <h2>Examination Dashboard</h2>
+
+                    <p>
+                        Monitor students, halls and allocation status.
+                    </p>
+
+                </div>
+
+                <button
+                    class="new-setup"
+                    onclick="newExamSetup()"
+                >
+                    + NEW EXAM SETUP
+                </button>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        TOTAL STUDENTS
+                    </div>
+
+                    <div
+                        id="totalStudentsDisplay"
+                        class="stat-number blue"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        DEPARTMENTS
+                    </div>
+
+                    <div
+                        id="totalDepartmentsDisplay"
+                        class="stat-number purple"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        EXAM HALLS
+                    </div>
+
+                    <div
+                        id="totalHallsDisplay"
+                        class="stat-number orange"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        ALLOCATION STATUS
+                    </div>
+
+                    <div
+                        id="allocationDisplay"
+                        class="stat-number green"
+                    >
+                        READY
                     </div>
 
                 </div>
@@ -178,181 +377,132 @@
             </div>
 
 
-            <!-- HALL STATUS -->
+            <!-- MAIN DASHBOARD -->
+            <div class="main-grid">
 
-            <div class="panel">
+
+                <!-- STUDENT LOCATOR -->
+                <div class="panel">
+
+                    <div class="panel-title">
+
+                        <div>
+                            <h3>🔍 Student Locator</h3>
+
+                            <span>
+                                REGISTER NUMBER SEARCH
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="search-area">
+
+                        <input
+                            type="text"
+                            id="registerNumber"
+                            placeholder="Enter Student Register Number..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            class="search-btn"
+                            onclick="searchStudent()"
+                        >
+                            SEARCH
+                        </button>
+
+                    </div>
+
+
+                    <div id="studentDetails">
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                🔎
+                            </div>
+
+                            <p>
+                                Enter a register number to
+                                locate the student.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HALL STATUS -->
+                <div class="panel">
+
+                    <div class="panel-title">
+
+                        <div>
+                            <h3>🏫 Examination Halls</h3>
+
+                            <span>
+                                LIVE ALLOCATION STATUS
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="hallDashboard"
+                        class="hall-grid"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DEPARTMENT OVERVIEW -->
+            <div class="panel department-panel">
 
                 <div class="panel-title">
 
-                    <h3>
-                        🏫 Examination Halls
-                    </h3>
+                    <div>
+                        <h3>📊 Department Overview</h3>
 
-                    <span>
-                        LIVE STATUS
-                    </span>
+                        <span>
+                            CURRENT CONFIGURATION
+                        </span>
+                    </div>
 
                 </div>
 
-
-                <div class="hall-grid">
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 01
-                        </div>
-
-                        <div class="hall-status">
-                            ● AVAILABLE
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 02
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 03
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 04
-                        </div>
-
-                        <div class="hall-status">
-                            ● AVAILABLE
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 05
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 06
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 07
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 08
-                        </div>
-
-                        <div class="hall-status">
-                            ● AVAILABLE
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 09
-                        </div>
-
-                        <div class="hall-status">
-                            ● OCCUPIED
-                        </div>
-
-                    </div>
-
-
-                    <div class="hall">
-
-                        <div class="hall-name">
-                            HALL 10
-                        </div>
-
-                        <div class="hall-status">
-                            ● AVAILABLE
-                        </div>
-
-                    </div>
-
-
-                </div>
+                <div
+                    id="departmentDashboard"
+                    class="department-dashboard"
+                ></div>
 
             </div>
 
 
         </section>
-
-
-        <!-- FOOTER -->
-
-        <footer>
-
-            SMART EXAM HALL ALLOCATION SYSTEM
-
-            <br>
-
-            College Examination Cell • 2026
-
-        </footer>
-
 
     </main>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- FOOTER -->
+    <footer>
+
+        <strong>
+            SMART EXAM HALL ALLOCATION SYSTEM
+        </strong>
+
+        <br>
+
+        College Examination Cell • 2026
+
+    </footer>
+
 
     <script src="script.js"></script>
 
