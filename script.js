@@ -1,243 +1,199 @@
 /* =========================================================
    SMART EXAM HALL ALLOCATION SYSTEM
-   Main JavaScript Controller
-   ========================================================= */
+   MAIN JAVASCRIPT ENGINE
+========================================================= */
 
 
-/* ---------------------------------------------------------
-   AUDIO / SONIC EFFECT
-   --------------------------------------------------------- */
-
-let audioContext = null;
-let soundEnabled = false;
-let lastSoundTime = 0;
-
-document.addEventListener("click", function () {
-
-    if (!audioContext) {
-
-        audioContext = new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
-
-        soundEnabled = true;
-    }
-
-});
-
-
-document.addEventListener("mousemove", function (event) {
-
-    /* Cursor Sonic Ripple */
-
-    const ripple = document.createElement("div");
-
-    ripple.className = "sonic-ripple";
-
-    ripple.style.left = event.clientX + "px";
-    ripple.style.top = event.clientY + "px";
-
-    document.body.appendChild(ripple);
-
-    setTimeout(() => {
-        ripple.remove();
-    }, 650);
-
-
-    /* Small Sonic Sound */
-
-    const now = Date.now();
-
-    if (
-        soundEnabled &&
-        audioContext &&
-        now - lastSoundTime > 150
-    ) {
-
-        lastSoundTime = now;
-
-        try {
-
-            const oscillator =
-                audioContext.createOscillator();
-
-            const gain =
-                audioContext.createGain();
-
-            oscillator.type = "sine";
-
-            oscillator.frequency.value = 700;
-
-            gain.gain.setValueAtTime(
-                0.018,
-                audioContext.currentTime
-            );
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.001,
-                audioContext.currentTime + 0.035
-            );
-
-            oscillator.connect(gain);
-
-            gain.connect(
-                audioContext.destination
-            );
-
-            oscillator.start();
-
-            oscillator.stop(
-                audioContext.currentTime + 0.035
-            );
-
-        } catch (error) {
-
-            console.log(
-                "Audio unavailable"
-            );
-
-        }
-
-    }
-
-});
-
-
-/* ---------------------------------------------------------
-   SYSTEM DATA
-   --------------------------------------------------------- */
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
 
 let examData = {
-
     students: 0,
-
     departments: [],
-
     halls: [],
-
+    studentList: [],
     allocationGenerated: false
-
 };
 
 
-/* ---------------------------------------------------------
-   PAGE LOAD
-   --------------------------------------------------------- */
+/* =========================================================
+   DOM READY
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-        loadSavedSetup();
+    loadSavedSetup();
 
+    setupCursorEffect();
+
+});
+
+
+/* =========================================================
+   SONIC CURSOR EFFECT
+========================================================= */
+
+let audioContext = null;
+
+function playSonicSound() {
+
+    try {
+
+        if (!audioContext) {
+            audioContext = new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+        }
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            520,
+            audioContext.currentTime
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            180,
+            audioContext.currentTime + 0.10
+        );
+
+        gain.gain.setValueAtTime(
+            0.035,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 0.10
+        );
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.10
+        );
+
+    } catch (error) {
+        console.log("Audio unavailable");
     }
-);
+}
 
 
-/* ---------------------------------------------------------
+function setupCursorEffect() {
+
+    document.addEventListener("click", (event) => {
+
+        playSonicSound();
+
+        const ripple =
+            document.createElement("div");
+
+        ripple.className = "sonic-ripple";
+
+        ripple.style.left =
+            event.clientX + "px";
+
+        ripple.style.top =
+            event.clientY + "px";
+
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+
+    });
+
+}
+
+
+/* =========================================================
+   STEP 1
    CREATE EXAM SETUP
-   --------------------------------------------------------- */
+========================================================= */
 
 function createExamSetup() {
 
-    const studentInput =
-        document.getElementById(
-            "studentCount"
-        );
-
-    const departmentInput =
-        document.getElementById(
-            "departmentCount"
-        );
-
-    const hallInput =
-        document.getElementById(
-            "hallCount"
-        );
-
-
-    const students =
+    const studentCount =
         parseInt(
-            studentInput.value
+            document.getElementById("studentCount").value
         );
 
     const departmentCount =
         parseInt(
-            departmentInput.value
+            document.getElementById("departmentCount").value
         );
 
     const hallCount =
         parseInt(
-            hallInput.value
+            document.getElementById("hallCount").value
         );
 
 
-    /* Validation */
-
     if (
-        !students ||
+        !studentCount ||
         !departmentCount ||
         !hallCount
     ) {
 
         alert(
-            "Please enter all examination setup values."
+            "Please enter student, department and hall counts."
         );
 
         return;
     }
 
 
-    if (students < 1) {
+    if (
+        studentCount < 1 ||
+        departmentCount < 1 ||
+        hallCount < 1
+    ) {
 
         alert(
-            "Student count must be at least 1."
+            "All values must be greater than zero."
         );
 
         return;
     }
 
 
-    if (departmentCount < 1) {
+    if (departmentCount > studentCount) {
 
         alert(
-            "Department count must be at least 1."
+            "Number of departments cannot exceed number of students."
         );
 
         return;
     }
 
 
-    if (hallCount < 1) {
-
-        alert(
-            "Hall count must be at least 1."
-        );
-
-        return;
-    }
+    examData.students =
+        studentCount;
 
 
-    if (departmentCount > students) {
+    examData.departments =
+        [];
 
-        alert(
-            "Departments cannot be greater than students."
-        );
+    examData.halls =
+        [];
 
-        return;
-    }
+    examData.studentList =
+        [];
 
-
-    /* Create empty departments */
-
-    examData.students = students;
-
-    examData.departments = [];
-
-    examData.halls = [];
-
-    examData.allocationGenerated = false;
+    examData.allocationGenerated =
+        false;
 
 
     for (
@@ -251,15 +207,12 @@ function createExamSetup() {
             id: i,
 
             name:
-                "Department " +
-                String(i).padStart(2, "0")
+                `Department ${i}`
 
         });
 
     }
 
-
-    /* Create empty halls */
 
     for (
         let i = 1;
@@ -272,10 +225,12 @@ function createExamSetup() {
             id: i,
 
             name:
-                "Hall " +
-                String(i).padStart(2, "0"),
+                `Hall ${String(i).padStart(2, "0")}`,
 
-            capacity: 40
+            capacity:
+                Math.ceil(
+                    studentCount / hallCount
+                ) + 2
 
         });
 
@@ -289,58 +244,35 @@ function createExamSetup() {
 }
 
 
-/* ---------------------------------------------------------
-   SHOW CONFIGURATION
-   --------------------------------------------------------- */
+/* =========================================================
+   STEP 1.5
+   CONFIGURATION SCREEN
+========================================================= */
 
 function showConfiguration() {
 
-    const setupScreen =
-        document.getElementById(
-            "setupScreen"
-        );
+    hideAllScreens();
 
-    const configurationScreen =
-        document.getElementById(
-            "configurationScreen"
-        );
-
-    const dashboardScreen =
-        document.getElementById(
-            "dashboardScreen"
-        );
+    document
+        .getElementById("configurationScreen")
+        .classList.remove("hidden");
 
 
-    setupScreen.classList.add(
-        "hidden"
-    );
-
-    dashboardScreen.classList.add(
-        "hidden"
-    );
-
-    configurationScreen.classList.remove(
-        "hidden"
-    );
-
-
-    /* Summary */
-
-    document.getElementById(
-        "summaryStudents"
-    ).textContent =
+    document
+        .getElementById("summaryStudents")
+        .textContent =
         examData.students;
 
 
-    document.getElementById(
-        "summaryDepartments"
-    ).textContent =
+    document
+        .getElementById("summaryDepartments")
+        .textContent =
         examData.departments.length;
 
 
-    document.getElementById(
-        "summaryHalls"
-    ).textContent =
+    document
+        .getElementById("summaryHalls")
+        .textContent =
         examData.halls.length;
 
 
@@ -351,9 +283,9 @@ function showConfiguration() {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    DEPARTMENT INPUTS
-   --------------------------------------------------------- */
+========================================================= */
 
 function createDepartmentInputs() {
 
@@ -362,44 +294,38 @@ function createDepartmentInputs() {
             "departmentInputs"
         );
 
-
     container.innerHTML = "";
 
 
     examData.departments.forEach(
-        function (department) {
+        (department, index) => {
 
             const wrapper =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             wrapper.className =
-                "dynamic-input";
+                "dynamic-field";
 
 
             wrapper.innerHTML = `
 
-                <span>
-                    DEPT ${String(
-                        department.id
-                    ).padStart(2, "0")}
-                </span>
+                <label>
+                    DEPARTMENT ${index + 1}
+                </label>
 
                 <input
                     type="text"
-                    class="department-name"
-                    data-id="${department.id}"
-                    value="${department.name}"
-                    placeholder="Enter department name"
+                    id="department-${index}"
+                    value="${escapeHTML(
+                        department.name
+                    )}"
+                    placeholder="Example: AI & DS"
                 >
 
             `;
 
 
-            container.appendChild(
-                wrapper
-            );
+            container.appendChild(wrapper);
 
         }
     );
@@ -407,9 +333,9 @@ function createDepartmentInputs() {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    HALL INPUTS
-   --------------------------------------------------------- */
+========================================================= */
 
 function createHallInputs() {
 
@@ -418,53 +344,50 @@ function createHallInputs() {
             "hallInputs"
         );
 
-
     container.innerHTML = "";
 
 
     examData.halls.forEach(
-        function (hall) {
+        (hall, index) => {
 
             const wrapper =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             wrapper.className =
-                "hall-row";
+                "hall-field";
 
 
             wrapper.innerHTML = `
 
-                <div class="hall-number">
-                    HALL ${String(
-                        hall.id
-                    ).padStart(2, "0")}
+                <label>
+                    EXAM HALL ${index + 1}
+                </label>
+
+                <div class="hall-field-grid">
+
+                    <input
+                        type="text"
+                        id="hall-name-${index}"
+                        value="${escapeHTML(
+                            hall.name
+                        )}"
+                        placeholder="Hall Name"
+                    >
+
+                    <input
+                        type="number"
+                        id="hall-capacity-${index}"
+                        value="${hall.capacity}"
+                        min="1"
+                        placeholder="Seats"
+                    >
+
                 </div>
-
-                <input
-                    type="text"
-                    class="hall-name-input"
-                    data-id="${hall.id}"
-                    value="${hall.name}"
-                    placeholder="Hall name"
-                >
-
-                <input
-                    type="number"
-                    class="hall-capacity-input"
-                    data-id="${hall.id}"
-                    value="${hall.capacity}"
-                    min="1"
-                    placeholder="Capacity"
-                >
 
             `;
 
 
-            container.appendChild(
-                wrapper
-            );
+            container.appendChild(wrapper);
 
         }
     );
@@ -472,171 +395,99 @@ function createHallInputs() {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    GENERATE ALLOCATION
-   --------------------------------------------------------- */
+   MOVE TO STEP 2
+========================================================= */
 
 function generateAllocation() {
 
-    /* Read department names */
+    let totalCapacity = 0;
 
-    const departmentInputs =
-        document.querySelectorAll(
-            ".department-name"
-        );
-
-
-    const hallNameInputs =
-        document.querySelectorAll(
-            ".hall-name-input"
-        );
-
-
-    const hallCapacityInputs =
-        document.querySelectorAll(
-            ".hall-capacity-input"
-        );
-
-
-    let departmentNames =
-        [];
-
-
-    departmentInputs.forEach(
-        function (input) {
-
-            const name =
-                input.value.trim();
-
-
-            if (!name) {
-
-                alert(
-                    "Please enter all department names."
-                );
-
-                return;
-
-            }
-
-
-            departmentNames.push(
-                name
-            );
-
-        }
-    );
-
-
-    if (
-        departmentNames.length !==
-        examData.departments.length
-    ) {
-
-        return;
-
-    }
-
-
-    /* Update departments */
 
     examData.departments =
         examData.departments.map(
-            function (
-                department,
-                index
-            ) {
+            (department, index) => {
+
+                const input =
+                    document.getElementById(
+                        `department-${index}`
+                    );
+
+                const name =
+                    input.value.trim();
+
 
                 return {
 
-                    id: department.id,
+                    id:
+                        index + 1,
 
                     name:
-                        departmentNames[index]
+                        name ||
+                        `Department ${index + 1}`
 
                 };
 
             }
         );
-
-
-    /* Update halls */
-
-    let hallError = false;
 
 
     examData.halls =
         examData.halls.map(
-            function (
-                hall,
-                index
-            ) {
+            (hall, index) => {
+
+                const nameInput =
+                    document.getElementById(
+                        `hall-name-${index}`
+                    );
+
+                const capacityInput =
+                    document.getElementById(
+                        `hall-capacity-${index}`
+                    );
+
 
                 const name =
-                    hallNameInputs[index]
-                    .value
-                    .trim();
+                    nameInput.value.trim() ||
+                    `Hall ${String(
+                        index + 1
+                    ).padStart(2, "0")}`;
 
 
                 const capacity =
                     parseInt(
-                        hallCapacityInputs[index]
-                        .value
+                        capacityInput.value
                     );
 
 
-                if (
-                    !name ||
-                    !capacity ||
-                    capacity < 1
-                ) {
+                if (!capacity || capacity < 1) {
 
-                    hallError = true;
+                    alert(
+                        `${name}: Please enter a valid capacity.`
+                    );
 
                 }
 
 
+                totalCapacity +=
+                    capacity || 0;
+
+
                 return {
 
-                    id: hall.id,
+                    id:
+                        index + 1,
 
-                    name: name,
+                    name:
+                        name,
 
-                    capacity: capacity
+                    capacity:
+                        capacity || 0
 
                 };
 
             }
-        );
-
-
-    if (hallError) {
-
-        alert(
-            "Please enter valid hall names and capacities."
-        );
-
-        return;
-
-    }
-
-
-    /* Capacity validation */
-
-    const totalCapacity =
-        examData.halls.reduce(
-            function (
-                total,
-                hall
-            ) {
-
-                return (
-                    total +
-                    hall.capacity
-                );
-
-            },
-            0
         );
 
 
@@ -646,19 +497,872 @@ function generateAllocation() {
     ) {
 
         alert(
-            "Total hall capacity (" +
-            totalCapacity +
-            ") is less than total students (" +
-            examData.students +
-            "). Please increase hall capacity."
+            `Hall capacity is not enough.\n\n` +
+            `Students: ${examData.students}\n` +
+            `Available seats: ${totalCapacity}\n\n` +
+            `Please increase hall capacity.`
         );
 
         return;
+    }
+
+
+    saveSetup();
+
+    showAllocationScreen();
+
+}
+
+
+/* =========================================================
+   STEP 2 SCREEN
+========================================================= */
+
+function showAllocationScreen() {
+
+    hideAllScreens();
+
+    document
+        .getElementById("allocationScreen")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById(
+            "allocationStudentCount"
+        )
+        .textContent =
+        examData.students;
+
+
+    document
+        .getElementById(
+            "allocationDepartmentCount"
+        )
+        .textContent =
+        examData.departments.length;
+
+
+    document
+        .getElementById(
+            "allocationHallCount"
+        )
+        .textContent =
+        examData.halls.length;
+
+
+    const totalBenches =
+        examData.halls.reduce(
+            (total, hall) => {
+
+                return total +
+                    Math.ceil(
+                        hall.capacity / 2
+                    );
+
+            },
+            0
+        );
+
+
+    document
+        .getElementById(
+            "allocationBenchCount"
+        )
+        .textContent =
+        totalBenches;
+
+
+    createStudentEntryTable();
+
+}
+
+
+/* =========================================================
+   STUDENT ENTRY TABLE
+========================================================= */
+
+function createStudentEntryTable() {
+
+    const tbody =
+        document.getElementById(
+            "studentEntryBody"
+        );
+
+    tbody.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < examData.students;
+        i++
+    ) {
+
+        const student =
+            examData.studentList[i];
+
+
+        const row =
+            document.createElement("tr");
+
+
+        let departmentOptions = "";
+
+        examData.departments.forEach(
+            (department) => {
+
+                const selected =
+                    student &&
+                    student.department ===
+                    department.name
+                        ? "selected"
+                        : "";
+
+
+                departmentOptions += `
+
+                    <option
+                        value="${escapeHTML(
+                            department.name
+                        )}"
+                        ${selected}
+                    >
+                        ${escapeHTML(
+                            department.name
+                        )}
+                    </option>
+
+                `;
+
+            }
+        );
+
+
+        row.innerHTML = `
+
+            <td>
+                ${i + 1}
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="student-name"
+                    data-index="${i}"
+                    value="${student
+                        ? escapeHTML(student.name)
+                        : ""}"
+                    placeholder="Student Name"
+                >
+
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="student-register"
+                    data-index="${i}"
+                    value="${student
+                        ? escapeHTML(student.register)
+                        : ""}"
+                    placeholder="Register No"
+                >
+
+            </td>
+
+            <td>
+
+                <select
+                    class="student-department"
+                    data-index="${i}"
+                >
+
+                    ${departmentOptions}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="student-year"
+                    data-index="${i}"
+                    value="${student
+                        ? escapeHTML(student.year)
+                        : "II Year"}"
+                    placeholder="II Year"
+                >
+
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="student-exam"
+                    data-index="${i}"
+                    value="${student
+                        ? escapeHTML(student.exam)
+                        : "End Semester Examination"}"
+                    placeholder="Exam"
+                >
+
+            </td>
+
+            <td>
+
+                <input
+                    type="date"
+                    class="student-date"
+                    data-index="${i}"
+                    value="${student
+                        ? student.examDate
+                        : "2026-09-28"}"
+                >
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    }
+
+}
+
+
+/* =========================================================
+   GENERATE DEMO STUDENTS
+========================================================= */
+
+function generateDemoStudents() {
+
+    const students = [];
+
+    const departmentCount =
+        examData.departments.length;
+
+
+    for (
+        let i = 0;
+        i < examData.students;
+        i++
+    ) {
+
+        const departmentIndex =
+            i % departmentCount;
+
+
+        const department =
+            examData.departments[
+                departmentIndex
+            ];
+
+
+        const shortCode =
+            getDepartmentCode(
+                department.name
+            );
+
+
+        students.push({
+
+            id:
+                i + 1,
+
+            name:
+                generateStudentName(i),
+
+            register:
+                `24${shortCode}${String(
+                    i + 1
+                ).padStart(3, "0")}`,
+
+            department:
+                department.name,
+
+            year:
+                "II Year",
+
+            exam:
+                "End Semester Examination",
+
+            examDate:
+                "2026-09-28",
+
+            hall:
+                "",
+
+            bench:
+                "",
+
+            seat:
+                "",
+
+            seatIndex:
+                -1
+
+        });
 
     }
 
 
-    /* Allocation completed */
+    examData.studentList =
+        students;
+
+
+    saveSetup();
+
+    createStudentEntryTable();
+
+
+    alert(
+        "Demo student data generated successfully!"
+    );
+
+}
+
+
+/* =========================================================
+   STUDENT NAME GENERATOR
+========================================================= */
+
+function generateStudentName(index) {
+
+    const firstNames = [
+
+        "Samuvel",
+        "Arun",
+        "Kavin",
+        "Vignesh",
+        "Praveen",
+        "Dinesh",
+        "Rahul",
+        "Sanjay",
+        "Ajay",
+        "Harish",
+        "Vijay",
+        "Gokul",
+        "Surya",
+        "Manoj",
+        "Ashwin",
+        "Naveen",
+        "Bala",
+        "Karthik",
+        "Rohit",
+        "Dharshan"
+
+    ];
+
+
+    const lastNames = [
+
+        "R",
+        "Kumar",
+        "Raj",
+        "S",
+        "M",
+        "Prakash",
+        "K",
+        "B",
+        "P",
+        "V"
+
+    ];
+
+
+    return (
+        firstNames[index % firstNames.length]
+        +
+        " "
+        +
+        lastNames[
+            index % lastNames.length
+        ]
+    );
+
+}
+
+
+/* =========================================================
+   DEPARTMENT CODE
+========================================================= */
+
+function getDepartmentCode(name) {
+
+    const value =
+        name
+            .toUpperCase()
+            .replace(/[^A-Z]/g, "");
+
+
+    if (value.includes("ARTIFICIAL")) {
+        return "AD";
+    }
+
+    if (value.includes("AI")) {
+        return "AD";
+    }
+
+    if (value.includes("COMPUTER")) {
+        return "CS";
+    }
+
+    if (value.includes("CSE")) {
+        return "CS";
+    }
+
+    if (value.includes("ELECTRONIC")) {
+        return "EC";
+    }
+
+    if (value.includes("ECE")) {
+        return "EC";
+    }
+
+    if (value.includes("ELECTRICAL")) {
+        return "EE";
+    }
+
+    if (value.includes("EEE")) {
+        return "EE";
+    }
+
+    if (value.includes("MECHANICAL")) {
+        return "ME";
+    }
+
+    if (value.includes("CIVIL")) {
+        return "CE";
+    }
+
+
+    return value.substring(0, 2) || "ST";
+
+}
+
+
+/* =========================================================
+   READ STUDENT TABLE
+========================================================= */
+
+function readStudentTable() {
+
+    const students = [];
+
+    const names =
+        document.querySelectorAll(
+            ".student-name"
+        );
+
+    const registers =
+        document.querySelectorAll(
+            ".student-register"
+        );
+
+    const departments =
+        document.querySelectorAll(
+            ".student-department"
+        );
+
+    const years =
+        document.querySelectorAll(
+            ".student-year"
+        );
+
+    const exams =
+        document.querySelectorAll(
+            ".student-exam"
+        );
+
+    const dates =
+        document.querySelectorAll(
+            ".student-date"
+        );
+
+
+    for (
+        let i = 0;
+        i < examData.students;
+        i++
+    ) {
+
+        const name =
+            names[i].value.trim();
+
+        const register =
+            registers[i].value.trim();
+
+        const department =
+            departments[i].value;
+
+        const year =
+            years[i].value.trim() ||
+            "II Year";
+
+        const exam =
+            exams[i].value.trim() ||
+            "End Semester Examination";
+
+        const examDate =
+            dates[i].value ||
+            "2026-09-28";
+
+
+        if (!name || !register) {
+
+            alert(
+                `Please enter Name and Register Number for student ${i + 1}.`
+            );
+
+            return null;
+        }
+
+
+        students.push({
+
+            id:
+                i + 1,
+
+            name:
+                name,
+
+            register:
+                register,
+
+            department:
+                department,
+
+            year:
+                year,
+
+            exam:
+                exam,
+
+            examDate:
+                examDate,
+
+            hall:
+                "",
+
+            bench:
+                "",
+
+            seat:
+                "",
+
+            seatIndex:
+                -1
+
+        });
+
+    }
+
+
+    return students;
+
+}
+
+
+/* =========================================================
+   SMART SEATING GENERATION
+========================================================= */
+
+function generateSmartSeating() {
+
+    const students =
+        readStudentTable();
+
+
+    if (!students) {
+        return;
+    }
+
+
+    examData.studentList =
+        students;
+
+
+    /*
+       STEP 1
+       Group students by department
+    */
+
+    const departmentPools = {};
+
+
+    examData.departments.forEach(
+        (department) => {
+
+            departmentPools[
+                department.name
+            ] = [];
+
+        }
+    );
+
+
+    students.forEach(
+        (student) => {
+
+            if (
+                !departmentPools[
+                    student.department
+                ]
+            ) {
+
+                departmentPools[
+                    student.department
+                ] = [];
+
+            }
+
+
+            departmentPools[
+                student.department
+            ].push(student);
+
+        }
+    );
+
+
+    /*
+       STEP 2
+       Create mixed student order
+    */
+
+    const orderedStudents =
+        createMixedStudentOrder(
+            departmentPools
+        );
+
+
+    /*
+       STEP 3
+       Reset hall allocation
+    */
+
+    examData.halls.forEach(
+        (hall) => {
+
+            hall.allocatedStudents = [];
+
+            hall.benches = [];
+
+        }
+    );
+
+
+    /*
+       STEP 4
+       Allocate across halls
+    */
+
+    let studentIndex = 0;
+
+
+    for (
+        let h = 0;
+        h < examData.halls.length;
+        h++
+    ) {
+
+        const hall =
+            examData.halls[h];
+
+
+        const seatCapacity =
+            hall.capacity;
+
+
+        const benchCount =
+            Math.ceil(
+                seatCapacity / 2
+            );
+
+
+        for (
+            let b = 0;
+            b < benchCount;
+            b++
+        ) {
+
+            if (
+                studentIndex >=
+                orderedStudents.length
+            ) {
+                break;
+            }
+
+
+            const bench = {
+
+                number:
+                    b + 1,
+
+                left:
+                    null,
+
+                right:
+                    null
+
+            };
+
+
+            /*
+               LEFT SEAT
+            */
+
+            if (
+                studentIndex <
+                orderedStudents.length
+            ) {
+
+                const student =
+                    orderedStudents[
+                        studentIndex
+                    ];
+
+
+                assignStudentSeat(
+                    student,
+                    hall,
+                    bench,
+                    "LEFT"
+                );
+
+
+                bench.left =
+                    student;
+
+
+                hall.allocatedStudents.push(
+                    student
+                );
+
+
+                studentIndex++;
+
+            }
+
+
+            /*
+               RIGHT SEAT
+
+               Try to select a different
+               department than LEFT.
+            */
+
+            if (
+                studentIndex <
+                orderedStudents.length
+            ) {
+
+                let rightIndex =
+                    findDifferentDepartmentStudent(
+                        orderedStudents,
+                        studentIndex,
+                        bench.left
+                    );
+
+
+                if (
+                    rightIndex !== -1
+                ) {
+
+                    [
+                        orderedStudents[
+                            studentIndex
+                        ],
+
+                        orderedStudents[
+                            rightIndex
+                        ]
+
+                    ] =
+                    [
+                        orderedStudents[
+                            rightIndex
+                        ],
+
+                        orderedStudents[
+                            studentIndex
+                        ]
+
+                    ];
+
+                }
+
+
+                const student =
+                    orderedStudents[
+                        studentIndex
+                    ];
+
+
+                /*
+                   Only add if hall has another seat.
+                */
+
+                const usedSeats =
+                    b * 2 + 1;
+
+
+                if (
+                    usedSeats <
+                    seatCapacity
+                ) {
+
+                    assignStudentSeat(
+                        student,
+                        hall,
+                        bench,
+                        "RIGHT"
+                    );
+
+
+                    bench.right =
+                        student;
+
+
+                    hall.allocatedStudents.push(
+                        student
+                    );
+
+
+                    studentIndex++;
+
+                }
+
+            }
+
+
+            hall.benches.push(
+                bench
+            );
+
+        }
+
+    }
+
+
+    if (
+        studentIndex <
+        orderedStudents.length
+    ) {
+
+        alert(
+            "Not enough hall capacity for all students."
+        );
+
+        return;
+    }
+
 
     examData.allocationGenerated =
         true;
@@ -666,30 +1370,418 @@ function generateAllocation() {
 
     saveSetup();
 
-    showDashboard();
+    renderSeatingResult();
+
+
+    document
+        .getElementById(
+            "continueToLocator"
+        )
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById(
+            "seatingResult"
+        )
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
+   MIX DEPARTMENTS
+========================================================= */
+
+function createMixedStudentOrder(
+    departmentPools
+) {
+
+    const result = [];
+
+    const departmentNames =
+        Object.keys(
+            departmentPools
+        );
+
+
+    let lastDepartment = null;
+
+
+    while (true) {
+
+        let available =
+            departmentNames.filter(
+                (department) =>
+                    departmentPools[
+                        department
+                    ].length > 0
+            );
+
+
+        if (
+            available.length === 0
+        ) {
+            break;
+        }
+
+
+        /*
+           Sort by remaining count.
+           This keeps distribution balanced.
+        */
+
+        available.sort(
+            (a, b) =>
+                departmentPools[b].length -
+                departmentPools[a].length
+        );
+
+
+        let selected =
+            available.find(
+                (department) =>
+                    department !==
+                    lastDepartment
+            );
+
+
+        if (!selected) {
+            selected = available[0];
+        }
+
+
+        const student =
+            departmentPools[
+                selected
+            ].shift();
+
+
+        result.push(student);
+
+
+        lastDepartment =
+            selected;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   FIND DIFFERENT DEPARTMENT
+========================================================= */
+
+function findDifferentDepartmentStudent(
+    students,
+    startIndex,
+    leftStudent
+) {
+
+    if (!leftStudent) {
+        return -1;
+    }
+
+
+    for (
+        let i = startIndex;
+        i < students.length;
+        i++
+    ) {
+
+        if (
+            students[i].department !==
+            leftStudent.department
+        ) {
+
+            return i;
+
+        }
+
+    }
+
+
+    return -1;
+
+}
+
+
+/* =========================================================
+   ASSIGN SEAT
+========================================================= */
+
+function assignStudentSeat(
+    student,
+    hall,
+    bench,
+    seat
+) {
+
+    student.hall =
+        hall.name;
+
+    student.bench =
+        `Bench ${String(
+            bench.number
+        ).padStart(2, "0")}`;
+
+    student.seat =
+        seat;
+
+    student.seatIndex =
+        bench.number;
+
+}
+
+
+/* =========================================================
+   RENDER SEATING RESULT
+========================================================= */
+
+function renderSeatingResult() {
+
+    const container =
+        document.getElementById(
+            "seatingResult"
+        );
+
+
+    let html = `
+
+        <div class="seating-result-title">
+
+            <h3>
+                🪑 Generated Seating Arrangement
+            </h3>
+
+            <span>
+                ALLOCATION COMPLETE
+            </span>
+
+        </div>
+
+    `;
+
+
+    examData.halls.forEach(
+        (hall) => {
+
+            if (
+                !hall.benches ||
+                hall.benches.length === 0
+            ) {
+                return;
+            }
+
+
+            const occupied =
+                hall.allocatedStudents.length;
+
+
+            html += `
+
+                <div class="hall-seating-card">
+
+                    <div class="hall-seating-header">
+
+                        <h3>
+                            🏫 ${escapeHTML(
+                                hall.name
+                            )}
+                        </h3>
+
+                        <div class="hall-capacity">
+
+                            ${occupied}
+                            /
+                            ${hall.capacity}
+                            SEATS OCCUPIED
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="front-board">
+
+                        FRONT / BOARD
+
+                    </div>
+
+
+                    <div class="bench-grid">
+
+            `;
+
+
+            hall.benches.forEach(
+                (bench) => {
+
+                    html += `
+
+                        <div class="bench-card">
+
+                            <div class="bench-number">
+
+                                BENCH
+                                ${String(
+                                    bench.number
+                                ).padStart(2, "0")}
+
+                            </div>
+
+
+                            <div class="seat-row">
+
+
+                                <div class="seat">
+
+                                    <div class="seat-label">
+                                        LEFT SEAT
+                                    </div>
+
+                                    ${
+                                        bench.left
+                                        ?
+
+                                        `
+
+                                        <div class="seat-name">
+
+                                            ${escapeHTML(
+                                                bench.left.name
+                                            )}
+
+                                        </div>
+
+                                        <div class="seat-reg">
+
+                                            ${escapeHTML(
+                                                bench.left.register
+                                            )}
+
+                                        </div>
+
+                                        `
+
+                                        :
+
+                                        `
+
+                                        <div class="empty-seat">
+                                            EMPTY
+                                        </div>
+
+                                        `
+                                    }
+
+                                </div>
+
+
+
+                                <div class="seat">
+
+                                    <div class="seat-label">
+                                        RIGHT SEAT
+                                    </div>
+
+                                    ${
+                                        bench.right
+                                        ?
+
+                                        `
+
+                                        <div class="seat-name">
+
+                                            ${escapeHTML(
+                                                bench.right.name
+                                            )}
+
+                                        </div>
+
+                                        <div class="seat-reg">
+
+                                            ${escapeHTML(
+                                                bench.right.register
+                                            )}
+
+                                        </div>
+
+                                        `
+
+                                        :
+
+                                        `
+
+                                        <div class="empty-seat">
+                                            EMPTY
+                                        </div>
+
+                                        `
+                                    }
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            html += `
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   STEP 3
+========================================================= */
+
+function openStudentLocator() {
+
+    showDashboard();
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
    SHOW DASHBOARD
-   --------------------------------------------------------- */
+========================================================= */
 
 function showDashboard() {
 
-    document
-        .getElementById(
-            "setupScreen"
-        )
-        .classList.add("hidden");
-
-
-    document
-        .getElementById(
-            "configurationScreen"
-        )
-        .classList.add("hidden");
-
+    hideAllScreens();
 
     document
         .getElementById(
@@ -698,152 +1790,67 @@ function showDashboard() {
         .classList.remove("hidden");
 
 
-    /* Statistics */
-
-    document.getElementById(
-        "totalStudentsDisplay"
-    ).textContent =
+    document
+        .getElementById(
+            "totalStudentsDisplay"
+        )
+        .textContent =
         examData.students;
 
 
-    document.getElementById(
-        "totalDepartmentsDisplay"
-    ).textContent =
+    document
+        .getElementById(
+            "totalDepartmentsDisplay"
+        )
+        .textContent =
         examData.departments.length;
 
 
-    document.getElementById(
-        "totalHallsDisplay"
-    ).textContent =
+    document
+        .getElementById(
+            "totalHallsDisplay"
+        )
+        .textContent =
         examData.halls.length;
 
 
-    document.getElementById(
-        "allocationDisplay"
-    ).textContent =
-        "READY";
+    document
+        .getElementById(
+            "allocationDisplay"
+        )
+        .textContent =
+        examData.allocationGenerated
+            ? "ALLOCATED"
+            : "READY";
 
 
-    createHallDashboard();
+    renderHallDashboard();
 
-    createDepartmentDashboard();
-
-}
-
-
-/* ---------------------------------------------------------
-   HALL DASHBOARD
-   --------------------------------------------------------- */
-
-function createHallDashboard() {
-
-    const container =
-        document.getElementById(
-            "hallDashboard"
-        );
-
-
-    container.innerHTML = "";
-
-
-    examData.halls.forEach(
-        function (hall) {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "hall";
-
-
-            card.innerHTML = `
-
-                <div class="hall-name">
-                    ${escapeHTML(
-                        hall.name
-                    )}
-                </div>
-
-                <div class="hall-capacity">
-                    Capacity: ${hall.capacity} seats
-                </div>
-
-                <div class="hall-status">
-                    ● ALLOCATION READY
-                </div>
-
-            `;
-
-
-            container.appendChild(
-                card
-            );
-
-        }
-    );
+    renderDepartmentDashboard();
 
 }
 
 
-/* ---------------------------------------------------------
-   DEPARTMENT DASHBOARD
-   --------------------------------------------------------- */
+/* =========================================================
+   SEARCH KEY
+========================================================= */
 
-function createDepartmentDashboard() {
+function handleSearchKey(event) {
 
-    const container =
-        document.getElementById(
-            "departmentDashboard"
-        );
+    if (
+        event.key === "Enter"
+    ) {
 
+        searchStudent();
 
-    container.innerHTML = "";
-
-
-    examData.departments.forEach(
-        function (department) {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "department-card";
-
-
-            card.innerHTML = `
-
-                <h4>
-                    ${escapeHTML(
-                        department.name
-                    )}
-                </h4>
-
-                <p>
-                    Department configured
-                </p>
-
-            `;
-
-
-            container.appendChild(
-                card
-            );
-
-        }
-    );
+    }
 
 }
 
 
-/* ---------------------------------------------------------
-   STUDENT LOCATOR
-   --------------------------------------------------------- */
+/* =========================================================
+   STUDENT SEARCH
+========================================================= */
 
 function searchStudent() {
 
@@ -853,235 +1860,653 @@ function searchStudent() {
         );
 
 
-    const result =
+    const query =
+        input.value.trim().toLowerCase();
+
+
+    const details =
         document.getElementById(
             "studentDetails"
         );
 
 
-    const registerNumber =
-        input.value
-        .trim()
-        .toUpperCase();
+    if (!query) {
 
+        details.innerHTML = `
 
-    if (!registerNumber) {
+            <div class="empty-state">
 
-        result.innerHTML = `
+                <div class="empty-icon">
+                    🔎
+                </div>
 
-            <div class="not-found">
-                Enter a register number.
+                <p>
+                    Enter student name or register number.
+                </p>
+
             </div>
 
         `;
 
-        return;
+        document
+            .getElementById(
+                "studentHallMap"
+            )
+            .innerHTML = `
 
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🏫
+                    </div>
+
+                    <p>
+                        Search a student to display
+                        their exact hall, bench and seat.
+                    </p>
+
+                </div>
+
+            `;
+
+        return;
+    }
+
+
+    const matches =
+        examData.studentList.filter(
+            (student) => {
+
+                const name =
+                    student.name
+                        .toLowerCase();
+
+                const register =
+                    student.register
+                        .toLowerCase();
+
+
+                return (
+                    name.includes(query) ||
+                    register.includes(query)
+                );
+
+            }
+        );
+
+
+    if (
+        matches.length === 0
+    ) {
+
+        details.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ❌
+                </div>
+
+                <p>
+                    Student not found.
+                </p>
+
+            </div>
+
+        `;
+
+        document
+            .getElementById(
+                "studentHallMap"
+            )
+            .innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🏫
+                    </div>
+
+                    <p>
+                        No hall location available.
+                    </p>
+
+                </div>
+
+            `;
+
+        return;
     }
 
 
     /*
-       Demo student locator.
-
-       Later this section will be connected
-       to the complete student database.
+       If multiple names match,
+       show all results.
     */
 
-    const demoStudents = {
+    let html = `
 
-        "24AD001": {
+        <div class="student-result">
 
-            name: "Samuvel R",
+    `;
 
-            department:
-                "Artificial Intelligence & Data Science",
 
-            year: "II Year",
+    matches.forEach(
+        (student) => {
 
-            exam: "Data Structures",
+            html += `
 
-            date: "28-09-2026",
+                <div class="detail-box">
 
-            hall: "Hall 01",
+                    <span>
+                        STUDENT NAME
+                    </span>
 
-            seat: "A-12"
+                    <strong>
+                        ${escapeHTML(
+                            student.name
+                        )}
+                    </strong>
 
-        },
+                </div>
 
-        "24CS001": {
 
-            name: "Arun Kumar",
+                <div class="detail-box">
 
-            department:
-                "Computer Science & Engineering",
+                    <span>
+                        REGISTER NUMBER
+                    </span>
 
-            year: "II Year",
+                    <strong>
+                        ${escapeHTML(
+                            student.register
+                        )}
+                    </strong>
 
-            exam: "Data Structures",
+                </div>
 
-            date: "28-09-2026",
 
-            hall: "Hall 02",
+                <div class="detail-box">
 
-            seat: "B-08"
+                    <span>
+                        DEPARTMENT
+                    </span>
 
-        },
+                    <strong>
+                        ${escapeHTML(
+                            student.department
+                        )}
+                    </strong>
 
-        "24EC001": {
+                </div>
 
-            name: "Kavin",
 
-            department:
-                "Electronics & Communication Engineering",
+                <div class="detail-box">
 
-            year: "II Year",
+                    <span>
+                        YEAR
+                    </span>
 
-            exam: "Digital Electronics",
+                    <strong>
+                        ${escapeHTML(
+                            student.year
+                        )}
+                    </strong>
 
-            date: "29-09-2026",
+                </div>
 
-            hall: "Hall 03",
 
-            seat: "C-12"
+                <div class="detail-box">
+
+                    <span>
+                        EXAM
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            student.exam
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        EXAM DATE
+                    </span>
+
+                    <strong>
+                        ${formatDate(
+                            student.examDate
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="location-banner">
+
+                    <div>
+
+                        <div class="location-main">
+
+                            🏫
+                            ${escapeHTML(
+                                student.hall
+                            )}
+
+                        </div>
+
+                        <div class="location-sub">
+
+                            Exact examination location
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="location-main">
+
+                            🪑
+                            ${escapeHTML(
+                                student.bench
+                            )}
+
+                        </div>
+
+                        <div class="location-sub">
+
+                            ${escapeHTML(
+                                student.seat
+                            )} SEAT
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
 
         }
-
-    };
-
-
-    const student =
-        demoStudents[
-            registerNumber
-        ];
+    );
 
 
-    if (!student) {
+    html += `
 
-        result.innerHTML = `
+        </div>
 
-            <div class="not-found">
+    `;
 
-                ❌ Student not found.
 
-                <br><br>
+    details.innerHTML =
+        html;
 
-                Please check the register number.
 
+    /*
+       Show hall map
+       for first matched student.
+    */
+
+    renderHallMap(
+        matches[0]
+    );
+
+
+    details.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+
+}
+
+
+/* =========================================================
+   HALL MAP
+========================================================= */
+
+function renderHallMap(
+    selectedStudent
+) {
+
+    const container =
+        document.getElementById(
+            "studentHallMap"
+        );
+
+
+    const hall =
+        examData.halls.find(
+            (item) =>
+                item.name ===
+                selectedStudent.hall
+        );
+
+
+    if (!hall) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+                Hall information unavailable.
             </div>
 
         `;
 
         return;
-
     }
 
 
-    result.innerHTML = `
+    let html = `
 
-        <div class="student-card">
+        <div class="hall-map">
 
-            <h3>
-                STUDENT LOCATED ✓
-            </h3>
+            <div class="map-title">
 
-            <div class="detail-row">
-                <span>Name</span>
-                <span>
+                <h3>
                     ${escapeHTML(
-                        student.name
+                        hall.name
                     )}
-                </span>
+                </h3>
+
+                <p>
+                    STUDENT SEAT LOCATION
+                </p>
+
             </div>
 
-            <div class="detail-row">
-                <span>Register Number</span>
-                <span>
-                    ${escapeHTML(
-                        registerNumber
-                    )}
-                </span>
+
+            <div class="map-front">
+
+                FRONT / BOARD
+
             </div>
 
-            <div class="detail-row">
-                <span>Department</span>
-                <span>
-                    ${escapeHTML(
-                        student.department
-                    )}
-                </span>
-            </div>
 
-            <div class="detail-row">
-                <span>Year</span>
-                <span>
-                    ${escapeHTML(
-                        student.year
-                    )}
-                </span>
-            </div>
+            <div class="map-bench-grid">
 
-            <div class="detail-row">
-                <span>Exam</span>
-                <span>
-                    ${escapeHTML(
-                        student.exam
-                    )}
-                </span>
-            </div>
+    `;
 
-            <div class="detail-row">
-                <span>Exam Date</span>
-                <span>
-                    ${escapeHTML(
-                        student.date
-                    )}
-                </span>
-            </div>
 
-            <div class="detail-row">
-                <span>Exam Hall</span>
-                <span>
-                    ${escapeHTML(
-                        student.hall
-                    )}
-                </span>
-            </div>
+    hall.benches.forEach(
+        (bench) => {
 
-            <div class="detail-row">
-                <span>Seat Number</span>
-                <span>
-                    ${escapeHTML(
-                        student.seat
-                    )}
-                </span>
+            html += `
+
+                <div class="map-bench">
+
+                    <div class="map-bench-number">
+
+                        BENCH
+                        ${String(
+                            bench.number
+                        ).padStart(2, "0")}
+
+                    </div>
+
+            `;
+
+
+            if (bench.left) {
+
+                const isSelected =
+                    bench.left.register ===
+                    selectedStudent.register;
+
+
+                html += `
+
+                    <div class="map-seat
+                        ${isSelected
+                            ? "highlight"
+                            : ""}">
+
+                        LEFT
+
+                        <br>
+
+                        ${escapeHTML(
+                            bench.left.register
+                        )}
+
+                    </div>
+
+                `;
+
+            } else {
+
+                html += `
+
+                    <div class="map-seat">
+
+                        LEFT
+                        <br>
+                        EMPTY
+
+                    </div>
+
+                `;
+
+            }
+
+
+            if (bench.right) {
+
+                const isSelected =
+                    bench.right.register ===
+                    selectedStudent.register;
+
+
+                html += `
+
+                    <div class="map-seat
+                        ${isSelected
+                            ? "highlight"
+                            : ""}">
+
+                        RIGHT
+
+                        <br>
+
+                        ${escapeHTML(
+                            bench.right.register
+                        )}
+
+                    </div>
+
+                `;
+
+            } else {
+
+                html += `
+
+                    <div class="map-seat">
+
+                        RIGHT
+                        <br>
+                        EMPTY
+
+                    </div>
+
+                `;
+
+            }
+
+
+            html += `
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
             </div>
 
         </div>
 
     `;
 
+
+    container.innerHTML =
+        html;
+
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
+   HALL DASHBOARD
+========================================================= */
+
+function renderHallDashboard() {
+
+    const container =
+        document.getElementById(
+            "hallDashboard"
+        );
+
+
+    let html = "";
+
+
+    examData.halls.forEach(
+        (hall) => {
+
+            const occupied =
+                hall.allocatedStudents
+                    ? hall.allocatedStudents.length
+                    : 0;
+
+
+            const percentage =
+                hall.capacity > 0
+                    ? Math.min(
+                        100,
+                        Math.round(
+                            (
+                                occupied /
+                                hall.capacity
+                            ) * 100
+                        )
+                    )
+                    : 0;
+
+
+            html += `
+
+                <div class="hall-card">
+
+                    <h4>
+                        🏫 ${escapeHTML(
+                            hall.name
+                        )}
+                    </h4>
+
+                    <p>
+                        ${occupied}
+                        /
+                        ${hall.capacity}
+                        seats occupied
+                    </p>
+
+                    <div class="hall-progress">
+
+                        <div
+                            class="hall-progress-bar"
+                            style="
+                                width:${percentage}%;
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   DEPARTMENT DASHBOARD
+========================================================= */
+
+function renderDepartmentDashboard() {
+
+    const container =
+        document.getElementById(
+            "departmentDashboard"
+        );
+
+
+    let html = "";
+
+
+    examData.departments.forEach(
+        (department) => {
+
+            const count =
+                examData.studentList.filter(
+                    (student) =>
+                        student.department ===
+                        department.name
+                ).length;
+
+
+            html += `
+
+                <div class="department-card">
+
+                    <h4>
+                        ${escapeHTML(
+                            department.name
+                        )}
+                    </h4>
+
+                    <span>
+
+                        ${count}
+                        students allocated
+
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
    BACK TO SETUP
-   --------------------------------------------------------- */
+========================================================= */
 
 function backToSetup() {
 
-    document
-        .getElementById(
-            "configurationScreen"
-        )
-        .classList.add("hidden");
-
-
-    document
-        .getElementById(
-            "dashboardScreen"
-        )
-        .classList.add("hidden");
-
+    hideAllScreens();
 
     document
         .getElementById(
@@ -1092,120 +2517,181 @@ function backToSetup() {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    NEW EXAM SETUP
-   --------------------------------------------------------- */
+========================================================= */
 
 function newExamSetup() {
 
     if (
-        !confirm(
+        confirm(
             "Start a new examination setup?"
         )
     ) {
 
-        return;
+        examData = {
+
+            students: 0,
+
+            departments: [],
+
+            halls: [],
+
+            studentList: [],
+
+            allocationGenerated: false
+
+        };
+
+
+        localStorage.removeItem(
+            "smartExamData"
+        );
+
+
+        document
+            .getElementById(
+                "studentCount"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "departmentCount"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "hallCount"
+            )
+            .value = "";
+
+
+        backToSetup();
 
     }
-
-
-    localStorage.removeItem(
-        "smartExamSetup"
-    );
-
-
-    examData = {
-
-        students: 0,
-
-        departments: [],
-
-        halls: [],
-
-        allocationGenerated: false
-
-    };
-
-
-    document.getElementById(
-        "studentCount"
-    ).value = "";
-
-
-    document.getElementById(
-        "departmentCount"
-    ).value = "";
-
-
-    document.getElementById(
-        "hallCount"
-    ).value = "";
-
-
-    backToSetup();
 
 }
 
 
-/* ---------------------------------------------------------
-   SAVE DATA
-   --------------------------------------------------------- */
+/* =========================================================
+   HIDE ALL SCREENS
+========================================================= */
+
+function hideAllScreens() {
+
+    const screens = [
+
+        "setupScreen",
+
+        "configurationScreen",
+
+        "allocationScreen",
+
+        "dashboardScreen"
+
+    ];
+
+
+    screens.forEach(
+        (id) => {
+
+            const element =
+                document.getElementById(id);
+
+
+            if (element) {
+
+                element.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SAVE LOCAL DATA
+========================================================= */
 
 function saveSetup() {
 
     localStorage.setItem(
-        "smartExamSetup",
+
+        "smartExamData",
+
         JSON.stringify(
             examData
         )
+
     );
 
 }
 
 
-/* ---------------------------------------------------------
-   LOAD SAVED DATA
-   --------------------------------------------------------- */
+/* =========================================================
+   LOAD LOCAL DATA
+========================================================= */
 
 function loadSavedSetup() {
 
-    const saved =
-        localStorage.getItem(
-            "smartExamSetup"
-        );
-
-
-    if (!saved) {
-
-        return;
-
-    }
-
-
     try {
 
-        examData =
+        const saved =
+            localStorage.getItem(
+                "smartExamData"
+            );
+
+
+        if (!saved) {
+            return;
+        }
+
+
+        const parsed =
             JSON.parse(saved);
 
 
         if (
-            examData.allocationGenerated
+            !parsed ||
+            !parsed.students
+        ) {
+
+            return;
+
+        }
+
+
+        examData =
+            parsed;
+
+
+        /*
+           If allocation already exists,
+           open Step 3.
+        */
+
+        if (
+            examData.allocationGenerated &&
+            examData.studentList &&
+            examData.studentList.length
         ) {
 
             showDashboard();
-
-        } else if (
-            examData.students > 0
-        ) {
-
-            showConfiguration();
 
         }
 
     } catch (error) {
 
         console.log(
-            "Saved setup could not be loaded."
+            "Saved data could not be loaded."
         );
 
     }
@@ -1213,13 +2699,54 @@ function loadSavedSetup() {
 }
 
 
-/* ---------------------------------------------------------
-   SECURITY HELPER
-   --------------------------------------------------------- */
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return dateString;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHTML(value) {
 
-    return String(value)
+    return String(value ?? "")
         .replace(
             /&/g,
             "&amp;"
