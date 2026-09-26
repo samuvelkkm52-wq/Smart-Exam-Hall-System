@@ -2,2973 +2,1190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Smart Exam Hall System</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-    min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#edfaff;
-    background:
-        radial-gradient(circle at 10% 5%,rgba(0,234,255,.12),transparent 28%),
-        radial-gradient(circle at 90% 15%,rgba(70,80,255,.13),transparent 30%),
-        linear-gradient(135deg,#02050c,#07111f 50%,#02050b);
-    overflow-x:hidden;
+font-family:Arial,sans-serif;color:#eafcff;min-height:100vh;
+background:radial-gradient(circle at 10% 5%,#00eaff18,transparent 28%),
+radial-gradient(circle at 90% 15%,#5060ff20,transparent 30%),
+linear-gradient(135deg,#02050c,#07111f,#02050b);
 }
-
-/* ================= HEADER ================= */
-
 header{
-    height:76px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 5%;
-    border-bottom:1px solid rgba(0,234,255,.18);
-    background:rgba(2,6,14,.78);
-    backdrop-filter:blur(18px);
-    position:sticky;
-    top:0;
-    z-index:500;
+height:74px;padding:0 5%;display:flex;align-items:center;
+justify-content:space-between;position:sticky;top:0;z-index:100;
+background:#020711dd;backdrop-filter:blur(15px);
+border-bottom:1px solid #00eaff25
 }
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:13px;
+.brand{display:flex;gap:12px;align-items:center}
+.logo{
+width:43px;height:43px;border-radius:12px;background:#00eaff;
+color:#00141a;display:grid;place-items:center;font-weight:900;font-size:22px;
+box-shadow:0 0 22px #00eaff99
 }
-
-.brand-icon{
-    width:44px;
-    height:44px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:bold;
-    color:#00141a;
-    background:#00eaff;
-    box-shadow:0 0 20px rgba(0,234,255,.7);
+.brand b{font-size:19px}.brand small{display:block;color:#718c9b;font-size:10px;margin-top:3px}
+.online{font-size:11px;color:#9df5ff}.online i{
+display:inline-block;width:7px;height:7px;border-radius:50%;
+background:#00ff9d;box-shadow:0 0 10px #00ff9d;margin-right:6px
 }
-
-.brand-name{
-    font-size:20px;
-    font-weight:800;
-    letter-spacing:.5px;
-}
-
-.brand-subtitle{
-    font-size:11px;
-    color:#7ca8b7;
-    margin-top:3px;
-}
-
-.online{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:12px;
-    color:#9defff;
-}
-
-.online-dot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#00ff95;
-    box-shadow:0 0 12px #00ff95;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    text-align:center;
-    padding:48px 20px 28px;
-}
-
+.hero{text-align:center;padding:45px 15px 25px}
 .hero h1{
-    font-size:clamp(32px,5vw,58px);
-    line-height:1.05;
-    font-weight:900;
-    background:linear-gradient(90deg,#fff,#00eaff,#748cff);
-    -webkit-background-clip:text;
-    color:transparent;
+font-size:clamp(32px,5vw,57px);font-weight:900;
+background:linear-gradient(90deg,#fff,#00eaff,#7185ff);
+-webkit-background-clip:text;color:transparent
 }
-
-.hero p{
-    margin-top:14px;
-    color:#8aa9b9;
-    font-size:14px;
-}
-
-/* ================= PROGRESS ================= */
+.hero p{margin-top:12px;color:#7895a5;font-size:13px}
 
 .progress{
-    max-width:900px;
-    margin:10px auto 35px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0 15px;
+max-width:900px;margin:10px auto 35px;display:flex;
+align-items:center;justify-content:center;padding:0 12px
 }
-
-.progress-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-    min-width:80px;
+.pi{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:75px}
+.pc{
+width:37px;height:37px;border-radius:50%;display:grid;place-items:center;
+border:1px solid #315268;background:#08121f;color:#7891a0;font-weight:900
 }
-
-.progress-circle{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid #31536b;
-    background:#08121f;
-    color:#7292a5;
-    font-weight:bold;
-    transition:.3s;
+.pi span{font-size:9px;color:#698392;text-align:center}
+.pi.active .pc,.pi.done .pc{
+background:#00eaff;color:#001319;border-color:#00eaff;
+box-shadow:0 0 22px #00eaff99
 }
+.pi.active span,.pi.done span{color:#c8faff}
+.pl{height:2px;width:65px;background:#193347;margin-bottom:22px}
+.pl.done{background:#00eaff;box-shadow:0 0 10px #00eaff}
 
-.progress-item span:last-child{
-    font-size:10px;
-    color:#6f8b9c;
-    text-align:center;
-}
-
-.progress-item.active .progress-circle,
-.progress-item.done .progress-circle{
-    color:#00151b;
-    background:#00eaff;
-    border-color:#00eaff;
-    box-shadow:0 0 22px rgba(0,234,255,.65);
-}
-
-.progress-item.active span:last-child,
-.progress-item.done span:last-child{
-    color:#bff9ff;
-}
-
-.progress-line{
-    width:70px;
-    height:2px;
-    background:#193246;
-    margin:0 5px;
-    margin-bottom:23px;
-    transition:.3s;
-}
-
-.progress-line.done{
-    background:#00eaff;
-    box-shadow:0 0 12px rgba(0,234,255,.6);
-}
-
-/* ================= MAIN ================= */
-
-main{
-    max-width:1200px;
-    margin:auto;
-    padding:0 18px 50px;
-}
-
-.step{
-    display:none;
-    animation:stepIn .4s ease;
-}
-
-.step.active{
-    display:block;
-}
-
-@keyframes stepIn{
-    from{
-        opacity:0;
-        transform:translateY(12px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+main{max-width:1200px;margin:auto;padding:0 18px 50px}
+.step{display:none;animation:in .35s ease}
+.step.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 .card{
-    background:linear-gradient(
-        145deg,
-        rgba(11,26,42,.88),
-        rgba(4,11,20,.92)
-    );
-    border:1px solid rgba(0,234,255,.15);
-    border-radius:20px;
-    padding:26px;
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.025);
-    margin-bottom:22px;
+background:linear-gradient(145deg,#0b1a2ae8,#040b14ed);
+border:1px solid #00eaff20;border-radius:20px;padding:25px;
+margin-bottom:20px;box-shadow:0 20px 60px #0006
 }
+.title{font-size:22px;font-weight:900;margin-bottom:6px}
+.sub{font-size:12px;color:#7894a3;margin-bottom:22px}
 
-.card-title{
-    font-size:23px;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.card-subtitle{
-    color:#7895a5;
-    font-size:13px;
-    margin-bottom:24px;
-}
-
-/* ================= FORMS ================= */
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.form-group{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-label{
-    font-size:12px;
-    color:#9cb6c3;
-    font-weight:700;
-}
-
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.group{display:flex;flex-direction:column;gap:7px}
+label{font-size:11px;color:#9bb3bf;font-weight:700}
 input{
-    width:100%;
-    padding:14px 15px;
-    border-radius:11px;
-    border:1px solid #203c50;
-    outline:none;
-    background:#06101b;
-    color:#eaffff;
-    font-size:14px;
-    transition:.25s;
+width:100%;padding:13px;border-radius:10px;border:1px solid #213e51;
+background:#06111c;color:#eaffff;outline:none;font-size:14px
+}
+input:focus{border-color:#00eaff;box-shadow:0 0 18px #00eaff22}
+input::placeholder{color:#4f6877}
+
+.fixed{
+margin-top:20px;padding:17px;border-radius:14px;
+border:1px solid #00eaff28;background:#00eaff08
+}
+.fixed small{color:#7893a1}.fixed strong{
+display:block;font-size:29px;color:#00eaff;letter-spacing:4px;margin-top:5px;
+text-shadow:0 0 18px #00eaff99
 }
 
-input:focus{
-    border-color:#00eaff;
-    box-shadow:0 0 0 3px rgba(0,234,255,.08),0 0 20px rgba(0,234,255,.12);
+.depts{display:flex;flex-direction:column;gap:17px}
+.deptbox{
+padding:19px;border:1px solid #1c3c4f;border-radius:17px;background:#050f19cc
 }
-
-input::placeholder{
-    color:#4f6979;
+.dhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.dhead b{font-size:16px}.tag{
+font-size:9px;color:#00eaff;border:1px solid #00eaff35;
+padding:5px 8px;border-radius:20px
 }
-
-/* ================= FIXED REGISTER ================= */
-
-.fixed-register-box{
-    margin-top:22px;
-    border:1px solid rgba(0,234,255,.22);
-    background:rgba(0,234,255,.035);
-    padding:18px;
-    border-radius:15px;
+.dgrid{display:grid;grid-template-columns:1.2fr 1.2fr .7fr;gap:13px}
+.regbox{
+margin-top:15px;padding:15px;border-radius:13px;
+border:1px solid #6678ff25;background:#303b800b
 }
-
-.fixed-title{
-    font-size:12px;
-    color:#91aebc;
-    margin-bottom:8px;
+.regtitle{font-size:11px;color:#b7c9ff;font-weight:bold;margin-bottom:11px}
+.rgrid{display:grid;grid-template-columns:120px 1fr 1fr;gap:12px}
+.prefix{
+height:44px;padding:0 11px;border-radius:9px;
+display:flex;align-items:center;background:#020a12;
+border:1px solid #183244;color:#00eaff;font-weight:900;letter-spacing:2px
 }
+.lock{font-size:9px;color:#637d8a;margin-top:4px}
+.preview{font-size:10px;color:#718b99;margin-top:10px}
+.preview b{color:#00eaff}
 
-.fixed-number{
-    font-size:30px;
-    font-weight:900;
-    color:#00eaff;
-    letter-spacing:4px;
-    text-shadow:0 0 18px rgba(0,234,255,.55);
+.buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+button{font-family:inherit;cursor:pointer}
+.primary,.secondary{
+padding:12px 19px;border-radius:10px;font-weight:900
 }
+.primary{background:#00eaff;color:#001319;box-shadow:0 0 18px #00eaff44}
+.secondary{background:#091724;color:#a9c5d0;border:1px solid #294355}
+.primary:hover,.secondary:hover{transform:translateY(-2px)}
 
-/* ================= DEPARTMENTS ================= */
-
-.department-container{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.sum{
+padding:17px;border-radius:13px;background:#06111c;border:1px solid #193649
 }
+.sum small{display:block;color:#708b99;font-size:9px;margin-bottom:6px}
+.sum b{font-size:23px;color:#00eaff}
 
-.department-box{
-    border:1px solid #1c3a4d;
-    border-radius:17px;
-    padding:20px;
-    background:rgba(5,15,25,.75);
+.halls{display:flex;flex-direction:column;gap:19px}
+.hall{border:1px solid #193a4e;border-radius:17px;overflow:hidden;background:#030c14cc}
+.hhead{
+display:flex;justify-content:space-between;padding:15px 18px;
+background:#00eaff09;border-bottom:1px solid #163246
 }
-
-.department-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:18px;
-}
-
-.department-title{
-    font-size:17px;
-    font-weight:800;
-    color:#dffaff;
-}
-
-.auto-tag{
-    font-size:10px;
-    padding:5px 9px;
-    border-radius:20px;
-    color:#00eaff;
-    border:1px solid rgba(0,234,255,.25);
-    background:rgba(0,234,255,.05);
-}
-
-.department-fields{
-    display:grid;
-    grid-template-columns:1.2fr 1.2fr .8fr;
-    gap:14px;
-}
-
-.register-block{
-    margin-top:16px;
-    border-radius:13px;
-    padding:16px;
-    border:1px solid rgba(117,140,255,.18);
-    background:rgba(45,52,120,.08);
-}
-
-.register-block-title{
-    color:#b3c9ff;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
-.register-range-grid{
-    display:grid;
-    grid-template-columns:120px 1fr 1fr;
-    gap:12px;
-    align-items:end;
-}
-
-.fixed-prefix{
-    font-size:11px;
-    color:#7e98a8;
-}
-
-.fixed-prefix-value{
-    margin-top:7px;
-    height:46px;
-    display:flex;
-    align-items:center;
-    padding:0 12px;
-    border-radius:10px;
-    background:#020a12;
-    border:1px solid #183244;
-    color:#00eaff;
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.fixed-lock{
-    font-size:10px;
-    color:#69818e;
-    margin-top:5px;
-}
-
-.reg-end{
-    color:#00ffbd !important;
-}
-
-.register-preview{
-    margin-top:12px;
-    color:#7898a8;
-    font-size:11px;
-}
-
-.register-preview strong{
-    color:#00eaff;
-}
-
-/* ================= BUTTONS ================= */
-
-.buttons{
-    display:flex;
-    justify-content:flex-end;
-    gap:12px;
-    margin-top:24px;
-}
-
-button{
-    border:0;
-    cursor:pointer;
-    font-family:inherit;
-}
-
-.primary,
-.secondary{
-    padding:13px 21px;
-    border-radius:11px;
-    font-weight:800;
-    transition:.25s;
-}
-
-.primary{
-    color:#001319;
-    background:#00eaff;
-    box-shadow:0 0 18px rgba(0,234,255,.3);
-}
-
-.primary:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 28px rgba(0,234,255,.55);
-}
-
-.secondary{
-    color:#b9d5df;
-    background:#0a1724;
-    border:1px solid #294356;
-}
-
-.secondary:hover{
-    border-color:#00eaff;
-    color:#00eaff;
-}
-
-/* ================= SUMMARY ================= */
-
-.summary{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin-bottom:22px;
-}
-
-.summary-box{
-    padding:18px;
-    border-radius:14px;
-    background:#07131f;
-    border:1px solid #183447;
-}
-
-.summary-box small{
-    display:block;
-    color:#718b99;
-    font-size:10px;
-    margin-bottom:7px;
-}
-
-.summary-box strong{
-    font-size:23px;
-    color:#00eaff;
-}
-
-/* ================= HALLS ================= */
-
-.halls{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.hall{
-    border:1px solid #193a4e;
-    border-radius:18px;
-    overflow:hidden;
-    background:rgba(3,12,20,.8);
-}
-
-.hall-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:16px 19px;
-    background:linear-gradient(90deg,rgba(0,234,255,.08),transparent);
-    border-bottom:1px solid #163246;
-}
-
-.hall-name{
-    font-weight:900;
-    font-size:17px;
-}
-
-.hall-active{
-    font-size:11px;
-    color:#00ffad;
-}
-
-.bench{
-    padding:17px;
-    border-bottom:1px solid rgba(28,57,73,.55);
-}
-
-.bench:last-child{
-    border-bottom:0;
-}
-
-.bench-title{
-    color:#668797;
-    font-size:10px;
-    margin-bottom:10px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.seats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:13px;
-}
-
+.hhead b{font-size:16px}.hhead span{color:#00ffad;font-size:10px}
+.bench{padding:16px;border-bottom:1px solid #1c394955}
+.bench:last-child{border:0}
+.btitle{font-size:9px;color:#678493;text-transform:uppercase;margin-bottom:9px}
+.seats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .seat{
-    min-height:100px;
-    border-radius:14px;
-    border:1px solid #21475b;
-    padding:14px;
-    background:linear-gradient(145deg,#091a28,#06101a);
-    transition:.3s;
+min-height:95px;padding:13px;border-radius:13px;
+border:1px solid #21475b;background:linear-gradient(145deg,#091a28,#06101a);
+transition:.25s
 }
+.seat:hover{border-color:#00eaff;transform:translateY(-2px)}
+.seatlabel{font-size:8px;color:#62808e;margin-bottom:7px}
+.reg{font-size:17px;font-weight:900}
+.dept{font-size:10px;color:#00eaff;font-weight:bold;margin-top:6px}
+.subject{font-size:9px;color:#7895a3;margin-top:3px}
+.empty{border-color:#ff1744;background:#ff17440b}
+.empty .emptytext{color:#ff3155;font-weight:900;padding-top:12px}
+.emptytext{font-size:15px}
 
-.seat:hover{
-    transform:translateY(-2px);
-    border-color:#00eaff;
+.searchrow{display:flex;gap:9px}
+.searchrow button{min-width:105px;background:#00eaff;color:#001319;border:0;border-radius:10px;font-weight:900}
+.result{
+display:none;margin-top:17px;padding:17px;border-radius:14px;
+border:1px solid #00eaff30;background:#00eaff07
 }
-
-.seat-label{
-    font-size:9px;
-    color:#63808e;
-    margin-bottom:8px;
-}
-
-.reg{
-    font-size:18px;
-    font-weight:900;
-    color:#dffcff;
-    letter-spacing:.5px;
-}
-
-.dept{
-    margin-top:7px;
-    color:#00eaff;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.subject{
-    margin-top:4px;
-    color:#7f9ba8;
-    font-size:10px;
-}
-
-.empty{
-    border-color:#ff1744;
-    background:rgba(255,23,68,.06);
-}
-
-.empty .empty-text{
-    color:#ff3559;
-    font-weight:900;
-    text-shadow:0 0 10px rgba(255,23,68,.7);
-}
-
-.empty-text{
-    font-size:17px;
-    padding-top:12px;
-}
-
-/* ================= SEARCH ================= */
-
-.search-box{
-    margin-bottom:22px;
-}
-
-.search-title{
-    font-size:16px;
-    font-weight:800;
-    margin-bottom:12px;
-}
-
-.search-row{
-    display:flex;
-    gap:10px;
-}
-
-.search-button{
-    min-width:120px;
-    border-radius:11px;
-    color:#001319;
-    background:#00eaff;
-    font-weight:900;
-}
-
-.search-result{
-    display:none;
-    margin-top:18px;
-    border:1px solid #1d5265;
-    border-radius:15px;
-    padding:18px;
-    background:rgba(0,234,255,.035);
-}
-
-.search-result.show{
-    display:block;
-}
-
-.result-title{
-    font-weight:900;
-    margin-bottom:14px;
-}
-
-.result-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-
-.result-item{
-    background:#06111c;
-    border:1px solid #173447;
-    padding:13px;
-    border-radius:10px;
-}
-
-.result-item small{
-    display:block;
-    color:#65808e;
-    font-size:9px;
-    margin-bottom:5px;
-}
-
-.result-item strong{
-    color:#c8faff;
-    font-size:13px;
-}
-
-.not-found{
-    color:#ff4261;
-    font-size:13px;
-    font-weight:bold;
-}
-
-/* ================= RED SEARCH GLOW ================= */
+.result.show{display:block}
+.resultgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.ritem{padding:12px;border-radius:10px;background:#06111c;border:1px solid #173447}
+.ritem small{display:block;color:#66818f;font-size:8px;margin-bottom:5px}
+.ritem b{font-size:12px}
+.pmark{color:#00ffad;font-weight:900}
+.amark{color:#ff3155;font-weight:900}
 
 .search-highlight{
-    position:relative !important;
-    z-index:9999 !important;
-    border:3px solid #ff1744 !important;
-    background:linear-gradient(
-        145deg,
-        rgba(255,20,55,.45),
-        rgba(100,0,20,.30)
-    ) !important;
-    transform:scale(1.05);
-    box-shadow:
-        0 0 10px #ff1744,
-        0 0 25px #ff1744,
-        0 0 50px #ff1744,
-        0 0 90px rgba(255,23,68,.9) !important;
-    animation:redGlow .65s ease-in-out infinite alternate !important;
+position:relative!important;z-index:20!important;
+border:3px solid #ff1744!important;
+background:#ff17351f!important;
+transform:scale(1.05);
+box-shadow:0 0 12px #ff1744,0 0 35px #ff1744,0 0 80px #ff174499!important;
+animation:glow .6s infinite alternate!important
+}
+@keyframes glow{
+from{box-shadow:0 0 10px #ff1744,0 0 25px #ff1744}
+to{box-shadow:0 0 20px #ff1744,0 0 65px #ff1744,0 0 100px #ff174488}
 }
 
-.search-highlight .reg{
-    color:#ff1744 !important;
-    text-shadow:
-        0 0 8px #ff1744,
-        0 0 18px #ff1744,
-        0 0 30px #ff1744;
+.attgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.attbox{
+padding:17px;border-radius:14px;background:#06111c;border:1px solid #193649
 }
+.attbox small{display:block;color:#718b99;font-size:9px;margin-bottom:5px}
+.attbox b{font-size:27px}
+.total b{color:#00eaff}.present b{color:#00ffad}.absent b{color:#ff3155}
 
-@keyframes redGlow{
-    from{
-        box-shadow:
-            0 0 10px #ff1744,
-            0 0 25px #ff1744,
-            0 0 50px rgba(255,23,68,.75);
-    }
-    to{
-        box-shadow:
-            0 0 18px #ff1744,
-            0 0 38px #ff1744,
-            0 0 80px #ff1744,
-            0 0 120px rgba(255,23,68,.9);
-    }
+.attlists{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:20px}
+.listbox{padding:18px;border-radius:16px;background:#06111b}
+.presentlistbox{border:1px solid #00ffad35}
+.absentlistbox{border:1px solid #ff174450}
+.listtitle{font-size:14px;font-weight:900;margin-bottom:12px}
+.presenttitle{color:#00ffad}.absenttitle{color:#ff3155}
+.list{display:flex;flex-wrap:wrap;gap:7px;max-height:240px;overflow:auto}
+.listreg{
+padding:7px 9px;border-radius:8px;font-size:10px;font-weight:900
 }
+.preg{color:#00ffad;background:#00ffad0b;border:1px solid #00ffad25}
+.areg{color:#ff4662;background:#ff17440b;border:1px solid #ff174430}
+.none{font-size:10px;color:#607987}
 
-/* ================= ATTENDANCE ================= */
-
-.attendance-search{
-    margin-bottom:22px;
+.attrows{display:flex;flex-direction:column;gap:9px;margin-top:22px}
+.attrow{
+display:grid;grid-template-columns:1.2fr 1fr auto;align-items:center;
+gap:12px;padding:13px;border:1px solid #183447;border-radius:11px;
+background:#06111b
 }
-
-.attendance-row{
-    display:flex;
-    gap:10px;
+.attreg{font-size:13px;font-weight:900}.attdept{font-size:9px;color:#00eaff;margin-top:3px}
+.status{font-size:9px}
+.status.p{color:#00ffad}.status.a{color:#ff3155}
+.statusbtn{
+padding:7px 10px;border-radius:7px;background:#091722;
+border:1px solid #294354;color:#708b99;font-size:9px;font-weight:900
 }
+.statusbtn.pa{background:#00ffad;color:#001b12;border-color:#00ffad}
+.statusbtn.aa{background:#ff1744;color:#fff;border-color:#ff1744}
 
-.attendance-summary{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:13px;
-    margin-bottom:22px;
+#cursor,#dot{position:fixed;pointer-events:none;z-index:99999}
+#cursor{
+width:30px;height:30px;border:1px solid #00eaffaa;border-radius:50%;
+transform:translate(-50%,-50%)
 }
-
-.att-box{
-    border:1px solid #1c3c4e;
-    border-radius:15px;
-    padding:18px;
-    background:#06111c;
+#dot{
+width:5px;height:5px;background:#00eaff;border-radius:50%;
+transform:translate(-50%,-50%);box-shadow:0 0 12px #00eaff
 }
-
-.att-box small{
-    color:#6e8b99;
-    display:block;
-    font-size:10px;
-    margin-bottom:7px;
+.ripple{
+position:fixed;width:8px;height:8px;border:2px solid #00eaff;
+border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);
+animation:rip .7s forwards;z-index:99998
 }
+@keyframes rip{to{width:70px;height:70px;opacity:0}}
 
-.att-box strong{
-    font-size:28px;
+footer{text-align:center;color:#506b79;font-size:10px;padding:25px;border-top:1px solid #00eaff12}
+
+@media(max-width:800px){
+.grid,.dgrid,.summary,.resultgrid,.attgrid{grid-template-columns:1fr 1fr}
+.rgrid{grid-template-columns:1fr}
+.attlists{grid-template-columns:1fr}
+.progress .pl{width:25px}
 }
-
-.att-total strong{
-    color:#00eaff;
-}
-
-.att-present strong{
-    color:#00ffad;
-}
-
-.att-absent strong{
-    color:#ff3155;
-}
-
-.attendance-table{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top:20px;
-}
-
-.attendance-row-card{
-    display:grid;
-    grid-template-columns:1.2fr 1fr auto;
-    align-items:center;
-    gap:15px;
-    padding:13px 15px;
-    border:1px solid #183447;
-    border-radius:12px;
-    background:#06111b;
-}
-
-.att-reg{
-    font-size:14px;
-    font-weight:900;
-    color:#e4fbff;
-}
-
-.att-dept{
-    color:#00eaff;
-    font-size:11px;
-}
-
-.status-buttons{
-    display:flex;
-    gap:7px;
-}
-
-.status-btn{
-    padding:8px 12px;
-    border-radius:8px;
-    font-size:10px;
-    font-weight:900;
-    border:1px solid #284355;
-    background:#0a1723;
-    color:#7793a0;
-}
-
-.status-btn.present.active{
-    color:#001b12;
-    background:#00ffad;
-    border-color:#00ffad;
-    box-shadow:0 0 15px rgba(0,255,173,.3);
-}
-
-.status-btn.absent.active{
-    color:#fff;
-    background:#ff1744;
-    border-color:#ff1744;
-    box-shadow:0 0 15px rgba(255,23,68,.4);
-}
-
-.current-status{
-    font-size:9px;
-    margin-top:6px;
-}
-
-.status-present{
-    color:#00ffad;
-}
-
-.status-absent{
-    color:#ff3155;
-}
-
-/* ================= TWO LISTS ================= */
-
-.attendance-lists{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-    margin-top:24px;
-}
-
-.absent-panel,
-.present-panel{
-    border-radius:17px;
-    padding:18px;
-    background:#06111b;
-}
-
-.absent-panel{
-    border:1px solid rgba(255,23,68,.3);
-}
-
-.present-panel{
-    border:1px solid rgba(0,255,173,.22);
-}
-
-.absent-title,
-.present-title{
-    font-size:14px;
-    font-weight:900;
-    margin-bottom:13px;
-}
-
-.absent-title{
-    color:#ff3d5e;
-}
-
-.present-title{
-    color:#00ffad;
-}
-
-.absent-list,
-.present-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    max-height:260px;
-    overflow:auto;
-}
-
-.absent-reg,
-.present-reg{
-    padding:8px 10px;
-    border-radius:8px;
-    font-size:11px;
-    font-weight:900;
-}
-
-.absent-reg{
-    color:#ff5370;
-    background:rgba(255,23,68,.08);
-    border:1px solid rgba(255,23,68,.2);
-}
-
-.present-reg{
-    color:#00ffad;
-    background:rgba(0,255,173,.06);
-    border:1px solid rgba(0,255,173,.16);
-}
-
-.no-absent,
-.no-present{
-    color:#617c8b;
-    font-size:11px;
-}
-
-/* ================= CURSOR SONIC ================= */
-
-#cursorRing{
-    position:fixed;
-    width:32px;
-    height:32px;
-    border:1px solid rgba(0,234,255,.7);
-    border-radius:50%;
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    z-index:99999;
-    transition:
-        width .12s,
-        height .12s,
-        border-color .12s;
-}
-
-#cursorDot{
-    position:fixed;
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#00eaff;
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    z-index:100000;
-    box-shadow:0 0 12px #00eaff;
-}
-
-.sonic-ripple{
-    position:fixed;
-    width:8px;
-    height:8px;
-    border:2px solid #00eaff;
-    border-radius:50%;
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    animation:ripple .7s ease-out forwards;
-    z-index:99998;
-}
-
-@keyframes ripple{
-    from{
-        opacity:1;
-        width:8px;
-        height:8px;
-    }
-    to{
-        opacity:0;
-        width:70px;
-        height:70px;
-    }
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#4f6978;
-    font-size:11px;
-    border-top:1px solid rgba(0,234,255,.08);
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:850px){
-
-    .form-grid,
-    .summary,
-    .attendance-summary{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .department-fields{
-        grid-template-columns:1fr;
-    }
-
-    .register-range-grid{
-        grid-template-columns:1fr;
-    }
-
-    .result-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .attendance-lists{
-        grid-template-columns:1fr;
-    }
-
-    .progress-line{
-        width:30px;
-    }
-}
-
 @media(max-width:600px){
-
-    header{
-        padding:0 15px;
-    }
-
-    .brand-subtitle,
-    .online{
-        display:none;
-    }
-
-    .hero{
-        padding-top:35px;
-    }
-
-    .form-grid,
-    .summary,
-    .attendance-summary,
-    .result-grid{
-        grid-template-columns:1fr;
-    }
-
-    .card{
-        padding:18px;
-    }
-
-    .seats{
-        grid-template-columns:1fr;
-    }
-
-    .attendance-row-card{
-        grid-template-columns:1fr;
-    }
-
-    .status-buttons{
-        width:100%;
-    }
-
-    .status-btn{
-        flex:1;
-    }
-
-    .progress-item{
-        min-width:50px;
-    }
-
-    .progress-item span:last-child{
-        font-size:8px;
-    }
-
-    .progress-line{
-        width:15px;
-    }
-
-    #cursorRing,
-    #cursorDot{
-        display:none;
-    }
+.grid,.dgrid,.summary,.resultgrid,.attgrid,.seats{grid-template-columns:1fr}
+.attrow{grid-template-columns:1fr}
+.online{display:none}
+.progress .pi{min-width:45px}
+.progress .pi span{font-size:7px}
+#cursor,#dot{display:none}
 }
 </style>
 </head>
 
 <body>
 
-<div id="cursorRing"></div>
-<div id="cursorDot"></div>
+<div id="cursor"></div>
+<div id="dot"></div>
 
 <header>
-    <div class="brand">
-        <div class="brand-icon">S</div>
-        <div>
-            <div class="brand-name">Smart Exam Hall</div>
-            <div class="brand-subtitle">Automated Examination Management System</div>
-        </div>
-    </div>
-
-    <div class="online">
-        <span class="online-dot"></span>
-        SYSTEM ONLINE
-    </div>
+<div class="brand">
+<div class="logo">S</div>
+<div>
+<b>Smart Exam Hall</b>
+<small>Automated Examination Management System</small>
+</div>
+</div>
+<div class="online"><i></i>SYSTEM ONLINE</div>
 </header>
 
 <section class="hero">
-    <h1>Smart Exam Hall System</h1>
-    <p>Configure departments, allocate seats, search students and manage attendance.</p>
+<h1>Smart Exam Hall System</h1>
+<p>Configure departments, allocate seats, search students and manage attendance.</p>
 </section>
 
 <div class="progress">
-
-    <div class="progress-item active" id="p1">
-        <div class="progress-circle">1</div>
-        <span>Setup</span>
-    </div>
-
-    <div class="progress-line" id="l1"></div>
-
-    <div class="progress-item" id="p2">
-        <div class="progress-circle">2</div>
-        <span>Departments</span>
-    </div>
-
-    <div class="progress-line" id="l2"></div>
-
-    <div class="progress-item" id="p3">
-        <div class="progress-circle">3</div>
-        <span>Arrangement</span>
-    </div>
-
-    <div class="progress-line" id="l3"></div>
-
-    <div class="progress-item" id="p4">
-        <div class="progress-circle">4</div>
-        <span>Student Search</span>
-    </div>
-
-    <div class="progress-line" id="l4"></div>
-
-    <div class="progress-item" id="p5">
-        <div class="progress-circle">5</div>
-        <span>Attendance</span>
-    </div>
-
+<div class="pi active" id="p1"><div class="pc">1</div><span>Setup</span></div>
+<div class="pl" id="l1"></div>
+<div class="pi" id="p2"><div class="pc">2</div><span>Departments</span></div>
+<div class="pl" id="l2"></div>
+<div class="pi" id="p3"><div class="pc">3</div><span>Arrangement</span></div>
+<div class="pl" id="l3"></div>
+<div class="pi" id="p4"><div class="pc">4</div><span>Search</span></div>
+<div class="pl" id="l4"></div>
+<div class="pi" id="p5"><div class="pc">5</div><span>Attendance</span></div>
 </div>
 
 <main>
 
-<!-- ================= STEP 1 ================= -->
-
+<!-- STEP 1 -->
 <section class="step active" id="step1">
+<div class="card">
+<div class="title">Examination Setup</div>
+<div class="sub">Enter the basic examination configuration.</div>
 
-    <div class="card">
+<div class="grid">
+<div class="group">
+<label>Total Students</label>
+<input id="totalStudents" type="number" min="1" placeholder="Example: 120">
+</div>
 
-        <div class="card-title">Examination Setup</div>
+<div class="group">
+<label>Number of Departments</label>
+<input id="departmentCount" type="number" min="1" placeholder="Example: 3">
+</div>
 
-        <div class="card-subtitle">
-            Enter the basic examination configuration.
-        </div>
+<div class="group">
+<label>Number of Exam Halls</label>
+<input id="hallCount" type="number" min="1" placeholder="Example: 4">
+</div>
+</div>
 
-        <div class="form-grid">
+<div class="fixed">
+<small>FIXED REGISTER PREFIX</small>
+<strong>9527</strong>
+</div>
 
-            <div class="form-group">
-                <label>Total Students</label>
-                <input
-                    id="totalStudents"
-                    type="number"
-                    min="1"
-                    placeholder="Example: 120"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Number of Departments</label>
-                <input
-                    id="departmentCount"
-                    type="number"
-                    min="1"
-                    placeholder="Example: 3"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Number of Exam Halls</label>
-                <input
-                    id="hallCount"
-                    type="number"
-                    min="1"
-                    placeholder="Example: 4"
-                >
-            </div>
-
-        </div>
-
-        <div class="fixed-register-box">
-
-            <div class="fixed-title">
-                Fixed Register Number Prefix
-            </div>
-
-            <div class="fixed-number">
-                9527
-            </div>
-
-        </div>
-
-        <div class="buttons">
-            <button class="primary" onclick="createDepartments()">
-                Continue →
-            </button>
-        </div>
-
-    </div>
-
+<div class="buttons">
+<button class="primary" onclick="createDepartments()">Continue →</button>
+</div>
+</div>
 </section>
 
 
-<!-- ================= STEP 2 ================= -->
-
+<!-- STEP 2 -->
 <section class="step" id="step2">
+<div class="card">
+<div class="title">Department Configuration</div>
+<div class="sub">Enter department, subject, student count and START register number.</div>
 
-    <div class="card">
+<div id="depts" class="depts"></div>
 
-        <div class="card-title">
-            Department Configuration
-        </div>
-
-        <div class="card-subtitle">
-            Enter department, subject, student count and starting register number.
-            The ending register number will be calculated automatically.
-        </div>
-
-        <div id="departmentContainer" class="department-container"></div>
-
-        <div class="buttons">
-
-            <button class="secondary" onclick="goStep(1)">
-                ← Back
-            </button>
-
-            <button class="primary" onclick="generateExam()">
-                Generate Hall Arrangement →
-            </button>
-
-        </div>
-
-    </div>
-
+<div class="buttons">
+<button class="secondary" onclick="go(1)">← Back</button>
+<button class="primary" onclick="generate()">Generate Hall Arrangement →</button>
+</div>
+</div>
 </section>
 
 
-<!-- ================= STEP 3 ================= -->
-
+<!-- STEP 3 -->
 <section class="step" id="step3">
+<div class="card">
+<div class="title">Examination Hall Arrangement</div>
+<div class="sub">Students are automatically distributed across halls and benches.</div>
 
-    <div class="card">
+<div id="summary" class="summary"></div>
+<div id="halls" class="halls"></div>
 
-        <div class="card-title">
-            Examination Hall Arrangement
-        </div>
-
-        <div class="card-subtitle">
-            Students are automatically distributed across halls and benches.
-            Different departments are mixed where possible.
-        </div>
-
-        <div class="summary" id="summary"></div>
-
-        <div id="halls" class="halls"></div>
-
-        <div class="buttons">
-
-            <button class="secondary" onclick="goStep(2)">
-                ← Back
-            </button>
-
-            <button class="primary" onclick="goStep(4)">
-                Student Search →
-            </button>
-
-        </div>
-
-    </div>
-
+<div class="buttons">
+<button class="secondary" onclick="go(2)">← Back</button>
+<button class="primary" onclick="go(4)">Student Search →</button>
+</div>
+</div>
 </section>
 
 
-<!-- ================= STEP 4 ================= -->
-
+<!-- STEP 4 -->
 <section class="step" id="step4">
 
-    <div class="card search-box">
+<div class="card">
+<div class="title">Student Seat Search</div>
+<div class="sub">Search using the 12-digit register number.</div>
 
-        <div class="card-title">
-            Student Seat Search
-        </div>
+<div class="searchrow">
+<input id="studentSearch" maxlength="12" inputmode="numeric"
+placeholder="Enter register number">
+<button onclick="searchStudent()">SEARCH</button>
+</div>
 
-        <div class="card-subtitle">
-            Search using the 12-digit register number.
-        </div>
+<div id="studentResult" class="result"></div>
+</div>
 
-        <div class="search-row">
+<div class="card">
+<div class="title">Hall Arrangement</div>
+<div class="sub">The searched student's seat will glow RED.</div>
+<div id="searchHalls" class="halls"></div>
 
-            <input
-                id="studentSearch"
-                maxlength="12"
-                inputmode="numeric"
-                placeholder="Enter register number"
-                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-            >
-
-            <button
-                class="search-button"
-                onclick="searchStudent()"
-            >
-                SEARCH
-            </button>
-
-        </div>
-
-        <div id="searchResult" class="search-result"></div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="card-title">
-            Hall Arrangement
-        </div>
-
-        <div class="card-subtitle">
-            The searched student's exact seat will glow RED.
-        </div>
-
-        <div id="searchHalls" class="halls"></div>
-
-        <div class="buttons">
-
-            <button class="secondary" onclick="goStep(3)">
-                ← Arrangement
-            </button>
-
-            <button class="primary" onclick="goStep(5)">
-                Attendance →
-            </button>
-
-        </div>
-
-    </div>
+<div class="buttons">
+<button class="secondary" onclick="go(3)">← Arrangement</button>
+<button class="primary" onclick="go(5)">Attendance →</button>
+</div>
+</div>
 
 </section>
 
 
-<!-- ================= STEP 5 ================= -->
-
+<!-- STEP 5 -->
 <section class="step" id="step5">
 
-    <div class="card">
+<div class="card">
 
-        <div class="card-title">
-            Student Attendance
-        </div>
+<div class="title">Student Attendance</div>
+<div class="sub">
+All students are PRESENT by default. Mark students as PRESENT or ABSENT.
+</div>
 
-        <div class="card-subtitle">
-            All students are PRESENT by default. Mark any student ABSENT.
-        </div>
+<div class="searchrow">
+<input id="attendanceSearch" maxlength="12" inputmode="numeric"
+placeholder="Search register number">
+<button onclick="searchAttendance()">FIND</button>
+</div>
 
-        <div class="attendance-search">
-
-            <div class="search-row">
-
-                <input
-                    id="attendanceSearch"
-                    maxlength="12"
-                    inputmode="numeric"
-                    placeholder="Search register number"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                >
-
-                <button
-                    class="search-button"
-                    onclick="searchAttendance()"
-                >
-                    FIND
-                </button>
-
-            </div>
-
-        </div>
+<div id="attendanceSearchResult" class="result"></div>
 
 
-        <div class="attendance-summary">
+<div class="attgrid">
 
-            <div class="att-box att-total">
-                <small>TOTAL STUDENTS</small>
-                <strong id="attTotal">0</strong>
-            </div>
+<div class="attbox total">
+<small>TOTAL STUDENTS</small>
+<b id="totalAtt">0</b>
+</div>
 
-            <div class="att-box att-present">
-                <small>PRESENT</small>
-                <strong id="attPresent">0</strong>
-            </div>
+<div class="attbox present">
+<small>PRESENT</small>
+<b id="presentAtt">0</b>
+</div>
 
-            <div class="att-box att-absent">
-                <small>ABSENT</small>
-                <strong id="attAbsent">0</strong>
-            </div>
+<div class="attbox absent">
+<small>ABSENT</small>
+<b id="absentAtt">0</b>
+</div>
 
-        </div>
-
-
-        <!-- TWO SEPARATE LISTS -->
-
-        <div class="attendance-lists">
-
-            <div class="present-panel">
-
-                <div class="present-title">
-                    ✓ PRESENT LIST
-                </div>
-
-                <div id="presentList" class="present-list"></div>
-
-            </div>
+</div>
 
 
-            <div class="absent-panel">
+<!-- FINAL TWO LISTS -->
 
-                <div class="absent-title">
-                    ✕ ABSENT LIST
-                </div>
+<div class="attlists">
 
-                <div id="absentList" class="absent-list"></div>
+<div class="listbox presentlistbox">
+<div class="listtitle presenttitle">✓ PRESENT LIST</div>
+<div id="presentList" class="list"></div>
+</div>
 
-            </div>
+<div class="listbox absentlistbox">
+<div class="listtitle absenttitle">✕ ABSENT LIST</div>
+<div id="absentList" class="list"></div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="attendance-table" id="attendanceTable"></div>
+<div id="attRows" class="attrows"></div>
 
+<div class="buttons">
+<button class="secondary" onclick="go(4)">← Student Search</button>
+</div>
 
-        <div class="buttons">
-
-            <button class="secondary" onclick="goStep(4)">
-                ← Student Search
-            </button>
-
-        </div>
-
-    </div>
-
+</div>
 </section>
 
 </main>
 
-<footer>
-    Smart Exam Hall System • Automated Examination Management
-</footer>
+<footer>Smart Exam Hall System • Automated Examination Management</footer>
 
 
 <script>
 
-/* =========================================================
-   GLOBAL DATA
-========================================================= */
-
-let exam = {
-    totalStudents: 0,
-    departmentCount: 0,
-    hallCount: 0,
-    departments: [],
-    students: [],
-    benches: []
+let exam={
+total:0,
+deptCount:0,
+hallCount:0,
+departments:[],
+students:[],
+halls:[]
 };
 
 
-/* =========================================================
-   STEP NAVIGATION
-========================================================= */
+/* ================= NAVIGATION ================= */
 
-function goStep(stepNumber){
+function go(n){
 
-    document.querySelectorAll(".step").forEach(step => {
-        step.classList.remove("active");
-    });
+document.querySelectorAll(".step").forEach(x=>x.classList.remove("active"));
+document.getElementById("step"+n).classList.add("active");
 
-    const target = document.getElementById("step" + stepNumber);
+for(let i=1;i<=5;i++){
+let p=document.getElementById("p"+i);
+p.classList.remove("active","done");
+if(i<n)p.classList.add("done");
+if(i===n)p.classList.add("active");
+}
 
-    if(target){
-        target.classList.add("active");
-    }
+for(let i=1;i<=4;i++)
+document.getElementById("l"+i).classList.toggle("done",i<n);
 
-    for(let i = 1; i <= 5; i++){
-
-        const item = document.getElementById("p" + i);
-
-        if(!item) continue;
-
-        item.classList.remove("active","done");
-
-        if(i < stepNumber){
-            item.classList.add("done");
-        }
-
-        if(i === stepNumber){
-            item.classList.add("active");
-        }
-    }
-
-    for(let i = 1; i <= 4; i++){
-
-        const line = document.getElementById("l" + i);
-
-        if(!line) continue;
-
-        line.classList.toggle("done", i < stepNumber);
-    }
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+scrollTo({top:0,behavior:"smooth"});
 }
 
 
-/* =========================================================
-   CREATE DEPARTMENT BOXES
-========================================================= */
+/* ================= DEPARTMENT CREATE ================= */
 
 function createDepartments(){
 
-    const total =
-        parseInt(document.getElementById("totalStudents").value);
+let total=+document.getElementById("totalStudents").value;
+let dc=+document.getElementById("departmentCount").value;
+let hc=+document.getElementById("hallCount").value;
 
-    const deptCount =
-        parseInt(document.getElementById("departmentCount").value);
+if(total<1)return alert("Enter total students.");
+if(dc<1)return alert("Enter number of departments.");
+if(hc<1)return alert("Enter number of halls.");
 
-    const halls =
-        parseInt(document.getElementById("hallCount").value);
+exam.total=total;
+exam.deptCount=dc;
+exam.hallCount=hc;
 
+let box=document.getElementById("depts");
+box.innerHTML="";
 
-    if(!total || total < 1){
+for(let i=0;i<dc;i++){
 
-        alert("Please enter total students.");
+box.innerHTML+=`
 
-        return;
-    }
+<div class="deptbox">
 
-    if(!deptCount || deptCount < 1){
+<div class="dhead">
+<b>Department ${i+1}</b>
+<span class="tag">REGISTER BLOCK ${i+1}</span>
+</div>
 
-        alert("Please enter number of departments.");
+<div class="dgrid">
 
-        return;
-    }
+<div class="group">
+<label>Department Name</label>
+<input class="dname" placeholder="Example: CSE">
+</div>
 
-    if(!halls || halls < 1){
+<div class="group">
+<label>Exam Subject</label>
+<input class="dsubject" placeholder="Example: Data Structures">
+</div>
 
-        alert("Please enter number of exam halls.");
+<div class="group">
+<label>Number of Students</label>
+<input class="dcount" type="number" min="1" placeholder="Count">
+</div>
 
-        return;
-    }
+</div>
 
+<div class="regbox">
 
-    exam.totalStudents = total;
-    exam.departmentCount = deptCount;
-    exam.hallCount = halls;
+<div class="regtitle">REGISTER NUMBER BLOCK</div>
 
+<div class="rgrid">
 
-    const container =
-        document.getElementById("departmentContainer");
+<div>
+<label>FIXED PREFIX</label>
+<div class="prefix">9527</div>
+<div class="lock">🔒 Cannot be changed</div>
+</div>
 
-    container.innerHTML = "";
+<div class="group">
+<label>START — 8 DIGITS</label>
+<input class="rstart" maxlength="8" inputmode="numeric"
+placeholder="00000001">
+</div>
 
+<div class="group">
+<label>END — AUTO</label>
+<input class="rend" readonly placeholder="Automatic">
+</div>
 
-    for(let i = 0; i < deptCount; i++){
+</div>
 
-        const box = document.createElement("div");
+<div class="preview">
+Full register format: <b>9527 + 8 digits</b>
+</div>
 
-        box.className = "department-box";
+</div>
+</div>`;
+}
 
-        box.innerHTML = `
+setupEnterNavigation();
 
-            <div class="department-header">
-
-                <div class="department-title">
-                    Department ${i + 1}
-                </div>
-
-                <div class="auto-tag">
-                    REGISTER BLOCK ${i + 1}
-                </div>
-
-            </div>
-
-
-            <div class="department-fields">
-
-                <div class="form-group">
-
-                    <label>Department Name</label>
-
-                    <input
-                        class="dept-name"
-                        placeholder="Example: CSE"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Exam Subject</label>
-
-                    <input
-                        class="dept-subject"
-                        placeholder="Example: Data Structures"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Number of Students</label>
-
-                    <input
-                        class="dept-count"
-                        type="number"
-                        min="1"
-                        placeholder="Count"
-                        oninput="previewRegisterEnd(this)"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="register-block">
-
-                <div class="register-block-title">
-                    REGISTER NUMBER BLOCK
-                </div>
-
-
-                <div class="register-range-grid">
-
-                    <div>
-
-                        <div class="fixed-prefix">
-                            FIXED PREFIX
-                        </div>
-
-                        <div class="fixed-prefix-value">
-                            9527
-                        </div>
-
-                        <div class="fixed-lock">
-                            🔒 Cannot be changed
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            START — 8 DIGITS
-                        </label>
-
-                        <input
-                            class="reg-start"
-                            maxlength="8"
-                            inputmode="numeric"
-                            placeholder="00000001"
-                            oninput="
-                                this.value=this.value.replace(/[^0-9]/g,'');
-                                previewRegisterEnd(this);
-                            "
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            END — AUTO CALCULATED
-                        </label>
-
-                        <input
-                            class="reg-end"
-                            readonly
-                            placeholder="Automatic"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="register-preview">
-                    Full register format:
-                    <strong>9527 + 8 digits</strong>
-                </div>
-
-            </div>
-
-        `;
-
-        container.appendChild(box);
-    }
-
-
-    goStep(2);
+go(2);
 }
 
 
-/* =========================================================
-   AUTO END REGISTER PREVIEW
-========================================================= */
+/* ================= AUTO END ================= */
 
-function previewRegisterEnd(element){
+document.addEventListener("input",e=>{
 
-    const box =
-        element.closest(".department-box");
+if(!e.target.classList.contains("rstart") &&
+!e.target.classList.contains("dcount"))return;
 
-    if(!box) return;
+let box=e.target.closest(".deptbox");
+if(!box)return;
 
+let start=box.querySelector(".rstart").value;
+let count=+box.querySelector(".dcount").value;
+let end=box.querySelector(".rend");
 
-    const startInput =
-        box.querySelector(".reg-start");
+if(/^\d{8}$/.test(start)&&count>0){
 
-    const countInput =
-        box.querySelector(".dept-count");
+let n=+start+count-1;
 
-    const endInput =
-        box.querySelector(".reg-end");
+end.value=n<=99999999
+?String(n).padStart(8,"0")
+:"OVER LIMIT";
 
-
-    const start =
-        startInput.value.trim();
-
-    const count =
-        parseInt(countInput.value);
+}else end.value="";
+});
 
 
-    if(
-        /^\d{8}$/.test(start) &&
-        count &&
-        count > 0
-    ){
+/* ================= GENERATE ================= */
 
-        const startNumber =
-            parseInt(start,10);
+function generate(){
 
-        const endNumber =
-            startNumber + count - 1;
+let boxes=document.querySelectorAll(".deptbox");
+let departments=[];
+let total=0;
 
+for(let i=0;i<boxes.length;i++){
 
-        if(endNumber <= 99999999){
+let b=boxes[i];
 
-            endInput.value =
-                String(endNumber).padStart(8,"0");
+let name=b.querySelector(".dname").value.trim();
+let subject=b.querySelector(".dsubject").value.trim();
+let count=+b.querySelector(".dcount").value;
+let start=b.querySelector(".rstart").value.trim();
 
-        }else{
+if(!name)return alert(`Enter Department Name ${i+1}.`);
+if(!subject)return alert(`Enter Subject ${i+1}.`);
+if(!count)return alert(`Enter student count ${i+1}.`);
+if(!/^\d{8}$/.test(start))
+return alert(`Department ${i+1}: START must be exactly 8 digits.`);
 
-            endInput.value =
-                "OVER LIMIT";
+let s=+start;
+let end=s+count-1;
 
-        }
+if(end>99999999)
+return alert(`Department ${i+1}: Register range exceeds 8 digits.`);
 
-    }else{
+let registers=[];
 
-        endInput.value = "";
+for(let j=0;j<count;j++)
+registers.push("9527"+String(s+j).padStart(8,"0"));
 
-    }
+departments.push({
+name,subject,count,start,end,
+registers
+});
+
+total+=count;
+}
+
+if(total!==exam.total)
+return alert(
+"Student count mismatch.\n\n"+
+"Setup total: "+exam.total+
+"\nDepartment total: "+total
+);
+
+exam.departments=departments;
+exam.students=[];
+
+departments.forEach(d=>{
+d.registers.forEach(r=>{
+exam.students.push({
+register:r,
+department:d.name,
+subject:d.subject,
+attendance:"PRESENT",
+hall:0,
+bench:0,
+seat:0
+});
+});
+});
+
+makeHalls();
+renderAll();
+go(3);
 }
 
 
-/* =========================================================
-   GENERATE EXAM
-========================================================= */
-
-function generateExam(){
-
-    const boxes =
-        document.querySelectorAll(".department-box");
-
-
-    if(boxes.length === 0){
-
-        alert("Please create departments first.");
-
-        return;
-    }
-
-
-    let departments = [];
-    let totalCount = 0;
-
-
-    for(let i = 0; i < boxes.length; i++){
-
-        const box = boxes[i];
-
-
-        const name =
-            box.querySelector(".dept-name").value.trim();
-
-        const subject =
-            box.querySelector(".dept-subject").value.trim();
-
-        const count =
-            parseInt(box.querySelector(".dept-count").value);
-
-        const start8 =
-            box.querySelector(".reg-start").value.trim();
-
-
-        if(!name){
-
-            alert(`Enter Department Name for Department ${i+1}.`);
-
-            return;
-        }
-
-
-        if(!subject){
-
-            alert(`Enter Exam Subject for Department ${i+1}.`);
-
-            return;
-        }
-
-
-        if(!count || count < 1){
-
-            alert(`Enter student count for Department ${i+1}.`);
-
-            return;
-        }
-
-
-        if(!/^\d{8}$/.test(start8)){
-
-            alert(
-                `Department ${i+1}: START register number must contain exactly 8 digits.`
-            );
-
-            return;
-        }
-
-
-        const startNumber =
-            parseInt(start8,10);
-
-        const endNumber =
-            startNumber + count - 1;
-
-
-        if(endNumber > 99999999){
-
-            alert(
-                `Department ${i+1}: Register range exceeds 8 digits.`
-            );
-
-            return;
-        }
-
-
-        const registers = [];
-
-
-        for(let j = 0; j < count; j++){
-
-            const eightDigit =
-                String(startNumber + j).padStart(8,"0");
-
-            const register =
-                "9527" + eightDigit;
-
-            registers.push(register);
-        }
-
-
-        departments.push({
-            name:name,
-            subject:subject,
-            count:count,
-            start8:start8,
-            end8:String(endNumber).padStart(8,"0"),
-            registers:registers
-        });
-
-
-        totalCount += count;
-    }
-
-
-    if(totalCount !== exam.totalStudents){
-
-        alert(
-            `Total students mismatch.\n\n` +
-            `Setup total: ${exam.totalStudents}\n` +
-            `Department total: ${totalCount}\n\n` +
-            `Both values must be the same.`
-        );
-
-        return;
-    }
-
-
-    exam.departments = departments;
-    exam.students = [];
-
-
-    /* CREATE STUDENTS */
-
-    departments.forEach(dept => {
-
-        dept.registers.forEach(register => {
-
-            exam.students.push({
-
-                register:register,
-
-                department:dept.name,
-
-                subject:dept.subject,
-
-                hall:null,
-
-                bench:null,
-
-                seat:null,
-
-                attendance:"PRESENT"
-
-            });
-
-        });
-
-    });
-
-
-    /* CREATE MIXED BENCHES */
-
-    exam.benches =
-        createMixedBenches(departments);
-
-
-    /* DISTRIBUTE BENCHES TO HALLS */
-
-    distributeBenchesToHalls();
-
-
-    renderSummary();
-    renderHalls();
-    renderSearchHalls();
-    renderAttendance();
-
-
-    goStep(3);
+/* ================= ARRANGEMENT ================= */
+
+function student(r){
+return exam.students.find(x=>x.register===r);
+}
+
+function makeHalls(){
+
+let queues=exam.departments.map(d=>({
+dept:d,
+list:[...d.registers]
+}));
+
+let benches=[];
+let pointer=0;
+
+while(queues.some(q=>q.list.length)){
+
+let first=-1;
+
+for(let i=0;i<queues.length;i++){
+let ix=(pointer+i)%queues.length;
+if(queues[ix].list.length){
+first=ix;
+break;
+}
+}
+
+if(first<0)break;
+
+let s1=student(queues[first].list.shift());
+let s2=null;
+
+for(let i=1;i<=queues.length;i++){
+let ix=(first+i)%queues.length;
+if(queues[ix].list.length){
+s2=student(queues[ix].list.shift());
+break;
+}
+}
+
+benches.push({s1,s2});
+pointer=(first+1)%queues.length;
+}
+
+exam.halls=Array.from({length:exam.hallCount},(_,i)=>({
+number:i+1,
+benches:[]
+}));
+
+benches.forEach((b,i)=>{
+let h=exam.halls[i%exam.hallCount];
+h.benches.push(b);
+
+let bn=h.benches.length;
+
+if(b.s1){
+b.s1.hall=h.number;
+b.s1.bench=bn;
+b.s1.seat=1;
+}
+
+if(b.s2){
+b.s2.hall=h.number;
+b.s2.bench=bn;
+b.s2.seat=2;
+}
+});
 }
 
 
-/* =========================================================
-   CREATE MIXED BENCHES
-========================================================= */
+/* ================= SEAT HTML ================= */
 
-function createMixedBenches(departments){
+function seat(s,n){
 
-    const queues =
-        departments.map(dept => ({
-            department:dept,
-            students:[...dept.registers]
-        }));
+if(!s)
+return `
+<div class="seat empty">
+<div class="seatlabel">SEAT ${n}</div>
+<div class="emptytext">EMPTY SEAT</div>
+</div>`;
 
-
-    const benches = [];
-
-    let pointer = 0;
-
-
-    while(
-        queues.some(q => q.students.length > 0)
-    ){
-
-        if(pointer >= queues.length){
-            pointer = 0;
-        }
-
-
-        let firstIndex = -1;
-
-
-        for(let i = 0; i < queues.length; i++){
-
-            const index =
-                (pointer + i) % queues.length;
-
-            if(queues[index].students.length > 0){
-
-                firstIndex = index;
-
-                break;
-            }
-        }
-
-
-        if(firstIndex === -1){
-            break;
-        }
-
-
-        const firstQueue =
-            queues[firstIndex];
-
-        const firstRegister =
-            firstQueue.students.shift();
-
-
-        const firstStudent =
-            findStudent(firstRegister);
-
-
-        let secondIndex = -1;
-
-
-        for(let i = 1; i <= queues.length; i++){
-
-            const index =
-                (firstIndex + i) % queues.length;
-
-            if(
-                queues[index].students.length > 0 &&
-                index !== firstIndex
-            ){
-
-                secondIndex = index;
-
-                break;
-            }
-        }
-
-
-        let secondStudent = null;
-
-
-        if(secondIndex !== -1){
-
-            const secondQueue =
-                queues[secondIndex];
-
-            const secondRegister =
-                secondQueue.students.shift();
-
-            secondStudent =
-                findStudent(secondRegister);
-        }
-
-
-        benches.push({
-            seat1:firstStudent,
-            seat2:secondStudent
-        });
-
-
-        pointer =
-            (firstIndex + 1) % queues.length;
-    }
-
-
-    return benches;
+return `
+<div class="seat" data-register="${s.register}">
+<div class="seatlabel">SEAT ${n}</div>
+<div class="reg">${s.register}</div>
+<div class="dept">${esc(s.department)}</div>
+<div class="subject">${esc(s.subject)}</div>
+</div>`;
 }
 
 
-/* =========================================================
-   FIND STUDENT
-========================================================= */
+/* ================= HALL HTML ================= */
 
-function findStudent(register){
+function hallsHTML(){
 
-    return exam.students.find(
-        student => student.register === register
-    );
+let html="";
+
+exam.halls.forEach(h=>{
+
+html+=`
+<div class="hall">
+<div class="hhead">
+<b>Exam Hall ${h.number}</b>
+<span>${h.benches.length} BENCHES</span>
+</div>`;
+
+h.benches.forEach((b,i)=>{
+
+html+=`
+<div class="bench">
+<div class="btitle">Bench ${i+1}</div>
+<div class="seats">
+${seat(b.s1,1)}
+${seat(b.s2,2)}
+</div>
+</div>`;
+});
+
+html+=`</div>`;
+});
+
+return html;
 }
 
 
-/* =========================================================
-   DISTRIBUTE BENCHES TO HALLS
-========================================================= */
+/* ================= RENDER ================= */
 
-function distributeBenchesToHalls(){
+function renderAll(){
 
-    exam.benches.forEach(bench => {
+document.getElementById("summary").innerHTML=`
+<div class="sum"><small>TOTAL STUDENTS</small><b>${exam.students.length}</b></div>
+<div class="sum"><small>DEPARTMENTS</small><b>${exam.departments.length}</b></div>
+<div class="sum"><small>EXAM HALLS</small><b>${exam.hallCount}</b></div>
+<div class="sum"><small>BENCHES</small><b>${exam.halls.reduce((a,h)=>a+h.benches.length,0)}</b></div>
+`;
 
-        if(bench.seat1){
+document.getElementById("halls").innerHTML=hallsHTML();
+document.getElementById("searchHalls").innerHTML=hallsHTML();
 
-            bench.seat1.hall = null;
-            bench.seat1.bench = null;
-            bench.seat1.seat = 1;
-        }
-
-        if(bench.seat2){
-
-            bench.seat2.hall = null;
-            bench.seat2.bench = null;
-            bench.seat2.seat = 2;
-        }
-
-    });
-
-
-    const halls = [];
-
-    for(let i = 1; i <= exam.hallCount; i++){
-
-        halls.push({
-            hallNumber:i,
-            benches:[]
-        });
-
-    }
-
-
-    exam.benches.forEach(
-        (bench,index) => {
-
-            const hallIndex =
-                index % exam.hallCount;
-
-            halls[hallIndex].benches.push(bench);
-
-        }
-    );
-
-
-    halls.forEach(hall => {
-
-        hall.benches.forEach(
-            (bench,index) => {
-
-                const benchNumber =
-                    index + 1;
-
-                if(bench.seat1){
-
-                    bench.seat1.hall =
-                        hall.hallNumber;
-
-                    bench.seat1.bench =
-                        benchNumber;
-                }
-
-
-                if(bench.seat2){
-
-                    bench.seat2.hall =
-                        hall.hallNumber;
-
-                    bench.seat2.bench =
-                        benchNumber;
-                }
-
-            }
-        );
-
-    });
-
-
-    exam.halls = halls;
+renderAttendance();
 }
 
 
-/* =========================================================
-   SUMMARY
-========================================================= */
-
-function renderSummary(){
-
-    const container =
-        document.getElementById("summary");
-
-
-    const total =
-        exam.students.length;
-
-    const benches =
-        exam.benches.length;
-
-
-    container.innerHTML = `
-
-        <div class="summary-box">
-
-            <small>TOTAL STUDENTS</small>
-
-            <strong>
-                ${total}
-            </strong>
-
-        </div>
-
-
-        <div class="summary-box">
-
-            <small>DEPARTMENTS</small>
-
-            <strong>
-                ${exam.departments.length}
-            </strong>
-
-        </div>
-
-
-        <div class="summary-box">
-
-            <small>EXAM HALLS</small>
-
-            <strong>
-                ${exam.hallCount}
-            </strong>
-
-        </div>
-
-
-        <div class="summary-box">
-
-            <small>TOTAL BENCHES</small>
-
-            <strong>
-                ${benches}
-            </strong>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   HALL RENDER
-========================================================= */
-
-function hallHTML(){
-
-    let html = "";
-
-
-    exam.halls.forEach(hall => {
-
-        html += `
-
-            <div class="hall">
-
-                <div class="hall-header">
-
-                    <div class="hall-name">
-                        Exam Hall ${hall.hallNumber}
-                    </div>
-
-                    <div class="hall-active">
-                        ${hall.benches.length} BENCHES
-                    </div>
-
-                </div>
-
-        `;
-
-
-        hall.benches.forEach((bench,index) => {
-
-            html += `
-
-                <div class="bench">
-
-                    <div class="bench-title">
-                        Bench ${index + 1}
-                    </div>
-
-                    <div class="seats">
-
-                        ${seatHTML(
-                            bench.seat1,
-                            1
-                        )}
-
-                        ${seatHTML(
-                            bench.seat2,
-                            2
-                        )}
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        html += `</div>`;
-    });
-
-
-    return html;
-}
-
-
-/* =========================================================
-   SEAT HTML
-========================================================= */
-
-function seatHTML(student,seatNumber){
-
-    if(!student){
-
-        return `
-
-            <div class="seat empty">
-
-                <div class="seat-label">
-                    SEAT ${seatNumber}
-                </div>
-
-                <div class="empty-text">
-                    EMPTY SEAT
-                </div>
-
-            </div>
-
-        `;
-    }
-
-
-    return `
-
-        <div
-            class="seat"
-            data-register="${student.register}"
-        >
-
-            <div class="seat-label">
-                SEAT ${seatNumber}
-            </div>
-
-            <div class="reg">
-                ${student.register}
-            </div>
-
-            <div class="dept">
-                ${escapeHTML(student.department)}
-            </div>
-
-            <div class="subject">
-                ${escapeHTML(student.subject)}
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   RENDER HALLS
-========================================================= */
-
-function renderHalls(){
-
-    document.getElementById("halls").innerHTML =
-        hallHTML();
-}
-
-
-/* =========================================================
-   SEARCH HALLS
-========================================================= */
-
-function renderSearchHalls(){
-
-    document.getElementById("searchHalls").innerHTML =
-        hallHTML();
-}
-
-
-/* =========================================================
-   SEARCH STUDENT
-========================================================= */
+/* ================= STUDENT SEARCH ================= */
 
 function searchStudent(){
 
-    const input =
-        document.getElementById("studentSearch");
+let r=document.getElementById("studentSearch").value.trim();
+let result=document.getElementById("studentResult");
 
-    const register =
-        input.value.trim();
+document.querySelectorAll(".search-highlight")
+.forEach(x=>x.classList.remove("search-highlight"));
 
+let s=student(r);
 
-    const result =
-        document.getElementById("searchResult");
+if(!s){
+result.className="result show";
+result.innerHTML=`<b style="color:#ff3155">
+Register number not found.
+</b>`;
+return;
+}
 
+let mark=s.attendance==="PRESENT"
+?`<span class="pmark">P — PRESENT</span>`
+:`<span class="amark">A — ABSENT</span>`;
 
-    document
-        .querySelectorAll(".search-highlight")
-        .forEach(el =>
-            el.classList.remove("search-highlight")
-        );
+result.className="result show";
 
+result.innerHTML=`
+<b>Student Found ✓</b>
 
-    if(register.length !== 12){
+<div class="resultgrid">
 
-        result.className =
-            "search-result show";
+<div class="ritem">
+<small>REGISTER NUMBER</small>
+<b>${s.register} &nbsp; ${mark}</b>
+</div>
 
-        result.innerHTML = `
+<div class="ritem">
+<small>DEPARTMENT</small>
+<b>${esc(s.department)}</b>
+</div>
 
-            <div class="not-found">
-                Enter a valid 12-digit register number.
-            </div>
+<div class="ritem">
+<small>SUBJECT</small>
+<b>${esc(s.subject)}</b>
+</div>
 
-        `;
+<div class="ritem">
+<small>LOCATION</small>
+<b>Hall ${s.hall} / Bench ${s.bench} / Seat ${s.seat}</b>
+</div>
 
-        return;
-    }
+</div>`;
 
+let seatEl=document.querySelector(
+`#searchHalls .seat[data-register="${r}"]`
+);
 
-    const student =
-        findStudent(register);
-
-
-    if(!student){
-
-        result.className =
-            "search-result show";
-
-        result.innerHTML = `
-
-            <div class="not-found">
-                Register number ${register} was not found.
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    result.className =
-        "search-result show";
-
-
-    result.innerHTML = `
-
-        <div class="result-title">
-            Student Found ✓
-        </div>
-
-        <div class="result-grid">
-
-            <div class="result-item">
-                <small>REGISTER NUMBER</small>
-                <strong>${student.register}</strong>
-            </div>
-
-            <div class="result-item">
-                <small>DEPARTMENT</small>
-                <strong>${escapeHTML(student.department)}</strong>
-            </div>
-
-            <div class="result-item">
-                <small>SUBJECT</small>
-                <strong>${escapeHTML(student.subject)}</strong>
-            </div>
-
-            <div class="result-item">
-                <small>LOCATION</small>
-                <strong>
-                    Hall ${student.hall}
-                    / Bench ${student.bench}
-                    / Seat ${student.seat}
-                </strong>
-            </div>
-
-        </div>
-
-    `;
-
-
-    const seat =
-        document.querySelector(
-            `#searchHalls .seat[data-register="${register}"]`
-        );
-
-
-    if(seat){
-
-        seat.classList.add("search-highlight");
-
-
-        setTimeout(() => {
-
-            seat.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
-
-        },150);
-
-    }
+if(seatEl){
+seatEl.classList.add("search-highlight");
+setTimeout(()=>seatEl.scrollIntoView({
+behavior:"smooth",block:"center"
+}),100);
+}
 }
 
 
-/* =========================================================
-   ATTENDANCE RENDER
-========================================================= */
+/* ================= ATTENDANCE ================= */
 
 function renderAttendance(){
 
-    const table =
-        document.getElementById("attendanceTable");
+let present=exam.students.filter(x=>x.attendance==="PRESENT");
+let absent=exam.students.filter(x=>x.attendance==="ABSENT");
+
+document.getElementById("totalAtt").textContent=exam.students.length;
+document.getElementById("presentAtt").textContent=present.length;
+document.getElementById("absentAtt").textContent=absent.length;
+
+document.getElementById("presentList").innerHTML=
+present.length
+?present.map(x=>`<span class="listreg preg">${x.register}</span>`).join("")
+:`<span class="none">No present students.</span>`;
+
+document.getElementById("absentList").innerHTML=
+absent.length
+?absent.map(x=>`<span class="listreg areg">${x.register}</span>`).join("")
+:`<span class="none">No absent students.</span>`;
 
 
-    const presentList =
-        document.getElementById("presentList");
+document.getElementById("attRows").innerHTML=
+exam.students.map(s=>`
+
+<div class="attrow" data-attreg="${s.register}">
+
+<div>
+<div class="attreg">${s.register}</div>
+<div class="attdept">${esc(s.department)}</div>
+</div>
+
+<div class="status ${s.attendance==="PRESENT"?"p":"a"}">
+STATUS:
+${s.attendance==="PRESENT"?"P — PRESENT":"A — ABSENT"}
+</div>
+
+<div>
+<button class="statusbtn ${s.attendance==="PRESENT"?"pa":""}"
+onclick="setStatus('${s.register}','PRESENT')">
+PRESENT
+</button>
+
+<button class="statusbtn ${s.attendance==="ABSENT"?"aa":""}"
+onclick="setStatus('${s.register}','ABSENT')">
+ABSENT
+</button>
+</div>
+
+</div>
+
+`).join("");
 
 
-    const absentList =
-        document.getElementById("absentList");
-
-
-    /* STUDENT ROWS */
-
-    table.innerHTML = "";
-
-
-    exam.students.forEach(student => {
-
-        const row =
-            document.createElement("div");
-
-        row.className =
-            "attendance-row-card";
-
-        row.dataset.register =
-            student.register;
-
-
-        row.innerHTML = `
-
-            <div>
-
-                <div class="att-reg">
-                    ${student.register}
-                </div>
-
-                <div class="att-dept">
-                    ${escapeHTML(student.department)}
-                </div>
-
-            </div>
-
-
-            <div class="current-status">
-
-                STATUS:
-
-                <span class="${
-                    student.attendance === "PRESENT"
-                    ? "status-present"
-                    : "status-absent"
-                }">
-
-                    ${student.attendance}
-
-                </span>
-
-            </div>
-
-
-            <div class="status-buttons">
-
-                <button
-                    class="status-btn present ${
-                        student.attendance === "PRESENT"
-                        ? "active"
-                        : ""
-                    }"
-                    onclick="setAttendance(
-                        '${student.register}',
-                        'PRESENT'
-                    )"
-                >
-                    PRESENT
-                </button>
-
-
-                <button
-                    class="status-btn absent ${
-                        student.attendance === "ABSENT"
-                        ? "active"
-                        : ""
-                    }"
-                    onclick="setAttendance(
-                        '${student.register}',
-                        'ABSENT'
-                    )"
-                >
-                    ABSENT
-                </button>
-
-            </div>
-
-        `;
-
-
-        table.appendChild(row);
-    });
-
-
-    /* PRESENT LIST */
-
-    const presentStudents =
-        exam.students.filter(
-            student =>
-                student.attendance === "PRESENT"
-        );
-
-
-    /* ABSENT LIST */
-
-    const absentStudents =
-        exam.students.filter(
-            student =>
-                student.attendance === "ABSENT"
-        );
-
-
-    if(presentStudents.length){
-
-        presentList.innerHTML =
-            presentStudents
-                .map(student => `
-                    <div class="present-reg">
-                        ${student.register}
-                    </div>
-                `)
-                .join("");
-
-    }else{
-
-        presentList.innerHTML =
-            `<div class="no-present">
-                No students present.
-            </div>`;
-    }
-
-
-    if(absentStudents.length){
-
-        absentList.innerHTML =
-            absentStudents
-                .map(student => `
-                    <div class="absent-reg">
-                        ${student.register}
-                    </div>
-                `)
-                .join("");
-
-    }else{
-
-        absentList.innerHTML =
-            `<div class="no-absent">
-                No absent students.
-            </div>`;
-    }
-
-
-    /* COUNTS */
-
-    document.getElementById("attTotal").textContent =
-        exam.students.length;
-
-    document.getElementById("attPresent").textContent =
-        presentStudents.length;
-
-    document.getElementById("attAbsent").textContent =
-        absentStudents.length;
+/* update last search result automatically */
+updateLastSearch();
 }
 
 
-/* =========================================================
-   SET PRESENT / ABSENT
-========================================================= */
+/* ================= STATUS CHANGE ================= */
 
-function setAttendance(register,status){
+function setStatus(register,status){
 
-    const student =
-        findStudent(register);
+let s=student(register);
 
+if(!s)return;
 
-    if(!student){
-        return;
-    }
+s.attendance=status;
 
+renderAttendance();
 
-    student.attendance = status;
+let row=document.querySelector(
+`[data-attreg="${register}"]`
+);
 
-
-    /*
-       IMPORTANT:
-
-       When ABSENT:
-       PRESENT list -> remove
-       ABSENT list -> add
-       Present count decreases
-       Absent count increases
-
-       When PRESENT:
-       ABSENT list -> remove
-       PRESENT list -> add
-       Counts update automatically.
-    */
-
-
-    renderAttendance();
-
-
-    /* Keep searched student visible */
-
-    const searchValue =
-        document.getElementById(
-            "attendanceSearch"
-        ).value.trim();
-
-
-    if(searchValue){
-
-        setTimeout(() => {
-
-            const row =
-                document.querySelector(
-                    `.attendance-row-card[data-register="${searchValue}"]`
-                );
-
-            if(row){
-
-                row.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-
-            }
-
-        },100);
-
-    }
+if(row){
+row.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+}
 }
 
 
-/* =========================================================
-   ATTENDANCE SEARCH
-========================================================= */
+/* ================= ATTENDANCE SEARCH ================= */
 
 function searchAttendance(){
 
-    const input =
-        document.getElementById(
-            "attendanceSearch"
-        );
+let r=document.getElementById("attendanceSearch").value.trim();
+let result=document.getElementById("attendanceSearchResult");
 
+let s=student(r);
 
-    const register =
-        input.value.trim();
+document.querySelectorAll(".attrow").forEach(x=>{
+x.style.borderColor="#183447";
+x.style.boxShadow="none";
+});
 
+if(!s){
+result.className="result show";
+result.innerHTML=`<b style="color:#ff3155">Register number not found.</b>`;
+return;
+}
 
-    document
-        .querySelectorAll(".attendance-row-card")
-        .forEach(row => {
+result.className="result show";
 
-            row.style.borderColor = "#183447";
-            row.style.boxShadow = "none";
-        });
+let mark=s.attendance==="PRESENT"
+?`<span class="pmark">P — PRESENT</span>`
+:`<span class="amark">A — ABSENT</span>`;
 
+result.innerHTML=`
+<b>Attendance Search</b>
+<div class="resultgrid">
+<div class="ritem">
+<small>REGISTER NUMBER</small>
+<b>${s.register} &nbsp; ${mark}</b>
+</div>
+<div class="ritem">
+<small>DEPARTMENT</small>
+<b>${esc(s.department)}</b>
+</div>
+<div class="ritem">
+<small>SUBJECT</small>
+<b>${esc(s.subject)}</b>
+</div>
+<div class="ritem">
+<small>STATUS</small>
+<b>${mark}</b>
+</div>
+</div>`;
 
-    if(register.length !== 12){
+let row=document.querySelector(`[data-attreg="${r}"]`);
 
-        alert(
-            "Please enter a valid 12-digit register number."
-        );
+if(row){
+row.style.borderColor=
+s.attendance==="PRESENT"?"#00ffad":"#ff1744";
+row.style.boxShadow=
+s.attendance==="PRESENT"
+?"0 0 25px #00ffad44"
+:"0 0 25px #ff174455";
 
-        return;
-    }
-
-
-    const student =
-        findStudent(register);
-
-
-    if(!student){
-
-        alert(
-            "Register number not found."
-        );
-
-        return;
-    }
-
-
-    const row =
-        document.querySelector(
-            `.attendance-row-card[data-register="${register}"]`
-        );
-
-
-    if(row){
-
-        row.style.borderColor =
-            student.attendance === "ABSENT"
-            ? "#ff1744"
-            : "#00ffad";
-
-        row.style.boxShadow =
-            student.attendance === "ABSENT"
-            ? "0 0 25px rgba(255,23,68,.35)"
-            : "0 0 25px rgba(0,255,173,.25)";
-
-
-        row.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }
+row.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+}
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* ================= UPDATE LAST SEARCH ================= */
 
-function escapeHTML(value){
+function updateLastSearch(){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+let r=document.getElementById("studentSearch").value.trim();
+let result=document.getElementById("studentResult");
+
+if(!r)return;
+
+let s=student(r);
+
+if(!s)return;
+
+let mark=s.attendance==="PRESENT"
+?`<span class="pmark">P — PRESENT</span>`
+:`<span class="amark">A — ABSENT</span>`;
+
+result.className="result show";
+
+result.innerHTML=`
+<b>Student Found ✓</b>
+<div class="resultgrid">
+
+<div class="ritem">
+<small>REGISTER NUMBER</small>
+<b>${s.register} &nbsp; ${mark}</b>
+</div>
+
+<div class="ritem">
+<small>DEPARTMENT</small>
+<b>${esc(s.department)}</b>
+</div>
+
+<div class="ritem">
+<small>SUBJECT</small>
+<b>${esc(s.subject)}</b>
+</div>
+
+<div class="ritem">
+<small>LOCATION</small>
+<b>Hall ${s.hall} / Bench ${s.bench} / Seat ${s.seat}</b>
+</div>
+
+</div>`;
 }
 
 
-/* =========================================================
-   SONIC CURSOR
-========================================================= */
+/* ================= ENTER → NEXT BLOCK ================= */
 
-const cursorRing =
-    document.getElementById("cursorRing");
+function setupEnterNavigation(){
 
-const cursorDot =
-    document.getElementById("cursorDot");
+document.addEventListener("keydown",function(e){
 
+if(e.key!=="Enter")return;
 
-document.addEventListener(
-    "mousemove",
-    event => {
+let el=document.activeElement;
 
-        cursorRing.style.left =
-            event.clientX + "px";
+if(
+el.id==="studentSearch"
+){
+searchStudent();
+return;
+}
 
-        cursorRing.style.top =
-            event.clientY + "px";
+if(
+el.id==="attendanceSearch"
+){
+searchAttendance();
+return;
+}
 
+if(!el.matches("input"))return;
 
-        cursorDot.style.left =
-            event.clientX + "px";
+let inputs=[...document.querySelectorAll(
+"#step1 input,#step2 input"
+)];
 
-        cursorDot.style.top =
-            event.clientY + "px";
+let index=inputs.indexOf(el);
 
-    }
-);
+if(index<0)return;
 
+e.preventDefault();
 
-document.addEventListener(
-    "click",
-    event => {
+let next=inputs[index+1];
 
-        const ripple =
-            document.createElement("div");
+if(next){
+next.focus();
+next.select();
+}else{
 
-        ripple.className =
-            "sonic-ripple";
+if(el.closest("#step1")){
+createDepartments();
+}else{
+generate();
+}
 
+}
 
-        ripple.style.left =
-            event.clientX + "px";
-
-        ripple.style.top =
-            event.clientY + "px";
-
-
-        document.body.appendChild(ripple);
-
-
-        setTimeout(() => {
-            ripple.remove();
-        },700);
-
-    }
-);
+});
+}
 
 
-/* =========================================================
-   CURSOR HOVER EFFECT
-========================================================= */
+/* ================= HTML ESCAPE ================= */
 
-document.addEventListener(
-    "mouseover",
-    event => {
+function esc(v){
 
-        if(
-            event.target.matches(
-                "button,input,.seat,.status-btn"
-            )
-        ){
-
-            cursorRing.style.width = "46px";
-            cursorRing.style.height = "46px";
-            cursorRing.style.borderColor =
-                "#00ffea";
-
-        }
-
-    }
-);
+return String(v)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
 
 
-document.addEventListener(
-    "mouseout",
-    event => {
+/* ================= SONIC CURSOR ================= */
 
-        if(
-            event.target.matches(
-                "button,input,.seat,.status-btn"
-            )
-        ){
+let cursor=document.getElementById("cursor");
+let dot=document.getElementById("dot");
 
-            cursorRing.style.width = "32px";
-            cursorRing.style.height = "32px";
-            cursorRing.style.borderColor =
-                "rgba(0,234,255,.7)";
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+dot.style.left=e.clientX+"px";
+dot.style.top=e.clientY+"px";
+});
 
-        }
+document.addEventListener("click",e=>{
 
-    }
-);
+let r=document.createElement("div");
+r.className="ripple";
+r.style.left=e.clientX+"px";
+r.style.top=e.clientY+"px";
 
+document.body.appendChild(r);
 
-/* =========================================================
-   ENTER KEY SEARCH
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(event.key !== "Enter"){
-            return;
-        }
+setTimeout(()=>r.remove(),700);
+});
 
 
-        const active =
-            document.activeElement;
+/* ================= SEARCH ENTER ================= */
 
+document.getElementById("studentSearch")
+.addEventListener("keydown",e=>{
+if(e.key==="Enter")searchStudent();
+});
 
-        if(active &&
-            active.id === "studentSearch"){
-
-            searchStudent();
-
-        }
-
-
-        if(active &&
-            active.id === "attendanceSearch"){
-
-            searchAttendance();
-
-        }
-
-    }
-);
+document.getElementById("attendanceSearch")
+.addEventListener("keydown",e=>{
+if(e.key==="Enter")searchAttendance();
+});
 
 </script>
 
