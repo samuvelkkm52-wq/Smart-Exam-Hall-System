@@ -3,15 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Smart Exam Cell</title>
+<title>Smart Exam Hall System</title>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     margin:0;
     padding:0;
@@ -26,227 +20,172 @@ body{
     min-height:100vh;
     font-family:Arial,Helvetica,sans-serif;
     color:#edfaff;
-
     background:
         radial-gradient(circle at 10% 5%,rgba(0,234,255,.12),transparent 28%),
         radial-gradient(circle at 90% 15%,rgba(70,80,255,.13),transparent 30%),
         linear-gradient(135deg,#02050c,#07111f 50%,#02050b);
-
     overflow-x:hidden;
 }
 
-button,
-input{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
+/* ================= HEADER ================= */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-
-    background:rgba(2,7,17,.96);
-    backdrop-filter:blur(15px);
-
-    border-bottom:1px solid rgba(0,234,255,.12);
-}
-
-.header-inner{
-    width:min(1180px,92%);
-    min-height:78px;
-    margin:auto;
-
+    height:76px;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    padding:0 5%;
+    border-bottom:1px solid rgba(0,234,255,.18);
+    background:rgba(2,6,14,.78);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:500;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:13px;
 }
 
 .brand-icon{
-    width:46px;
-    height:46px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:13px;
-
-    background:linear-gradient(135deg,#00eaff,#5578ff);
-
-    font-size:21px;
-
-    box-shadow:0 0 28px rgba(0,234,255,.25);
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#00141a;
+    background:#00eaff;
+    box-shadow:0 0 20px rgba(0,234,255,.7);
 }
 
 .brand-name{
-    font-size:17px;
-    font-weight:1000;
-    letter-spacing:1px;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.5px;
 }
 
 .brand-subtitle{
-    margin-top:4px;
-
-    color:#60768d;
-
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:1px;
+    font-size:11px;
+    color:#7ca8b7;
+    margin-top:3px;
 }
 
 .online{
     display:flex;
     align-items:center;
     gap:8px;
-
-    color:#00f5a0;
-
-    font-size:10px;
-    font-weight:900;
+    font-size:12px;
+    color:#9defff;
 }
 
 .online-dot{
     width:8px;
     height:8px;
-
     border-radius:50%;
-
-    background:#00f5a0;
-
-    box-shadow:0 0 14px #00f5a0;
+    background:#00ff95;
+    box-shadow:0 0 12px #00ff95;
 }
 
-/* =========================================================
-   MAIN
-========================================================= */
-
-main{
-    width:min(1160px,92%);
-    margin:auto;
-}
+/* ================= HERO ================= */
 
 .hero{
     text-align:center;
-    padding:38px 0 25px;
+    padding:48px 20px 28px;
 }
 
 .hero h1{
-    font-size:clamp(30px,5vw,50px);
-    font-weight:1000;
-    letter-spacing:-2px;
-
-    background:linear-gradient(
-        90deg,
-        #fff,
-        #00eaff,
-        #7288ff
-    );
-
+    font-size:clamp(32px,5vw,58px);
+    line-height:1.05;
+    font-weight:900;
+    background:linear-gradient(90deg,#fff,#00eaff,#748cff);
     -webkit-background-clip:text;
     color:transparent;
 }
 
 .hero p{
-    margin:12px auto;
-
-    max-width:700px;
-
-    color:#70849a;
-
-    font-size:13px;
+    margin-top:14px;
+    color:#8aa9b9;
+    font-size:14px;
 }
 
-/* =========================================================
-   PROGRESS
-========================================================= */
+/* ================= PROGRESS ================= */
 
 .progress{
+    max-width:900px;
+    margin:10px auto 35px;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    margin-bottom:30px;
+    padding:0 15px;
 }
 
 .progress-item{
     display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:7px;
-
-    color:#506378;
-
-    font-size:9px;
-    font-weight:1000;
-
-    white-space:nowrap;
+    gap:8px;
+    min-width:80px;
 }
 
 .progress-circle{
-    width:34px;
-    height:34px;
-
-    display:grid;
-    place-items:center;
-
+    width:38px;
+    height:38px;
     border-radius:50%;
-
-    border:1px solid rgba(0,234,255,.15);
-
-    background:#07111f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #31536b;
+    background:#08121f;
+    color:#7292a5;
+    font-weight:bold;
+    transition:.3s;
 }
 
-.progress-item.active{
-    color:#00eaff;
+.progress-item span:last-child{
+    font-size:10px;
+    color:#6f8b9c;
+    text-align:center;
 }
 
-.progress-item.active .progress-circle{
-    color:#00151c;
-
-    background:#00eaff;
-
-    border-color:#00eaff;
-
-    box-shadow:0 0 25px rgba(0,234,255,.5);
-}
-
-.progress-item.done{
-    color:#00f5a0;
-}
-
+.progress-item.active .progress-circle,
 .progress-item.done .progress-circle{
-    color:#00150d;
-    background:#00f5a0;
+    color:#00151b;
+    background:#00eaff;
+    border-color:#00eaff;
+    box-shadow:0 0 22px rgba(0,234,255,.65);
+}
+
+.progress-item.active span:last-child,
+.progress-item.done span:last-child{
+    color:#bff9ff;
 }
 
 .progress-line{
-    width:60px;
-    height:1px;
-
-    margin:0 8px;
-
-    background:rgba(0,234,255,.12);
+    width:70px;
+    height:2px;
+    background:#193246;
+    margin:0 5px;
+    margin-bottom:23px;
+    transition:.3s;
 }
 
 .progress-line.done{
     background:#00eaff;
+    box-shadow:0 0 12px rgba(0,234,255,.6);
 }
 
-/* =========================================================
-   STEPS
-========================================================= */
+/* ================= MAIN ================= */
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:0 18px 50px;
+}
 
 .step{
     display:none;
@@ -258,59 +197,44 @@ main{
 }
 
 @keyframes stepIn{
-
     from{
         opacity:0;
-        transform:translateX(25px);
+        transform:translateY(12px);
     }
-
     to{
         opacity:1;
-        transform:translateX(0);
+        transform:translateY(0);
     }
-
 }
 
-/* =========================================================
-   CARD
-========================================================= */
-
 .card{
-    padding:30px;
-
+    background:linear-gradient(
+        145deg,
+        rgba(11,26,42,.88),
+        rgba(4,11,20,.92)
+    );
+    border:1px solid rgba(0,234,255,.15);
     border-radius:20px;
-
-    border:1px solid rgba(0,234,255,.14);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(8,22,38,.96),
-            rgba(3,10,20,.98)
-        );
-
-    box-shadow:0 20px 70px rgba(0,0,0,.28);
+    padding:26px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.025);
+    margin-bottom:22px;
 }
 
 .card-title{
-    font-size:22px;
-    font-weight:1000;
+    font-size:23px;
+    font-weight:800;
+    margin-bottom:6px;
 }
 
 .card-subtitle{
-    margin-top:8px;
-    margin-bottom:25px;
-
-    color:#71859a;
-
-    font-size:12px;
-
-    line-height:1.7;
+    color:#7895a5;
+    font-size:13px;
+    margin-bottom:24px;
 }
 
-/* =========================================================
-   FORM
-========================================================= */
+/* ================= FORMS ================= */
 
 .form-grid{
     display:grid;
@@ -325,509 +249,356 @@ main{
 }
 
 label{
-    color:#8296aa;
-
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:.8px;
+    font-size:12px;
+    color:#9cb6c3;
+    font-weight:700;
 }
 
 input{
     width:100%;
-
     padding:14px 15px;
-
     border-radius:11px;
-
-    border:1px solid rgba(0,234,255,.15);
-
+    border:1px solid #203c50;
     outline:none;
-
-    background:#030b15;
-
-    color:#fff;
-
-    font-size:13px;
-
+    background:#06101b;
+    color:#eaffff;
+    font-size:14px;
     transition:.25s;
 }
 
 input:focus{
     border-color:#00eaff;
-
-    box-shadow:0 0 25px rgba(0,234,255,.1);
+    box-shadow:0 0 0 3px rgba(0,234,255,.08),0 0 20px rgba(0,234,255,.12);
 }
 
-/* =========================================================
-   FIXED 9527
-========================================================= */
+input::placeholder{
+    color:#4f6979;
+}
+
+/* ================= FIXED REGISTER ================= */
 
 .fixed-register-box{
-    margin-top:25px;
-
-    padding:20px;
-
-    border-radius:15px;
-
-    border:1px solid rgba(0,234,255,.15);
-
+    margin-top:22px;
+    border:1px solid rgba(0,234,255,.22);
     background:rgba(0,234,255,.035);
+    padding:18px;
+    border-radius:15px;
 }
 
 .fixed-title{
-    color:#00eaff;
-
-    font-size:10px;
-    font-weight:1000;
+    font-size:12px;
+    color:#91aebc;
+    margin-bottom:8px;
 }
 
 .fixed-number{
-    display:inline-block;
-
-    margin-top:12px;
-
-    padding:10px 18px;
-
-    border-radius:9px;
-
-    border:1px solid #00eaff;
-
-    color:#00eaff;
-
-    font-size:22px;
-    font-weight:1000;
-
-    letter-spacing:4px;
-
-    box-shadow:0 0 15px rgba(0,234,255,.15);
-}
-
-.lock-text{
-    margin-left:10px;
-
-    color:#00f5a0;
-
-    font-size:9px;
+    font-size:30px;
     font-weight:900;
+    color:#00eaff;
+    letter-spacing:4px;
+    text-shadow:0 0 18px rgba(0,234,255,.55);
 }
 
-/* =========================================================
-   DEPARTMENT
-========================================================= */
+/* ================= DEPARTMENTS ================= */
 
 .department-container{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
+    display:flex;
+    flex-direction:column;
     gap:18px;
 }
 
 .department-box{
-    padding:21px;
-
-    border-radius:16px;
-
-    border:1px solid rgba(0,234,255,.13);
-
-    background:rgba(5,16,29,.82);
+    border:1px solid #1c3a4d;
+    border-radius:17px;
+    padding:20px;
+    background:rgba(5,15,25,.75);
 }
 
 .department-header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-
-    margin-bottom:17px;
+    justify-content:space-between;
+    margin-bottom:18px;
 }
 
 .department-title{
-    color:#00eaff;
-
-    font-size:12px;
-    font-weight:1000;
+    font-size:17px;
+    font-weight:800;
+    color:#dffaff;
 }
 
 .auto-tag{
-    padding:5px 8px;
-
+    font-size:10px;
+    padding:5px 9px;
     border-radius:20px;
-
-    background:rgba(0,245,160,.06);
-
-    color:#00f5a0;
-
-    font-size:8px;
-    font-weight:900;
+    color:#00eaff;
+    border:1px solid rgba(0,234,255,.25);
+    background:rgba(0,234,255,.05);
 }
 
 .department-fields{
     display:grid;
-    gap:13px;
+    grid-template-columns:1.2fr 1.2fr .8fr;
+    gap:14px;
 }
-
-.department-fields > div > label{
-    display:block;
-    margin-bottom:6px;
-}
-
-/* =========================================================
-   REGISTER BLOCK
-========================================================= */
 
 .register-block{
-    margin-top:5px;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    border:1px solid rgba(0,234,255,.12);
-
-    background:rgba(0,0,0,.18);
+    margin-top:16px;
+    border-radius:13px;
+    padding:16px;
+    border:1px solid rgba(117,140,255,.18);
+    background:rgba(45,52,120,.08);
 }
 
 .register-block-title{
-    margin-bottom:13px;
-
-    color:#00eaff;
-
-    font-size:9px;
-    font-weight:1000;
-}
-
-.fixed-prefix{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:12px;
+    color:#b3c9ff;
+    font-size:12px;
+    font-weight:bold;
     margin-bottom:12px;
-
-    border-radius:9px;
-
-    border:1px solid rgba(0,245,160,.15);
-
-    background:rgba(0,245,160,.035);
-}
-
-.fixed-prefix-value{
-    color:#00f5a0;
-
-    font-size:20px;
-    font-weight:1000;
-
-    letter-spacing:3px;
-}
-
-.fixed-lock{
-    color:#00f5a0;
-
-    font-size:9px;
-    font-weight:900;
 }
 
 .register-range-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+    grid-template-columns:120px 1fr 1fr;
+    gap:12px;
+    align-items:end;
 }
 
-.register-range-grid > div{
+.fixed-prefix{
+    font-size:11px;
+    color:#7e98a8;
+}
+
+.fixed-prefix-value{
+    margin-top:7px;
+    height:46px;
     display:flex;
-    flex-direction:column;
-    gap:6px;
+    align-items:center;
+    padding:0 12px;
+    border-radius:10px;
+    background:#020a12;
+    border:1px solid #183244;
+    color:#00eaff;
+    font-weight:900;
+    letter-spacing:2px;
 }
 
-.register-end{
-    color:#00f5a0!important;
+.fixed-lock{
+    font-size:10px;
+    color:#69818e;
+    margin-top:5px;
+}
 
-    border-color:rgba(0,245,160,.25)!important;
+.reg-end{
+    color:#00ffbd !important;
 }
 
 .register-preview{
-    margin-top:11px;
-
-    padding:10px;
-
-    border-radius:8px;
-
-    background:rgba(0,234,255,.035);
-
-    color:#6e8498;
-
-    font-size:9px;
-
-    line-height:1.7;
+    margin-top:12px;
+    color:#7898a8;
+    font-size:11px;
 }
 
 .register-preview strong{
-    color:#00f5a0;
+    color:#00eaff;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* ================= BUTTONS ================= */
 
 .buttons{
     display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
+    justify-content:flex-end;
     gap:12px;
+    margin-top:24px;
+}
 
-    margin-top:25px;
+button{
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.primary,
+.secondary{
+    padding:13px 21px;
+    border-radius:11px;
+    font-weight:800;
+    transition:.25s;
 }
 
 .primary{
-    padding:14px 23px;
-
-    border:0;
-
-    border-radius:11px;
-
-    background:linear-gradient(
-        135deg,
-        #00eaff,
-        #577cff
-    );
-
-    color:#00131b;
-
-    font-size:10px;
-    font-weight:1000;
-
-    box-shadow:0 0 25px rgba(0,234,255,.1);
+    color:#001319;
+    background:#00eaff;
+    box-shadow:0 0 18px rgba(0,234,255,.3);
 }
 
 .primary:hover{
     transform:translateY(-2px);
-
-    box-shadow:0 0 35px rgba(0,234,255,.25);
+    box-shadow:0 0 28px rgba(0,234,255,.55);
 }
 
 .secondary{
-    padding:14px 21px;
-
-    border-radius:11px;
-
-    border:1px solid rgba(255,255,255,.1);
-
-    background:rgba(255,255,255,.03);
-
-    color:#91a4b8;
-
-    font-size:10px;
-    font-weight:900;
+    color:#b9d5df;
+    background:#0a1724;
+    border:1px solid #294356;
 }
 
-/* =========================================================
-   SUMMARY
-========================================================= */
+.secondary:hover{
+    border-color:#00eaff;
+    color:#00eaff;
+}
+
+/* ================= SUMMARY ================= */
 
 .summary{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:12px;
-
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .summary-box{
-    padding:17px;
-
-    text-align:center;
-
-    border-radius:13px;
-
-    border:1px solid rgba(0,234,255,.12);
-
-    background:rgba(5,15,28,.8);
+    padding:18px;
+    border-radius:14px;
+    background:#07131f;
+    border:1px solid #183447;
 }
 
-.summary-box span{
+.summary-box small{
     display:block;
-
+    color:#718b99;
+    font-size:10px;
     margin-bottom:7px;
-
-    color:#62778c;
-
-    font-size:8px;
-    font-weight:900;
 }
 
 .summary-box strong{
+    font-size:23px;
     color:#00eaff;
-    font-size:22px;
 }
 
-/* =========================================================
-   HALL
-========================================================= */
+/* ================= HALLS ================= */
 
 .halls{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:18px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
 
 .hall{
-    padding:18px;
-
+    border:1px solid #193a4e;
     border-radius:18px;
-
-    border:1px solid rgba(0,234,255,.15);
-
-    background:#050d18;
+    overflow:hidden;
+    background:rgba(3,12,20,.8);
 }
 
 .hall-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    padding-bottom:15px;
-    margin-bottom:15px;
-
-    border-bottom:1px solid rgba(255,255,255,.06);
+    padding:16px 19px;
+    background:linear-gradient(90deg,rgba(0,234,255,.08),transparent);
+    border-bottom:1px solid #163246;
 }
 
 .hall-name{
+    font-weight:900;
     font-size:17px;
-    font-weight:1000;
 }
 
 .hall-active{
-    color:#00f5a0;
-
-    font-size:8px;
-    font-weight:1000;
+    font-size:11px;
+    color:#00ffad;
 }
 
 .bench{
-    margin-bottom:18px;
+    padding:17px;
+    border-bottom:1px solid rgba(28,57,73,.55);
+}
+
+.bench:last-child{
+    border-bottom:0;
 }
 
 .bench-title{
-    margin-bottom:8px;
-
-    color:#00eaff;
-
-    font-size:9px;
-    font-weight:1000;
-
+    color:#668797;
+    font-size:10px;
+    margin-bottom:10px;
     text-transform:uppercase;
+    letter-spacing:1px;
 }
 
 .seats{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
 }
 
 .seat{
-    min-height:135px;
-
+    min-height:100px;
+    border-radius:14px;
+    border:1px solid #21475b;
     padding:14px;
-
-    border-radius:12px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    background:#101925;
-
+    background:linear-gradient(145deg,#091a28,#06101a);
     transition:.3s;
 }
 
 .seat:hover{
-    border-color:rgba(0,234,255,.3);
-
     transform:translateY(-2px);
+    border-color:#00eaff;
 }
 
 .seat-label{
-    margin-bottom:10px;
-
-    color:#00eaff;
-
-    font-size:8px;
-    font-weight:1000;
+    font-size:9px;
+    color:#63808e;
+    margin-bottom:8px;
 }
 
 .reg{
-    margin-bottom:7px;
-
-    color:#fff;
-
-    font-size:12px;
-    font-weight:1000;
-
-    word-break:break-all;
+    font-size:18px;
+    font-weight:900;
+    color:#dffcff;
+    letter-spacing:.5px;
 }
 
 .dept{
-    margin-bottom:5px;
-
-    color:#dce7ef;
-
-    font-size:10px;
-    font-weight:900;
+    margin-top:7px;
+    color:#00eaff;
+    font-size:11px;
+    font-weight:bold;
 }
 
 .subject{
-    color:#00f5a0;
-
-    font-size:9px;
-    font-weight:900;
-
-    text-transform:uppercase;
+    margin-top:4px;
+    color:#7f9ba8;
+    font-size:10px;
 }
-
-/* =========================================================
-   EMPTY SEAT
-========================================================= */
 
 .empty{
-    border:2px solid #ff304f!important;
-
-    background:rgba(255,48,79,.05)!important;
+    border-color:#ff1744;
+    background:rgba(255,23,68,.06);
 }
 
-.empty .seat-label{
-    color:#ff304f;
+.empty .empty-text{
+    color:#ff3559;
+    font-weight:900;
+    text-shadow:0 0 10px rgba(255,23,68,.7);
 }
 
 .empty-text{
-    margin-top:25px;
-
-    color:#ff5065;
-
-    font-size:9px;
-    font-weight:1000;
+    font-size:17px;
+    padding-top:12px;
 }
 
-/* =========================================================
-   SEARCH BOX
-========================================================= */
+/* ================= SEARCH ================= */
 
 .search-box{
-    padding:20px;
-
-    margin-bottom:20px;
-
-    border-radius:15px;
-
-    border:1px solid rgba(0,234,255,.16);
-
-    background:rgba(5,15,28,.8);
+    margin-bottom:22px;
 }
 
 .search-title{
+    font-size:16px;
+    font-weight:800;
     margin-bottom:12px;
-
-    color:#00eaff;
-
-    font-size:12px;
-    font-weight:1000;
 }
 
 .search-row{
@@ -836,1898 +607,1681 @@ input:focus{
 }
 
 .search-button{
-    padding:0 25px;
-
-    border:0;
-
-    border-radius:10px;
-
-    background:linear-gradient(
-        135deg,
-        #00eaff,
-        #587aff
-    );
-
-    color:#00131b;
-
-    font-weight:1000;
+    min-width:120px;
+    border-radius:11px;
+    color:#001319;
+    background:#00eaff;
+    font-weight:900;
 }
 
-/* =========================================================
-   SEARCH RESULT
-========================================================= */
-
 .search-result{
-    margin-top:15px;
-
+    display:none;
+    margin-top:18px;
+    border:1px solid #1d5265;
+    border-radius:15px;
     padding:18px;
+    background:rgba(0,234,255,.035);
+}
 
-    border-radius:13px;
-
-    border:1px solid #00f5a0;
-
-    background:rgba(0,245,160,.04);
-
-    box-shadow:0 0 20px rgba(0,245,160,.12);
+.search-result.show{
+    display:block;
 }
 
 .result-title{
+    font-weight:900;
     margin-bottom:14px;
-
-    color:#00f5a0;
-
-    font-size:11px;
-    font-weight:1000;
 }
 
 .result-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:10px;
 }
 
 .result-item{
-    padding:12px;
-
-    border-radius:9px;
-
-    background:rgba(255,255,255,.025);
-
-    border:1px solid rgba(0,245,160,.12);
+    background:#06111c;
+    border:1px solid #173447;
+    padding:13px;
+    border-radius:10px;
 }
 
-.result-item span{
+.result-item small{
     display:block;
-
+    color:#65808e;
+    font-size:9px;
     margin-bottom:5px;
-
-    color:#708697;
-
-    font-size:8px;
-    font-weight:900;
 }
 
 .result-item strong{
-    color:#fff;
-
-    font-size:11px;
-
-    word-break:break-all;
+    color:#c8faff;
+    font-size:13px;
 }
 
 .not-found{
-    margin-top:15px;
-
-    padding:14px;
-
-    border-radius:10px;
-
-    border:1px solid #ff304f;
-
-    background:rgba(255,48,79,.05);
-
-    color:#ff5065;
-
-    font-size:10px;
+    color:#ff4261;
+    font-size:13px;
+    font-weight:bold;
 }
 
-/* =========================================================
-   🔴 EXACT SEARCHED STUDENT SEAT
-========================================================= */
+/* ================= RED SEARCH GLOW ================= */
 
 .search-highlight{
-
     position:relative !important;
-
     z-index:9999 !important;
-
     border:3px solid #ff1744 !important;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,20,55,.45),
-            rgba(100,0,20,.30)
-        ) !important;
-
+    background:linear-gradient(
+        145deg,
+        rgba(255,20,55,.45),
+        rgba(100,0,20,.30)
+    ) !important;
     transform:scale(1.05);
-
     box-shadow:
         0 0 10px #ff1744,
         0 0 25px #ff1744,
         0 0 50px #ff1744,
-        0 0 90px rgba(255,23,68,.9),
-        0 0 130px rgba(255,23,68,.65),
-        0 0 170px rgba(255,23,68,.35) !important;
-
-    animation:
-        redStudentGlow
-        .65s
-        ease-in-out
-        infinite
-        alternate !important;
+        0 0 90px rgba(255,23,68,.9) !important;
+    animation:redGlow .65s ease-in-out infinite alternate !important;
 }
 
-
-/* RED REGISTER NUMBER */
-
 .search-highlight .reg{
-
     color:#ff1744 !important;
-
     text-shadow:
         0 0 8px #ff1744,
         0 0 18px #ff1744,
-        0 0 30px #ff1744,
-        0 0 45px rgba(255,23,68,.9) !important;
+        0 0 30px #ff1744;
 }
 
-
-/* RED SEAT LABEL */
-
-.search-highlight .seat-label{
-
-    color:#ff1744 !important;
-
-    text-shadow:
-        0 0 8px #ff1744,
-        0 0 18px #ff1744;
-}
-
-
-/* DEPARTMENT */
-
-.search-highlight .dept{
-
-    color:#ff6680 !important;
-
-    text-shadow:
-        0 0 8px rgba(255,23,68,.6);
-}
-
-
-/* SUBJECT */
-
-.search-highlight .subject{
-
-    color:#ff6680 !important;
-
-    text-shadow:
-        0 0 8px rgba(255,23,68,.6);
-}
-
-
-/* =========================================================
-   RED GLOW ANIMATION
-========================================================= */
-
-@keyframes redStudentGlow{
-
-    0%{
-
-        border-color:#ff1744;
-
+@keyframes redGlow{
+    from{
         box-shadow:
             0 0 10px #ff1744,
             0 0 25px #ff1744,
-            0 0 45px rgba(255,23,68,.55),
-            0 0 70px rgba(255,23,68,.25);
-
+            0 0 50px rgba(255,23,68,.75);
     }
-
-    100%{
-
-        border-color:#ff0033;
-
+    to{
         box-shadow:
-            0 0 20px #ff1744,
-            0 0 45px #ff1744,
+            0 0 18px #ff1744,
+            0 0 38px #ff1744,
             0 0 80px #ff1744,
-            0 0 120px rgba(255,23,68,.85),
-            0 0 170px rgba(255,23,68,.5);
-
+            0 0 120px rgba(255,23,68,.9);
     }
-
 }
 
+/* ================= ATTENDANCE ================= */
 
-/* =========================================================
-   SONIC CURSOR
-========================================================= */
+.attendance-search{
+    margin-bottom:22px;
+}
+
+.attendance-row{
+    display:flex;
+    gap:10px;
+}
+
+.attendance-summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+    margin-bottom:22px;
+}
+
+.att-box{
+    border:1px solid #1c3c4e;
+    border-radius:15px;
+    padding:18px;
+    background:#06111c;
+}
+
+.att-box small{
+    color:#6e8b99;
+    display:block;
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.att-box strong{
+    font-size:28px;
+}
+
+.att-total strong{
+    color:#00eaff;
+}
+
+.att-present strong{
+    color:#00ffad;
+}
+
+.att-absent strong{
+    color:#ff3155;
+}
+
+.attendance-table{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
+}
+
+.attendance-row-card{
+    display:grid;
+    grid-template-columns:1.2fr 1fr auto;
+    align-items:center;
+    gap:15px;
+    padding:13px 15px;
+    border:1px solid #183447;
+    border-radius:12px;
+    background:#06111b;
+}
+
+.att-reg{
+    font-size:14px;
+    font-weight:900;
+    color:#e4fbff;
+}
+
+.att-dept{
+    color:#00eaff;
+    font-size:11px;
+}
+
+.status-buttons{
+    display:flex;
+    gap:7px;
+}
+
+.status-btn{
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:900;
+    border:1px solid #284355;
+    background:#0a1723;
+    color:#7793a0;
+}
+
+.status-btn.present.active{
+    color:#001b12;
+    background:#00ffad;
+    border-color:#00ffad;
+    box-shadow:0 0 15px rgba(0,255,173,.3);
+}
+
+.status-btn.absent.active{
+    color:#fff;
+    background:#ff1744;
+    border-color:#ff1744;
+    box-shadow:0 0 15px rgba(255,23,68,.4);
+}
+
+.current-status{
+    font-size:9px;
+    margin-top:6px;
+}
+
+.status-present{
+    color:#00ffad;
+}
+
+.status-absent{
+    color:#ff3155;
+}
+
+/* ================= TWO LISTS ================= */
+
+.attendance-lists{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:24px;
+}
+
+.absent-panel,
+.present-panel{
+    border-radius:17px;
+    padding:18px;
+    background:#06111b;
+}
+
+.absent-panel{
+    border:1px solid rgba(255,23,68,.3);
+}
+
+.present-panel{
+    border:1px solid rgba(0,255,173,.22);
+}
+
+.absent-title,
+.present-title{
+    font-size:14px;
+    font-weight:900;
+    margin-bottom:13px;
+}
+
+.absent-title{
+    color:#ff3d5e;
+}
+
+.present-title{
+    color:#00ffad;
+}
+
+.absent-list,
+.present-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    max-height:260px;
+    overflow:auto;
+}
+
+.absent-reg,
+.present-reg{
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:900;
+}
+
+.absent-reg{
+    color:#ff5370;
+    background:rgba(255,23,68,.08);
+    border:1px solid rgba(255,23,68,.2);
+}
+
+.present-reg{
+    color:#00ffad;
+    background:rgba(0,255,173,.06);
+    border:1px solid rgba(0,255,173,.16);
+}
+
+.no-absent,
+.no-present{
+    color:#617c8b;
+    font-size:11px;
+}
+
+/* ================= CURSOR SONIC ================= */
 
 #cursorRing{
-
     position:fixed;
-
-    width:28px;
-    height:28px;
-
-    border:1px solid #00eaff;
-
+    width:32px;
+    height:32px;
+    border:1px solid rgba(0,234,255,.7);
     border-radius:50%;
-
     pointer-events:none;
-
-    z-index:99999;
-
     transform:translate(-50%,-50%);
-
-    box-shadow:
-        0 0 10px rgba(0,234,255,.6),
-        inset 0 0 8px rgba(0,234,255,.15);
+    z-index:99999;
+    transition:
+        width .12s,
+        height .12s,
+        border-color .12s;
 }
 
 #cursorDot{
-
     position:fixed;
-
     width:5px;
     height:5px;
-
-    background:#00eaff;
-
     border-radius:50%;
-
+    background:#00eaff;
     pointer-events:none;
-
-    z-index:100000;
-
     transform:translate(-50%,-50%);
-
+    z-index:100000;
     box-shadow:0 0 12px #00eaff;
 }
 
 .sonic-ripple{
-
     position:fixed;
-
-    width:10px;
-    height:10px;
-
+    width:8px;
+    height:8px;
     border:2px solid #00eaff;
-
     border-radius:50%;
-
     pointer-events:none;
-
-    z-index:99998;
-
     transform:translate(-50%,-50%);
-
     animation:ripple .7s ease-out forwards;
+    z-index:99998;
 }
 
 @keyframes ripple{
-
-    0%{
-
+    from{
         opacity:1;
-
-        width:10px;
-        height:10px;
-
-        box-shadow:0 0 10px #00eaff;
+        width:8px;
+        height:8px;
     }
-
-    100%{
-
+    to{
         opacity:0;
-
-        width:90px;
-        height:90px;
-
-        box-shadow:0 0 35px rgba(0,234,255,.3);
+        width:70px;
+        height:70px;
     }
-
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/* ================= FOOTER ================= */
 
 footer{
-
-    margin-top:50px;
-
-    padding:25px 0;
-
-    border-top:1px solid rgba(0,234,255,.08);
-
     text-align:center;
-
-    color:#506276;
-
-    font-size:9px;
+    padding:25px;
+    color:#4f6978;
+    font-size:11px;
+    border-top:1px solid rgba(0,234,255,.08);
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:850px){
 
-    .form-grid{
+    .form-grid,
+    .summary,
+    .attendance-summary{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .department-fields{
         grid-template-columns:1fr;
-    }
-
-    .department-container{
-        grid-template-columns:1fr;
-    }
-
-    .halls{
-        grid-template-columns:1fr;
-    }
-
-    .summary{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:600px){
-
-    main{
-        width:94%;
-    }
-
-    .progress{
-        overflow-x:auto;
-        justify-content:flex-start;
-    }
-
-    .progress-line{
-        width:25px;
-    }
-
-    .progress-item span{
-        display:none;
-    }
-
-    .card{
-        padding:20px;
     }
 
     .register-range-grid{
         grid-template-columns:1fr;
     }
 
-    .seats{
+    .result-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .attendance-lists{
         grid-template-columns:1fr;
     }
 
+    .progress-line{
+        width:30px;
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 15px;
+    }
+
+    .brand-subtitle,
+    .online{
+        display:none;
+    }
+
+    .hero{
+        padding-top:35px;
+    }
+
+    .form-grid,
+    .summary,
+    .attendance-summary,
     .result-grid{
         grid-template-columns:1fr;
     }
 
-    .search-row{
-        flex-direction:column;
+    .card{
+        padding:18px;
     }
 
-    .search-button{
-        padding:14px;
+    .seats{
+        grid-template-columns:1fr;
     }
 
-    .buttons{
-        flex-direction:column-reverse;
+    .attendance-row-card{
+        grid-template-columns:1fr;
     }
 
-    .buttons button{
+    .status-buttons{
         width:100%;
     }
 
-}
+    .status-btn{
+        flex:1;
+    }
 
+    .progress-item{
+        min-width:50px;
+    }
+
+    .progress-item span:last-child{
+        font-size:8px;
+    }
+
+    .progress-line{
+        width:15px;
+    }
+
+    #cursorRing,
+    #cursorDot{
+        display:none;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
-     SONIC CURSOR
-========================================================= -->
-
 <div id="cursorRing"></div>
 <div id="cursorDot"></div>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header>
+    <div class="brand">
+        <div class="brand-icon">S</div>
+        <div>
+            <div class="brand-name">Smart Exam Hall</div>
+            <div class="brand-subtitle">Automated Examination Management System</div>
+        </div>
+    </div>
 
-<div class="header-inner">
-
-<div class="brand">
-
-<div class="brand-icon">
-🎓
-</div>
-
-<div>
-
-<div class="brand-name">
-SMART EXAM CELL
-</div>
-
-<div class="brand-subtitle">
-HALL ALLOCATION & STUDENT LOCATOR
-</div>
-
-</div>
-
-</div>
-
-
-<div class="online">
-
-<div class="online-dot"></div>
-
-SYSTEM ONLINE
-
-</div>
-
-</div>
-
+    <div class="online">
+        <span class="online-dot"></span>
+        SYSTEM ONLINE
+    </div>
 </header>
 
-
-<main>
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
-
-<h1>
-SMART EXAM HALL
-</h1>
-
-<p>
-Automatic department-wise examination hall allocation
-and student seat locator.
-</p>
-
+    <h1>Smart Exam Hall System</h1>
+    <p>Configure departments, allocate seats, search students and manage attendance.</p>
 </section>
-
-
-<!-- =========================================================
-     PROGRESS
-========================================================= -->
 
 <div class="progress">
 
-<div
-class="progress-item active"
-id="p1"
->
+    <div class="progress-item active" id="p1">
+        <div class="progress-circle">1</div>
+        <span>Setup</span>
+    </div>
 
-<div class="progress-circle">
-01
-</div>
+    <div class="progress-line" id="l1"></div>
 
-<span>SETUP</span>
+    <div class="progress-item" id="p2">
+        <div class="progress-circle">2</div>
+        <span>Departments</span>
+    </div>
 
-</div>
+    <div class="progress-line" id="l2"></div>
 
+    <div class="progress-item" id="p3">
+        <div class="progress-circle">3</div>
+        <span>Arrangement</span>
+    </div>
 
-<div
-class="progress-line"
-id="l1"
-></div>
+    <div class="progress-line" id="l3"></div>
 
+    <div class="progress-item" id="p4">
+        <div class="progress-circle">4</div>
+        <span>Student Search</span>
+    </div>
 
-<div
-class="progress-item"
-id="p2"
->
+    <div class="progress-line" id="l4"></div>
 
-<div class="progress-circle">
-02
-</div>
-
-<span>DEPARTMENT</span>
-
-</div>
-
-
-<div
-class="progress-line"
-id="l2"
-></div>
-
-
-<div
-class="progress-item"
-id="p3"
->
-
-<div class="progress-circle">
-03
-</div>
-
-<span>ARRANGEMENT</span>
+    <div class="progress-item" id="p5">
+        <div class="progress-circle">5</div>
+        <span>Attendance</span>
+    </div>
 
 </div>
 
+<main>
 
-<div
-class="progress-line"
-id="l3"
-></div>
+<!-- ================= STEP 1 ================= -->
 
+<section class="step active" id="step1">
 
-<div
-class="progress-item"
-id="p4"
->
+    <div class="card">
 
-<div class="progress-circle">
-04
-</div>
+        <div class="card-title">Examination Setup</div>
 
-<span>SEARCH</span>
+        <div class="card-subtitle">
+            Enter the basic examination configuration.
+        </div>
 
-</div>
+        <div class="form-grid">
 
-</div>
+            <div class="form-group">
+                <label>Total Students</label>
+                <input
+                    id="totalStudents"
+                    type="number"
+                    min="1"
+                    placeholder="Example: 120"
+                >
+            </div>
 
+            <div class="form-group">
+                <label>Number of Departments</label>
+                <input
+                    id="departmentCount"
+                    type="number"
+                    min="1"
+                    placeholder="Example: 3"
+                >
+            </div>
 
-<!-- =========================================================
-     STEP 1
-========================================================= -->
+            <div class="form-group">
+                <label>Number of Exam Halls</label>
+                <input
+                    id="hallCount"
+                    type="number"
+                    min="1"
+                    placeholder="Example: 4"
+                >
+            </div>
 
-<section
-class="step active"
-id="step1"
->
+        </div>
 
-<div class="card">
+        <div class="fixed-register-box">
 
-<div class="card-title">
-01. Examination Setup
-</div>
+            <div class="fixed-title">
+                Fixed Register Number Prefix
+            </div>
 
-<div class="card-subtitle">
-Enter total students, departments and exam halls.
-</div>
+            <div class="fixed-number">
+                9527
+            </div>
 
+        </div>
 
-<div class="form-grid">
+        <div class="buttons">
+            <button class="primary" onclick="createDepartments()">
+                Continue →
+            </button>
+        </div>
 
-
-<div class="form-group">
-
-<label>
-TOTAL STUDENTS
-</label>
-
-<input
-type="number"
-id="totalStudents"
-min="1"
-placeholder="Example: 30"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-NUMBER OF DEPARTMENTS
-</label>
-
-<input
-type="number"
-id="departmentCount"
-min="1"
-placeholder="Example: 3"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-NUMBER OF EXAM HALLS
-</label>
-
-<input
-type="number"
-id="hallCount"
-min="1"
-placeholder="Example: 2"
->
-
-</div>
-
-</div>
-
-
-<div class="fixed-register-box">
-
-<div class="fixed-title">
-FIXED REGISTER PREFIX
-</div>
-
-<span class="fixed-number">
-9527
-</span>
-
-<span class="lock-text">
-🔒 FIXED — CANNOT BE CHANGED
-</span>
-
-<p
-style="
-margin-top:12px;
-color:#6f8397;
-font-size:10px;
-line-height:1.7;
-"
->
-
-Every department uses the same fixed prefix
-<strong style="color:#00eaff">
-9527
-</strong>.
-
-Only the 8-digit START number is entered
-for each department.
-
-The END number is automatically calculated.
-
-</p>
-
-</div>
-
-
-<div class="buttons">
-
-<div></div>
-
-<button
-class="primary"
-onclick="createDepartments()"
->
-CONTINUE TO DEPARTMENTS →
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     STEP 2
-========================================================= -->
+<!-- ================= STEP 2 ================= -->
 
-<section
-class="step"
-id="step2"
->
+<section class="step" id="step2">
 
-<div class="card">
+    <div class="card">
 
-<div class="card-title">
-02. Department Configuration
-</div>
+        <div class="card-title">
+            Department Configuration
+        </div>
 
-<div class="card-subtitle">
+        <div class="card-subtitle">
+            Enter department, subject, student count and starting register number.
+            The ending register number will be calculated automatically.
+        </div>
 
-Enter department name, exam subject,
-number of students and START register number.
+        <div id="departmentContainer" class="department-container"></div>
 
-<br>
+        <div class="buttons">
 
-<strong style="color:#00f5a0">
-END register number will be calculated automatically.
-</strong>
+            <button class="secondary" onclick="goStep(1)">
+                ← Back
+            </button>
 
-</div>
+            <button class="primary" onclick="generateExam()">
+                Generate Hall Arrangement →
+            </button>
 
+        </div>
 
-<div
-class="department-container"
-id="departmentContainer"
-></div>
-
-
-<div class="buttons">
-
-<button
-class="secondary"
-onclick="goStep(1)"
->
-← BACK
-</button>
-
-
-<button
-class="primary"
-onclick="generateArrangement()"
->
-GENERATE ARRANGEMENT →
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     STEP 3
-========================================================= -->
+<!-- ================= STEP 3 ================= -->
 
-<section
-class="step"
-id="step3"
->
+<section class="step" id="step3">
 
-<div class="card">
+    <div class="card">
 
-<div class="card-title">
-03. Examination Hall Arrangement
-</div>
+        <div class="card-title">
+            Examination Hall Arrangement
+        </div>
 
-<div class="card-subtitle">
+        <div class="card-subtitle">
+            Students are automatically distributed across halls and benches.
+            Different departments are mixed where possible.
+        </div>
 
-Students from different departments are mixed
-across benches whenever possible.
+        <div class="summary" id="summary"></div>
 
-</div>
+        <div id="halls" class="halls"></div>
 
+        <div class="buttons">
 
-<div class="summary">
+            <button class="secondary" onclick="goStep(2)">
+                ← Back
+            </button>
 
+            <button class="primary" onclick="goStep(4)">
+                Student Search →
+            </button>
 
-<div class="summary-box">
+        </div>
 
-<span>
-STUDENTS
-</span>
-
-<strong id="summaryStudents">
-0
-</strong>
-
-</div>
-
-
-<div class="summary-box">
-
-<span>
-DEPARTMENTS
-</span>
-
-<strong id="summaryDepartments">
-0
-</strong>
-
-</div>
-
-
-<div class="summary-box">
-
-<span>
-HALLS
-</span>
-
-<strong id="summaryHalls">
-0
-</strong>
-
-</div>
-
-
-<div class="summary-box">
-
-<span>
-PREFIX
-</span>
-
-<strong>
-9527
-</strong>
-
-</div>
-
-</div>
-
-
-<div
-class="halls"
-id="hallLayout"
-></div>
-
-
-<div class="buttons">
-
-<button
-class="secondary"
-onclick="goStep(2)"
->
-← BACK
-</button>
-
-
-<button
-class="primary"
-onclick="goStep(4)"
->
-GO TO SEARCH →
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     STEP 4 SEARCH
-========================================================= -->
+<!-- ================= STEP 4 ================= -->
 
-<section
-class="step"
-id="step4"
->
+<section class="step" id="step4">
 
-<div class="card">
+    <div class="card search-box">
 
-<div class="card-title">
-04. Student Seat Search
-</div>
+        <div class="card-title">
+            Student Seat Search
+        </div>
 
-<div class="card-subtitle">
+        <div class="card-subtitle">
+            Search using the 12-digit register number.
+        </div>
 
-Search using the complete 12-digit register number.
+        <div class="search-row">
 
-The exact matching seat will become
-<strong style="color:#ff1744">
-RED + GLOW
-</strong>.
+            <input
+                id="studentSearch"
+                maxlength="12"
+                inputmode="numeric"
+                placeholder="Enter register number"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            >
 
-</div>
+            <button
+                class="search-button"
+                onclick="searchStudent()"
+            >
+                SEARCH
+            </button>
 
+        </div>
 
-<div class="search-box">
+        <div id="searchResult" class="search-result"></div>
 
-<div class="search-title">
-SEARCH REGISTER NUMBER
-</div>
+    </div>
 
+    <div class="card">
 
-<div class="search-row">
+        <div class="card-title">
+            Hall Arrangement
+        </div>
 
-<input
-type="text"
-id="searchInput"
-maxlength="12"
-inputmode="numeric"
-placeholder="Example: 952700000001"
->
+        <div class="card-subtitle">
+            The searched student's exact seat will glow RED.
+        </div>
 
+        <div id="searchHalls" class="halls"></div>
 
-<button
-class="search-button"
-onclick="searchStudent()"
->
-SEARCH
-</button>
+        <div class="buttons">
 
-</div>
+            <button class="secondary" onclick="goStep(3)">
+                ← Arrangement
+            </button>
 
+            <button class="primary" onclick="goStep(5)">
+                Attendance →
+            </button>
 
-<div
-id="searchOutput"
-></div>
+        </div>
 
-</div>
-
-
-<div
-class="halls"
-id="searchHallLayout"
-></div>
-
-
-<div class="buttons">
-
-<button
-class="secondary"
-onclick="goStep(3)"
->
-← BACK
-</button>
-
-
-<button
-class="primary"
-onclick="location.reload()"
->
-NEW EXAM SETUP
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<footer>
+<!-- ================= STEP 5 ================= -->
 
-SMART EXAM CELL
-•
-AUTOMATED HALL ALLOCATION SYSTEM
+<section class="step" id="step5">
 
-</footer>
+    <div class="card">
+
+        <div class="card-title">
+            Student Attendance
+        </div>
+
+        <div class="card-subtitle">
+            All students are PRESENT by default. Mark any student ABSENT.
+        </div>
+
+        <div class="attendance-search">
+
+            <div class="search-row">
+
+                <input
+                    id="attendanceSearch"
+                    maxlength="12"
+                    inputmode="numeric"
+                    placeholder="Search register number"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                >
+
+                <button
+                    class="search-button"
+                    onclick="searchAttendance()"
+                >
+                    FIND
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="attendance-summary">
+
+            <div class="att-box att-total">
+                <small>TOTAL STUDENTS</small>
+                <strong id="attTotal">0</strong>
+            </div>
+
+            <div class="att-box att-present">
+                <small>PRESENT</small>
+                <strong id="attPresent">0</strong>
+            </div>
+
+            <div class="att-box att-absent">
+                <small>ABSENT</small>
+                <strong id="attAbsent">0</strong>
+            </div>
+
+        </div>
+
+
+        <!-- TWO SEPARATE LISTS -->
+
+        <div class="attendance-lists">
+
+            <div class="present-panel">
+
+                <div class="present-title">
+                    ✓ PRESENT LIST
+                </div>
+
+                <div id="presentList" class="present-list"></div>
+
+            </div>
+
+
+            <div class="absent-panel">
+
+                <div class="absent-title">
+                    ✕ ABSENT LIST
+                </div>
+
+                <div id="absentList" class="absent-list"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="attendance-table" id="attendanceTable"></div>
+
+
+        <div class="buttons">
+
+            <button class="secondary" onclick="goStep(4)">
+                ← Student Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
 
 </main>
+
+<footer>
+    Smart Exam Hall System • Automated Examination Management
+</footer>
 
 
 <script>
 
 /* =========================================================
-   GLOBAL
+   GLOBAL DATA
 ========================================================= */
 
-const FIXED_PREFIX = "9527";
-
-let departments = [];
-
-let students = [];
-
-let halls = [];
-
-
-/* =========================================================
-   REGISTER NUMBER
-========================================================= */
-
-function makeRegisterNumber(number){
-
-    const last8 =
-        String(number)
-        .replace(/\D/g,"")
-        .padStart(8,"0")
-        .slice(-8);
-
-    return FIXED_PREFIX + last8;
-
-}
+let exam = {
+    totalStudents: 0,
+    departmentCount: 0,
+    hallCount: 0,
+    departments: [],
+    students: [],
+    benches: []
+};
 
 
 /* =========================================================
    STEP NAVIGATION
 ========================================================= */
 
-function goStep(step){
+function goStep(stepNumber){
 
-    document
-    .querySelectorAll(".step")
-    .forEach(
-        element=>{
-            element.classList.remove("active");
-        }
-    );
+    document.querySelectorAll(".step").forEach(step => {
+        step.classList.remove("active");
+    });
 
+    const target = document.getElementById("step" + stepNumber);
 
-    const current =
-        document.getElementById(
-            "step"+step
-        );
-
-
-    if(current){
-        current.classList.add("active");
+    if(target){
+        target.classList.add("active");
     }
 
+    for(let i = 1; i <= 5; i++){
 
-    for(let i=1;i<=4;i++){
+        const item = document.getElementById("p" + i);
 
-        const progress =
-            document.getElementById(
-                "p"+i
-            );
+        if(!item) continue;
 
+        item.classList.remove("active","done");
 
-        if(i < step){
-
-            progress.classList.remove("active");
-
-            progress.classList.add("done");
-
-        }
-        else if(i === step){
-
-            progress.classList.add("active");
-
-            progress.classList.remove("done");
-
-        }
-        else{
-
-            progress.classList.remove("active");
-
-            progress.classList.remove("done");
-
+        if(i < stepNumber){
+            item.classList.add("done");
         }
 
+        if(i === stepNumber){
+            item.classList.add("active");
+        }
     }
 
+    for(let i = 1; i <= 4; i++){
 
-    for(let i=1;i<=3;i++){
+        const line = document.getElementById("l" + i);
 
-        const line =
-            document.getElementById(
-                "l"+i
-            );
+        if(!line) continue;
 
-
-        if(i < step){
-            line.classList.add("done");
-        }
-        else{
-            line.classList.remove("done");
-        }
-
+        line.classList.toggle("done", i < stepNumber);
     }
-
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
-
 }
 
 
 /* =========================================================
-   CREATE DEPARTMENTS
+   CREATE DEPARTMENT BOXES
 ========================================================= */
 
 function createDepartments(){
 
     const total =
-        Number(
-            document.getElementById(
-                "totalStudents"
-            ).value
-        );
+        parseInt(document.getElementById("totalStudents").value);
+
+    const deptCount =
+        parseInt(document.getElementById("departmentCount").value);
+
+    const halls =
+        parseInt(document.getElementById("hallCount").value);
 
 
-    const departmentCount =
-        Number(
-            document.getElementById(
-                "departmentCount"
-            ).value
-        );
+    if(!total || total < 1){
 
-
-    const hallCount =
-        Number(
-            document.getElementById(
-                "hallCount"
-            ).value
-        );
-
-
-    if(
-        total < 1 ||
-        departmentCount < 1 ||
-        hallCount < 1
-    ){
-
-        alert(
-            "Please enter valid values."
-        );
+        alert("Please enter total students.");
 
         return;
+    }
 
+    if(!deptCount || deptCount < 1){
+
+        alert("Please enter number of departments.");
+
+        return;
+    }
+
+    if(!halls || halls < 1){
+
+        alert("Please enter number of exam halls.");
+
+        return;
     }
 
 
-    const container =
-        document.getElementById(
-            "departmentContainer"
-        );
+    exam.totalStudents = total;
+    exam.departmentCount = deptCount;
+    exam.hallCount = halls;
 
+
+    const container =
+        document.getElementById("departmentContainer");
 
     container.innerHTML = "";
 
 
-    for(
-        let i=0;
-        i<departmentCount;
-        i++
-    ){
+    for(let i = 0; i < deptCount; i++){
 
-        const box =
-            document.createElement(
-                "div"
-            );
+        const box = document.createElement("div");
 
-
-        box.className =
-            "department-box";
-
+        box.className = "department-box";
 
         box.innerHTML = `
 
-<div class="department-header">
+            <div class="department-header">
 
-<div class="department-title">
-DEPARTMENT ${i+1}
-</div>
+                <div class="department-title">
+                    Department ${i + 1}
+                </div>
 
-<div class="auto-tag">
-9527 FIXED
-</div>
+                <div class="auto-tag">
+                    REGISTER BLOCK ${i + 1}
+                </div>
 
-</div>
-
-
-<div class="department-fields">
+            </div>
 
 
-<div>
+            <div class="department-fields">
 
-<label>
-DEPARTMENT NAME
-</label>
+                <div class="form-group">
 
-<input
-type="text"
-class="dept-name"
-placeholder="Example: EEE"
->
+                    <label>Department Name</label>
 
-</div>
+                    <input
+                        class="dept-name"
+                        placeholder="Example: CSE"
+                    >
 
-
-<div>
-
-<label>
-EXAM SUBJECT
-</label>
-
-<input
-type="text"
-class="dept-subject"
-placeholder="Example: TAMIL"
->
-
-</div>
+                </div>
 
 
-<div>
+                <div class="form-group">
 
-<label>
-NUMBER OF STUDENTS
-</label>
+                    <label>Exam Subject</label>
 
-<input
-type="number"
-class="dept-count"
-min="1"
-placeholder="Example: 10"
->
+                    <input
+                        class="dept-subject"
+                        placeholder="Example: Data Structures"
+                    >
 
-</div>
+                </div>
 
 
-<div class="register-block">
+                <div class="form-group">
 
-<div class="register-block-title">
-REGISTER NUMBER BLOCK
-</div>
+                    <label>Number of Students</label>
 
+                    <input
+                        class="dept-count"
+                        type="number"
+                        min="1"
+                        placeholder="Count"
+                        oninput="previewRegisterEnd(this)"
+                    >
 
-<div class="fixed-prefix">
+                </div>
 
-<div>
-
-<div
-style="
-color:#6d8296;
-font-size:8px;
-font-weight:900;
-"
->
-FIXED PREFIX
-</div>
-
-<div class="fixed-prefix-value">
-9527
-</div>
-
-</div>
+            </div>
 
 
-<div class="fixed-lock">
-🔒 FIXED
-</div>
+            <div class="register-block">
 
-</div>
-
-
-<div class="register-range-grid">
+                <div class="register-block-title">
+                    REGISTER NUMBER BLOCK
+                </div>
 
 
-<div>
+                <div class="register-range-grid">
 
-<label>
-REGISTER START
-</label>
+                    <div>
 
-<input
-type="text"
-class="reg-start"
-maxlength="8"
-inputmode="numeric"
-placeholder="00000001"
->
+                        <div class="fixed-prefix">
+                            FIXED PREFIX
+                        </div>
 
-</div>
+                        <div class="fixed-prefix-value">
+                            9527
+                        </div>
 
+                        <div class="fixed-lock">
+                            🔒 Cannot be changed
+                        </div>
 
-<div>
-
-<label>
-REGISTER END
-</label>
-
-<input
-type="text"
-class="reg-end"
-readonly
-placeholder="AUTO"
->
-
-</div>
+                    </div>
 
 
-</div>
+                    <div class="form-group">
+
+                        <label>
+                            START — 8 DIGITS
+                        </label>
+
+                        <input
+                            class="reg-start"
+                            maxlength="8"
+                            inputmode="numeric"
+                            placeholder="00000001"
+                            oninput="
+                                this.value=this.value.replace(/[^0-9]/g,'');
+                                previewRegisterEnd(this);
+                            "
+                        >
+
+                    </div>
 
 
-<div class="register-preview">
+                    <div class="form-group">
 
-Register range:
+                        <label>
+                            END — AUTO CALCULATED
+                        </label>
 
-<strong>
-Enter START + student count
-</strong>
+                        <input
+                            class="reg-end"
+                            readonly
+                            placeholder="Automatic"
+                        >
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</div>
 
-`;
+                <div class="register-preview">
+                    Full register format:
+                    <strong>9527 + 8 digits</strong>
+                </div>
 
+            </div>
+
+        `;
 
         container.appendChild(box);
-
     }
 
 
-    addAutoCalculation();
-
     goStep(2);
-
 }
 
 
 /* =========================================================
-   AUTO END NUMBER
+   AUTO END REGISTER PREVIEW
 ========================================================= */
 
-function addAutoCalculation(){
+function previewRegisterEnd(element){
 
-    document
-    .querySelectorAll(
-        ".department-box"
-    )
-    .forEach(
-        box=>{
+    const box =
+        element.closest(".department-box");
 
-            const startInput =
-                box.querySelector(
-                    ".reg-start"
-                );
+    if(!box) return;
 
 
-            const countInput =
-                box.querySelector(
-                    ".dept-count"
-                );
+    const startInput =
+        box.querySelector(".reg-start");
 
+    const countInput =
+        box.querySelector(".dept-count");
 
-            const endInput =
-                box.querySelector(
-                    ".reg-end"
-                );
+    const endInput =
+        box.querySelector(".reg-end");
 
 
-            const preview =
-                box.querySelector(
-                    ".register-preview"
-                );
+    const start =
+        startInput.value.trim();
 
-
-            function calculate(){
-
-                let start =
-                    startInput.value
-                    .replace(/\D/g,"")
-                    .slice(0,8);
-
-
-                startInput.value =
-                    start;
-
-
-                const count =
-                    Number(
-                        countInput.value
-                    );
-
-
-                if(
-                    start.length === 8 &&
-                    count > 0
-                ){
-
-                    const startNumber =
-                        Number(start);
-
-
-                    const endNumber =
-                        startNumber +
-                        count -
-                        1;
-
-
-                    if(
-                        endNumber > 99999999
-                    ){
-
-                        endInput.value =
-                            "OVERFLOW";
-
-                        return;
-
-                    }
-
-
-                    const end =
-                        String(endNumber)
-                        .padStart(8,"0");
-
-
-                    endInput.value =
-                        end;
-
-
-                    preview.innerHTML = `
-
-Register range:
-
-<strong>
-${makeRegisterNumber(start)}
-→
-${makeRegisterNumber(end)}
-</strong>
-
-<br>
-
-<span style="color:#6e8498">
-${count} students automatically calculated
-</span>
-
-`;
-
-                }
-                else{
-
-                    endInput.value = "";
-
-                    preview.innerHTML = `
-
-Register range:
-
-<strong>
-Enter START and student count
-</strong>
-
-`;
-
-                }
-
-            }
-
-
-            startInput.addEventListener(
-                "input",
-                calculate
-            );
-
-
-            countInput.addEventListener(
-                "input",
-                calculate
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   COLLECT DATA
-========================================================= */
-
-function collectData(){
-
-    departments = [];
-
-    students = [];
-
-
-    const boxes =
-        document.querySelectorAll(
-            ".department-box"
-        );
-
-
-    let total = 0;
-
-
-    boxes.forEach(
-        (box,index)=>{
-
-            const name =
-                box
-                .querySelector(".dept-name")
-                .value
-                .trim();
-
-
-            const subject =
-                box
-                .querySelector(".dept-subject")
-                .value
-                .trim();
-
-
-            const count =
-                Number(
-                    box
-                    .querySelector(".dept-count")
-                    .value
-                );
-
-
-            const startText =
-                box
-                .querySelector(".reg-start")
-                .value
-                .replace(/\D/g,"");
-
-
-            if(!name){
-
-                throw new Error(
-                    "Enter Department "+
-                    (index+1)+
-                    " name."
-                );
-
-            }
-
-
-            if(!subject){
-
-                throw new Error(
-                    "Enter subject for Department "+
-                    (index+1)+"."
-                );
-
-            }
-
-
-            if(
-                !count ||
-                count < 1
-            ){
-
-                throw new Error(
-                    "Enter student count for Department "+
-                    (index+1)+"."
-                );
-
-            }
-
-
-            if(
-                startText.length !== 8
-            ){
-
-                throw new Error(
-                    "START register number for "+
-                    name+
-                    " must contain exactly 8 digits."
-                );
-
-            }
-
-
-            const start =
-                Number(startText);
-
-
-            const end =
-                start + count - 1;
-
-
-            if(
-                end > 99999999
-            ){
-
-                throw new Error(
-                    "Register number overflow for "+
-                    name+"."
-                );
-
-            }
-
-
-            departments.push({
-
-                name:name,
-
-                subject:subject,
-
-                count:count,
-
-                start:start,
-
-                end:end
-
-            });
-
-
-            total += count;
-
-
-            for(
-                let i=0;
-                i<count;
-                i++
-            ){
-
-                students.push({
-
-                    register:
-                        makeRegisterNumber(
-                            start+i
-                        ),
-
-                    department:
-                        name,
-
-                    subject:
-                        subject
-
-                });
-
-            }
-
-        }
-    );
-
-
-    const totalEntered =
-        Number(
-            document.getElementById(
-                "totalStudents"
-            ).value
-        );
+    const count =
+        parseInt(countInput.value);
 
 
     if(
-        total !== totalEntered
+        /^\d{8}$/.test(start) &&
+        count &&
+        count > 0
     ){
 
-        throw new Error(
-            "Department student total = "+
-            total+
-            " but Total Students = "+
-            totalEntered
-        );
+        const startNumber =
+            parseInt(start,10);
 
-    }
+        const endNumber =
+            startNumber + count - 1;
 
 
-    /* CHECK REGISTER OVERLAP */
+        if(endNumber <= 99999999){
 
-    for(
-        let i=0;
-        i<departments.length;
-        i++
-    ){
+            endInput.value =
+                String(endNumber).padStart(8,"0");
 
-        for(
-            let j=i+1;
-            j<departments.length;
-            j++
-        ){
+        }else{
 
-            const a =
-                departments[i];
-
-            const b =
-                departments[j];
-
-
-            if(
-                a.start <= b.end &&
-                b.start <= a.end
-            ){
-
-                throw new Error(
-                    "Register number overlap between "+
-                    a.name+
-                    " and "+
-                    b.name
-                );
-
-            }
+            endInput.value =
+                "OVER LIMIT";
 
         }
 
-    }
+    }else{
 
+        endInput.value = "";
+
+    }
 }
 
 
 /* =========================================================
-   MIX DEPARTMENTS
+   GENERATE EXAM
 ========================================================= */
 
-function createBenchList(){
+function generateExam(){
 
-    const groups = {};
+    const boxes =
+        document.querySelectorAll(".department-box");
 
 
-    departments.forEach(
-        dept=>{
+    if(boxes.length === 0){
 
-            groups[dept.name] =
-                students.filter(
-                    student =>
-                        student.department ===
-                        dept.name
-                );
+        alert("Please create departments first.");
 
+        return;
+    }
+
+
+    let departments = [];
+    let totalCount = 0;
+
+
+    for(let i = 0; i < boxes.length; i++){
+
+        const box = boxes[i];
+
+
+        const name =
+            box.querySelector(".dept-name").value.trim();
+
+        const subject =
+            box.querySelector(".dept-subject").value.trim();
+
+        const count =
+            parseInt(box.querySelector(".dept-count").value);
+
+        const start8 =
+            box.querySelector(".reg-start").value.trim();
+
+
+        if(!name){
+
+            alert(`Enter Department Name for Department ${i+1}.`);
+
+            return;
         }
-    );
+
+
+        if(!subject){
+
+            alert(`Enter Exam Subject for Department ${i+1}.`);
+
+            return;
+        }
+
+
+        if(!count || count < 1){
+
+            alert(`Enter student count for Department ${i+1}.`);
+
+            return;
+        }
+
+
+        if(!/^\d{8}$/.test(start8)){
+
+            alert(
+                `Department ${i+1}: START register number must contain exactly 8 digits.`
+            );
+
+            return;
+        }
+
+
+        const startNumber =
+            parseInt(start8,10);
+
+        const endNumber =
+            startNumber + count - 1;
+
+
+        if(endNumber > 99999999){
+
+            alert(
+                `Department ${i+1}: Register range exceeds 8 digits.`
+            );
+
+            return;
+        }
+
+
+        const registers = [];
+
+
+        for(let j = 0; j < count; j++){
+
+            const eightDigit =
+                String(startNumber + j).padStart(8,"0");
+
+            const register =
+                "9527" + eightDigit;
+
+            registers.push(register);
+        }
+
+
+        departments.push({
+            name:name,
+            subject:subject,
+            count:count,
+            start8:start8,
+            end8:String(endNumber).padStart(8,"0"),
+            registers:registers
+        });
+
+
+        totalCount += count;
+    }
+
+
+    if(totalCount !== exam.totalStudents){
+
+        alert(
+            `Total students mismatch.\n\n` +
+            `Setup total: ${exam.totalStudents}\n` +
+            `Department total: ${totalCount}\n\n` +
+            `Both values must be the same.`
+        );
+
+        return;
+    }
+
+
+    exam.departments = departments;
+    exam.students = [];
+
+
+    /* CREATE STUDENTS */
+
+    departments.forEach(dept => {
+
+        dept.registers.forEach(register => {
+
+            exam.students.push({
+
+                register:register,
+
+                department:dept.name,
+
+                subject:dept.subject,
+
+                hall:null,
+
+                bench:null,
+
+                seat:null,
+
+                attendance:"PRESENT"
+
+            });
+
+        });
+
+    });
+
+
+    /* CREATE MIXED BENCHES */
+
+    exam.benches =
+        createMixedBenches(departments);
+
+
+    /* DISTRIBUTE BENCHES TO HALLS */
+
+    distributeBenchesToHalls();
+
+
+    renderSummary();
+    renderHalls();
+    renderSearchHalls();
+    renderAttendance();
+
+
+    goStep(3);
+}
+
+
+/* =========================================================
+   CREATE MIXED BENCHES
+========================================================= */
+
+function createMixedBenches(departments){
+
+    const queues =
+        departments.map(dept => ({
+            department:dept,
+            students:[...dept.registers]
+        }));
 
 
     const benches = [];
 
-
-    while(true){
-
-        const available =
-            Object.keys(groups)
-            .filter(
-                dept =>
-                    groups[dept].length > 0
-            );
+    let pointer = 0;
 
 
-        if(
-            available.length === 0
-        ){
+    while(
+        queues.some(q => q.students.length > 0)
+    ){
+
+        if(pointer >= queues.length){
+            pointer = 0;
+        }
+
+
+        let firstIndex = -1;
+
+
+        for(let i = 0; i < queues.length; i++){
+
+            const index =
+                (pointer + i) % queues.length;
+
+            if(queues[index].students.length > 0){
+
+                firstIndex = index;
+
+                break;
+            }
+        }
+
+
+        if(firstIndex === -1){
             break;
         }
 
 
-        available.sort(
-            (a,b)=>
-                groups[b].length -
-                groups[a].length
-        );
+        const firstQueue =
+            queues[firstIndex];
+
+        const firstRegister =
+            firstQueue.students.shift();
 
 
-        const firstDept =
-            available[0];
+        const firstStudent =
+            findStudent(firstRegister);
 
 
-        const seatA =
-            groups[firstDept].shift();
+        let secondIndex = -1;
 
 
-        let seatB = null;
+        for(let i = 1; i <= queues.length; i++){
+
+            const index =
+                (firstIndex + i) % queues.length;
+
+            if(
+                queues[index].students.length > 0 &&
+                index !== firstIndex
+            ){
+
+                secondIndex = index;
+
+                break;
+            }
+        }
 
 
-        const secondDept =
-            available.find(
-                dept =>
-                    dept !== firstDept &&
-                    groups[dept].length > 0
-            );
+        let secondStudent = null;
 
 
-        if(secondDept){
+        if(secondIndex !== -1){
 
-            seatB =
-                groups[secondDept].shift();
+            const secondQueue =
+                queues[secondIndex];
 
+            const secondRegister =
+                secondQueue.students.shift();
+
+            secondStudent =
+                findStudent(secondRegister);
         }
 
 
         benches.push({
-
-            seatA:seatA,
-
-            seatB:seatB
-
+            seat1:firstStudent,
+            seat2:secondStudent
         });
 
+
+        pointer =
+            (firstIndex + 1) % queues.length;
     }
 
 
     return benches;
-
 }
 
 
 /* =========================================================
-   GENERATE ARRANGEMENT
+   FIND STUDENT
 ========================================================= */
 
-function generateArrangement(){
+function findStudent(register){
 
-    try{
-
-        collectData();
-
-    }
-    catch(error){
-
-        alert(
-            error.message
-        );
-
-        return;
-
-    }
+    return exam.students.find(
+        student => student.register === register
+    );
+}
 
 
-    const hallCount =
-        Number(
-            document.getElementById(
-                "hallCount"
-            ).value
-        );
+/* =========================================================
+   DISTRIBUTE BENCHES TO HALLS
+========================================================= */
+
+function distributeBenchesToHalls(){
+
+    exam.benches.forEach(bench => {
+
+        if(bench.seat1){
+
+            bench.seat1.hall = null;
+            bench.seat1.bench = null;
+            bench.seat1.seat = 1;
+        }
+
+        if(bench.seat2){
+
+            bench.seat2.hall = null;
+            bench.seat2.bench = null;
+            bench.seat2.seat = 2;
+        }
+
+    });
 
 
-    halls = [];
+    const halls = [];
 
-
-    for(
-        let i=0;
-        i<hallCount;
-        i++
-    ){
+    for(let i = 1; i <= exam.hallCount; i++){
 
         halls.push({
-
-            name:
-                "EXAM HALL "+(i+1),
-
+            hallNumber:i,
             benches:[]
-
         });
 
     }
 
 
-    const benches =
-        createBenchList();
-
-
-    benches.forEach(
-        (bench,index)=>{
+    exam.benches.forEach(
+        (bench,index) => {
 
             const hallIndex =
-                index % hallCount;
+                index % exam.hallCount;
 
-
-            halls[hallIndex]
-            .benches
-            .push({
-
-                number:
-                    halls[hallIndex]
-                    .benches
-                    .length + 1,
-
-                seatA:
-                    bench.seatA,
-
-                seatB:
-                    bench.seatB
-
-            });
+            halls[hallIndex].benches.push(bench);
 
         }
     );
 
 
-    document
-    .getElementById(
-        "summaryStudents"
-    )
-    .textContent =
-        students.length;
+    halls.forEach(hall => {
+
+        hall.benches.forEach(
+            (bench,index) => {
+
+                const benchNumber =
+                    index + 1;
+
+                if(bench.seat1){
+
+                    bench.seat1.hall =
+                        hall.hallNumber;
+
+                    bench.seat1.bench =
+                        benchNumber;
+                }
 
 
-    document
-    .getElementById(
-        "summaryDepartments"
-    )
-    .textContent =
-        departments.length;
+                if(bench.seat2){
+
+                    bench.seat2.hall =
+                        hall.hallNumber;
+
+                    bench.seat2.bench =
+                        benchNumber;
+                }
+
+            }
+        );
+
+    });
 
 
-    document
-    .getElementById(
-        "summaryHalls"
-    )
-    .textContent =
-        hallCount;
+    exam.halls = halls;
+}
 
 
-    renderHalls();
+/* =========================================================
+   SUMMARY
+========================================================= */
 
-    goStep(3);
+function renderSummary(){
 
+    const container =
+        document.getElementById("summary");
+
+
+    const total =
+        exam.students.length;
+
+    const benches =
+        exam.benches.length;
+
+
+    container.innerHTML = `
+
+        <div class="summary-box">
+
+            <small>TOTAL STUDENTS</small>
+
+            <strong>
+                ${total}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <small>DEPARTMENTS</small>
+
+            <strong>
+                ${exam.departments.length}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <small>EXAM HALLS</small>
+
+            <strong>
+                ${exam.hallCount}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <small>TOTAL BENCHES</small>
+
+            <strong>
+                ${benches}
+            </strong>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   HALL RENDER
+========================================================= */
+
+function hallHTML(){
+
+    let html = "";
+
+
+    exam.halls.forEach(hall => {
+
+        html += `
+
+            <div class="hall">
+
+                <div class="hall-header">
+
+                    <div class="hall-name">
+                        Exam Hall ${hall.hallNumber}
+                    </div>
+
+                    <div class="hall-active">
+                        ${hall.benches.length} BENCHES
+                    </div>
+
+                </div>
+
+        `;
+
+
+        hall.benches.forEach((bench,index) => {
+
+            html += `
+
+                <div class="bench">
+
+                    <div class="bench-title">
+                        Bench ${index + 1}
+                    </div>
+
+                    <div class="seats">
+
+                        ${seatHTML(
+                            bench.seat1,
+                            1
+                        )}
+
+                        ${seatHTML(
+                            bench.seat2,
+                            2
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+
+        html += `</div>`;
+    });
+
+
+    return html;
 }
 
 
@@ -2735,62 +2289,54 @@ function generateArrangement(){
    SEAT HTML
 ========================================================= */
 
-function seatHTML(
-    student,
-    label
-){
+function seatHTML(student,seatNumber){
 
     if(!student){
 
         return `
 
-<div class="seat empty">
+            <div class="seat empty">
 
-<div class="seat-label">
-${label}
-</div>
+                <div class="seat-label">
+                    SEAT ${seatNumber}
+                </div>
 
-<div class="empty-text">
-EMPTY / EXTRA PLACE
-</div>
+                <div class="empty-text">
+                    EMPTY SEAT
+                </div>
 
-</div>
+            </div>
 
-`;
-
+        `;
     }
 
 
     return `
 
-<div
-class="seat student-seat"
-data-register="${student.register}"
->
+        <div
+            class="seat"
+            data-register="${student.register}"
+        >
 
-<div class="seat-label">
-${label}
-</div>
+            <div class="seat-label">
+                SEAT ${seatNumber}
+            </div>
 
+            <div class="reg">
+                ${student.register}
+            </div>
 
-<div class="reg">
-REG: ${student.register}
-</div>
+            <div class="dept">
+                ${escapeHTML(student.department)}
+            </div>
 
+            <div class="subject">
+                ${escapeHTML(student.subject)}
+            </div>
 
-<div class="dept">
-${student.department}
-</div>
+        </div>
 
-
-<div class="subject">
-${student.subject}
-</div>
-
-</div>
-
-`;
-
+    `;
 }
 
 
@@ -2800,488 +2346,486 @@ ${student.subject}
 
 function renderHalls(){
 
-    const html =
-        halls
-        .map(
-            hall=>{
-
-                const benches =
-                    hall.benches
-                    .map(
-                        bench=>{
-
-                            const deptA =
-                                bench.seatA
-                                ? bench.seatA.department
-                                : "";
-
-
-                            const deptB =
-                                bench.seatB
-                                ? bench.seatB.department
-                                : "";
-
-
-                            return `
-
-<div class="bench">
-
-<div class="bench-title">
-
-BENCH ${bench.number}
-
-•
-
-${deptA}
-
-${deptB
-    ? " + "+deptB
-    : ""
-}
-
-</div>
-
-
-<div class="seats">
-
-${seatHTML(
-    bench.seatA,
-    "SEAT A"
-)}
-
-
-${seatHTML(
-    bench.seatB,
-    "SEAT B"
-)}
-
-</div>
-
-</div>
-
-`;
-
-                        }
-                    )
-                    .join("");
-
-
-                return `
-
-<div class="hall">
-
-<div class="hall-header">
-
-<div class="hall-name">
-${hall.name}
-</div>
-
-<div class="hall-active">
-● ACTIVE
-</div>
-
-</div>
-
-${benches}
-
-</div>
-
-`;
-
-            }
-        )
-        .join("");
-
-
-    document
-    .getElementById(
-        "hallLayout"
-    )
-    .innerHTML =
-        html;
-
-
-    /*
-       IMPORTANT:
-       Search screen gets a separate copy.
-       This is where RED highlight happens.
-    */
-
-    document
-    .getElementById(
-        "searchHallLayout"
-    )
-    .innerHTML =
-        html;
-
+    document.getElementById("halls").innerHTML =
+        hallHTML();
 }
 
 
 /* =========================================================
-   🔴 SEARCH STUDENT
+   SEARCH HALLS
+========================================================= */
+
+function renderSearchHalls(){
+
+    document.getElementById("searchHalls").innerHTML =
+        hallHTML();
+}
+
+
+/* =========================================================
+   SEARCH STUDENT
 ========================================================= */
 
 function searchStudent(){
 
     const input =
-        document.getElementById(
-            "searchInput"
-        );
+        document.getElementById("studentSearch");
+
+    const register =
+        input.value.trim();
 
 
-    const query =
-        input.value
-        .replace(/\D/g,"")
-        .slice(0,12);
+    const result =
+        document.getElementById("searchResult");
 
-
-    input.value =
-        query;
-
-
-    /* REMOVE OLD RED */
 
     document
-    .querySelectorAll(
-        "#searchHallLayout .search-highlight"
-    )
-    .forEach(
-        seat=>{
-            seat.classList.remove(
-                "search-highlight"
-            );
-        }
-    );
-
-
-    const output =
-        document.getElementById(
-            "searchOutput"
+        .querySelectorAll(".search-highlight")
+        .forEach(el =>
+            el.classList.remove("search-highlight")
         );
 
 
-    if(
-        query.length !== 12
-    ){
+    if(register.length !== 12){
 
-        output.innerHTML = `
+        result.className =
+            "search-result show";
 
-<div class="not-found">
+        result.innerHTML = `
 
-⚠️ Please enter complete
-<strong>12-digit</strong>
-register number.
+            <div class="not-found">
+                Enter a valid 12-digit register number.
+            </div>
 
-</div>
-
-`;
+        `;
 
         return;
-
     }
 
 
-    /* FIND STUDENT */
-
     const student =
-        students.find(
-            s =>
-                s.register ===
-                query
-        );
+        findStudent(register);
 
 
     if(!student){
 
-        output.innerHTML = `
+        result.className =
+            "search-result show";
 
-<div class="not-found">
+        result.innerHTML = `
 
-❌ REGISTER NUMBER NOT FOUND
+            <div class="not-found">
+                Register number ${register} was not found.
+            </div>
 
-</div>
-
-`;
+        `;
 
         return;
-
     }
 
 
-    /* FIND EXACT LOCATION */
+    result.className =
+        "search-result show";
 
-    let location = null;
 
+    result.innerHTML = `
 
-    halls.forEach(
-        hall=>{
+        <div class="result-title">
+            Student Found ✓
+        </div>
 
-            hall.benches.forEach(
-                bench=>{
+        <div class="result-grid">
 
-                    if(
-                        bench.seatA &&
-                        bench.seatA.register ===
-                        student.register
-                    ){
+            <div class="result-item">
+                <small>REGISTER NUMBER</small>
+                <strong>${student.register}</strong>
+            </div>
 
-                        location = {
+            <div class="result-item">
+                <small>DEPARTMENT</small>
+                <strong>${escapeHTML(student.department)}</strong>
+            </div>
 
-                            hall:
-                                hall.name,
+            <div class="result-item">
+                <small>SUBJECT</small>
+                <strong>${escapeHTML(student.subject)}</strong>
+            </div>
 
-                            bench:
-                                bench.number,
+            <div class="result-item">
+                <small>LOCATION</small>
+                <strong>
+                    Hall ${student.hall}
+                    / Bench ${student.bench}
+                    / Seat ${student.seat}
+                </strong>
+            </div>
 
-                            seat:
-                                "SEAT A"
+        </div>
 
-                        };
+    `;
 
-                    }
-
-
-                    if(
-                        bench.seatB &&
-                        bench.seatB.register ===
-                        student.register
-                    ){
-
-                        location = {
-
-                            hall:
-                                hall.name,
-
-                            bench:
-                                bench.number,
-
-                            seat:
-                                "SEAT B"
-
-                        };
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    if(!location){
-
-        output.innerHTML = `
-
-<div class="not-found">
-
-❌ Student seat location not found.
-
-</div>
-
-`;
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       SEARCH RESULT INFORMATION
-    ===================================================== */
-
-    output.innerHTML = `
-
-<div class="search-result">
-
-<div class="result-title">
-
-🔴 STUDENT LOCATION FOUND
-
-</div>
-
-
-<div class="result-grid">
-
-
-<div class="result-item">
-
-<span>
-REGISTER NUMBER
-</span>
-
-<strong>
-${student.register}
-</strong>
-
-</div>
-
-
-<div class="result-item">
-
-<span>
-DEPARTMENT
-</span>
-
-<strong>
-${student.department}
-</strong>
-
-</div>
-
-
-<div class="result-item">
-
-<span>
-EXAM SUBJECT
-</span>
-
-<strong>
-${student.subject}
-</strong>
-
-</div>
-
-
-<div class="result-item">
-
-<span>
-EXAM HALL
-</span>
-
-<strong>
-${location.hall}
-</strong>
-
-</div>
-
-
-<div class="result-item">
-
-<span>
-BENCH
-</span>
-
-<strong>
-BENCH ${location.bench}
-</strong>
-
-</div>
-
-
-<div class="result-item">
-
-<span>
-SEAT
-</span>
-
-<strong>
-${location.seat}
-</strong>
-
-</div>
-
-
-</div>
-
-</div>
-
-`;
-
-
-    /* =====================================================
-       🔴 EXACT SEAT RED GLOW
-    ===================================================== */
 
     const seat =
         document.querySelector(
-            `#searchHallLayout [data-register="${student.register}"]`
+            `#searchHalls .seat[data-register="${register}"]`
         );
 
 
-    if(!seat){
-        return;
-    }
+    if(seat){
+
+        seat.classList.add("search-highlight");
 
 
-    /* REMOVE OLD HIGHLIGHTS */
-
-    document
-    .querySelectorAll(
-        "#searchHallLayout .search-highlight"
-    )
-    .forEach(
-        element=>{
-            element.classList.remove(
-                "search-highlight"
-            );
-        }
-    );
-
-
-    /*
-       FORCE ANIMATION RESTART
-    */
-
-    void seat.offsetWidth;
-
-
-    /*
-       ADD RED GLOW
-    */
-
-    seat.classList.add(
-        "search-highlight"
-    );
-
-
-    /*
-       AUTOMATICALLY SCROLL
-       TO EXACT STUDENT SEAT
-    */
-
-    setTimeout(
-        ()=>{
+        setTimeout(() => {
 
             seat.scrollIntoView({
-
                 behavior:"smooth",
-
-                block:"center",
-
-                inline:"center"
-
+                block:"center"
             });
 
-        },
-        150
-    );
+        },150);
 
+    }
 }
 
 
 /* =========================================================
-   ENTER KEY SEARCH
+   ATTENDANCE RENDER
 ========================================================= */
 
-document
-.getElementById(
-    "searchInput"
-)
-.addEventListener(
-    "keydown",
-    function(event){
+function renderAttendance(){
 
-        if(
-            event.key === "Enter"
-        ){
+    const table =
+        document.getElementById("attendanceTable");
 
-            searchStudent();
 
-        }
+    const presentList =
+        document.getElementById("presentList");
+
+
+    const absentList =
+        document.getElementById("absentList");
+
+
+    /* STUDENT ROWS */
+
+    table.innerHTML = "";
+
+
+    exam.students.forEach(student => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "attendance-row-card";
+
+        row.dataset.register =
+            student.register;
+
+
+        row.innerHTML = `
+
+            <div>
+
+                <div class="att-reg">
+                    ${student.register}
+                </div>
+
+                <div class="att-dept">
+                    ${escapeHTML(student.department)}
+                </div>
+
+            </div>
+
+
+            <div class="current-status">
+
+                STATUS:
+
+                <span class="${
+                    student.attendance === "PRESENT"
+                    ? "status-present"
+                    : "status-absent"
+                }">
+
+                    ${student.attendance}
+
+                </span>
+
+            </div>
+
+
+            <div class="status-buttons">
+
+                <button
+                    class="status-btn present ${
+                        student.attendance === "PRESENT"
+                        ? "active"
+                        : ""
+                    }"
+                    onclick="setAttendance(
+                        '${student.register}',
+                        'PRESENT'
+                    )"
+                >
+                    PRESENT
+                </button>
+
+
+                <button
+                    class="status-btn absent ${
+                        student.attendance === "ABSENT"
+                        ? "active"
+                        : ""
+                    }"
+                    onclick="setAttendance(
+                        '${student.register}',
+                        'ABSENT'
+                    )"
+                >
+                    ABSENT
+                </button>
+
+            </div>
+
+        `;
+
+
+        table.appendChild(row);
+    });
+
+
+    /* PRESENT LIST */
+
+    const presentStudents =
+        exam.students.filter(
+            student =>
+                student.attendance === "PRESENT"
+        );
+
+
+    /* ABSENT LIST */
+
+    const absentStudents =
+        exam.students.filter(
+            student =>
+                student.attendance === "ABSENT"
+        );
+
+
+    if(presentStudents.length){
+
+        presentList.innerHTML =
+            presentStudents
+                .map(student => `
+                    <div class="present-reg">
+                        ${student.register}
+                    </div>
+                `)
+                .join("");
+
+    }else{
+
+        presentList.innerHTML =
+            `<div class="no-present">
+                No students present.
+            </div>`;
+    }
+
+
+    if(absentStudents.length){
+
+        absentList.innerHTML =
+            absentStudents
+                .map(student => `
+                    <div class="absent-reg">
+                        ${student.register}
+                    </div>
+                `)
+                .join("");
+
+    }else{
+
+        absentList.innerHTML =
+            `<div class="no-absent">
+                No absent students.
+            </div>`;
+    }
+
+
+    /* COUNTS */
+
+    document.getElementById("attTotal").textContent =
+        exam.students.length;
+
+    document.getElementById("attPresent").textContent =
+        presentStudents.length;
+
+    document.getElementById("attAbsent").textContent =
+        absentStudents.length;
+}
+
+
+/* =========================================================
+   SET PRESENT / ABSENT
+========================================================= */
+
+function setAttendance(register,status){
+
+    const student =
+        findStudent(register);
+
+
+    if(!student){
+        return;
+    }
+
+
+    student.attendance = status;
+
+
+    /*
+       IMPORTANT:
+
+       When ABSENT:
+       PRESENT list -> remove
+       ABSENT list -> add
+       Present count decreases
+       Absent count increases
+
+       When PRESENT:
+       ABSENT list -> remove
+       PRESENT list -> add
+       Counts update automatically.
+    */
+
+
+    renderAttendance();
+
+
+    /* Keep searched student visible */
+
+    const searchValue =
+        document.getElementById(
+            "attendanceSearch"
+        ).value.trim();
+
+
+    if(searchValue){
+
+        setTimeout(() => {
+
+            const row =
+                document.querySelector(
+                    `.attendance-row-card[data-register="${searchValue}"]`
+                );
+
+            if(row){
+
+                row.scrollIntoView({
+                    behavior:"smooth",
+                    block:"center"
+                });
+
+            }
+
+        },100);
 
     }
-);
+}
+
+
+/* =========================================================
+   ATTENDANCE SEARCH
+========================================================= */
+
+function searchAttendance(){
+
+    const input =
+        document.getElementById(
+            "attendanceSearch"
+        );
+
+
+    const register =
+        input.value.trim();
+
+
+    document
+        .querySelectorAll(".attendance-row-card")
+        .forEach(row => {
+
+            row.style.borderColor = "#183447";
+            row.style.boxShadow = "none";
+        });
+
+
+    if(register.length !== 12){
+
+        alert(
+            "Please enter a valid 12-digit register number."
+        );
+
+        return;
+    }
+
+
+    const student =
+        findStudent(register);
+
+
+    if(!student){
+
+        alert(
+            "Register number not found."
+        );
+
+        return;
+    }
+
+
+    const row =
+        document.querySelector(
+            `.attendance-row-card[data-register="${register}"]`
+        );
+
+
+    if(row){
+
+        row.style.borderColor =
+            student.attendance === "ABSENT"
+            ? "#ff1744"
+            : "#00ffad";
+
+        row.style.boxShadow =
+            student.attendance === "ABSENT"
+            ? "0 0 25px rgba(255,23,68,.35)"
+            : "0 0 25px rgba(0,255,173,.25)";
+
+
+        row.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    }
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
 
 /* =========================================================
@@ -3289,20 +2833,15 @@ document
 ========================================================= */
 
 const cursorRing =
-    document.getElementById(
-        "cursorRing"
-    );
-
+    document.getElementById("cursorRing");
 
 const cursorDot =
-    document.getElementById(
-        "cursorDot"
-    );
+    document.getElementById("cursorDot");
 
 
 document.addEventListener(
     "mousemove",
-    function(event){
+    event => {
 
         cursorRing.style.left =
             event.clientX + "px";
@@ -3321,19 +2860,12 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   SONIC CLICK RIPPLE
-========================================================= */
-
 document.addEventListener(
     "click",
-    function(event){
+    event => {
 
         const ripple =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         ripple.className =
             "sonic-ripple";
@@ -3342,22 +2874,98 @@ document.addEventListener(
         ripple.style.left =
             event.clientX + "px";
 
-
         ripple.style.top =
             event.clientY + "px";
 
 
-        document.body.appendChild(
-            ripple
-        );
+        document.body.appendChild(ripple);
 
 
-        setTimeout(
-            ()=>{
-                ripple.remove();
-            },
-            700
-        );
+        setTimeout(() => {
+            ripple.remove();
+        },700);
+
+    }
+);
+
+
+/* =========================================================
+   CURSOR HOVER EFFECT
+========================================================= */
+
+document.addEventListener(
+    "mouseover",
+    event => {
+
+        if(
+            event.target.matches(
+                "button,input,.seat,.status-btn"
+            )
+        ){
+
+            cursorRing.style.width = "46px";
+            cursorRing.style.height = "46px";
+            cursorRing.style.borderColor =
+                "#00ffea";
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "mouseout",
+    event => {
+
+        if(
+            event.target.matches(
+                "button,input,.seat,.status-btn"
+            )
+        ){
+
+            cursorRing.style.width = "32px";
+            cursorRing.style.height = "32px";
+            cursorRing.style.borderColor =
+                "rgba(0,234,255,.7)";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key !== "Enter"){
+            return;
+        }
+
+
+        const active =
+            document.activeElement;
+
+
+        if(active &&
+            active.id === "studentSearch"){
+
+            searchStudent();
+
+        }
+
+
+        if(active &&
+            active.id === "attendanceSearch"){
+
+            searchAttendance();
+
+        }
 
     }
 );
