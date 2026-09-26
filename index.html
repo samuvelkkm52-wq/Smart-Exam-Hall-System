@@ -232,29 +232,28 @@ button{
     transform:translateY(-2px);
     box-shadow:0 15px 40px rgba(0,234,255,.32);
 }
+<div class="grid">
 
-/* DEPARTMENTS */
+    <div>
+        <label>DEPARTMENT NAME</label>
+        <input class="dname"
+               placeholder="Computer Science">
+    </div>
 
-#departmentSection,
-#studentSection,
-#allocationSection,
-#searchSection{
-    display:none;
-}
+    <div>
+        <label>CODE</label>
+        <input class="dcode"
+               placeholder="CSE">
+    </div>
 
-.dept{
-    padding:19px;
-    border-radius:16px;
-    border:1px solid rgba(0,234,255,.12);
-    background:rgba(0,0,0,.15);
-    margin-bottom:13px;
-}
+    <div>
+        <label>STUDENT COUNT</label>
+        <input class="dstudents"
+               type="number"
+               placeholder="60">
+    </div>
 
-.dept-head{
-    color:#00eaff;
-    font-weight:800;
-    margin-bottom:15px;
-}
+</div>
 
 .subject{
     display:flex;
