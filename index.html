@@ -1,20 +1,2417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Exam Cell | JARVIS X</title>
+
 <style>
-body {
-    background: #020814;
-    color: #00eaff;
-    font-family: Arial, sans-serif;
+
+/* =========================================================
+   JARVIS X — SMART EXAM HALL SYSTEM
+   FULL UI
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    color: #00eaff;
-    text-shadow: 0 0 20px #00eaff;
+:root {
+    --cyan: #00eaff;
+    --blue: #168cff;
+    --green: #00ffb0;
+    --bg: #020814;
+    --panel: rgba(5, 18, 34, .88);
+    --border: rgba(0, 220, 255, .25);
+    --text: #e8fbff;
+    --muted: #7892a8;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(0, 190, 255, .09), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(0, 110, 255, .08), transparent 30%),
+        linear-gradient(135deg, #01040a, #020b16 50%, #01050b);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+/* GRID BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+
+    background-image:
+        linear-gradient(rgba(0, 220, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 220, 255, .025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+}
+
+/* SCANLINES */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9990;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 220, 255, .012) 4px
+        );
+}
+
+/* =========================================================
+   SONIC CURSOR
+   ========================================================= */
+
+.sonic-ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid rgba(0, 234, 255, .95);
+    border-radius: 50%;
+
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+
+    z-index: 99999;
+
+    box-shadow:
+        0 0 8px #00eaff,
+        0 0 18px rgba(0, 180, 255, .7);
+
+    animation: sonic 700ms ease-out forwards;
+}
+
+.sonic-ripple::before {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+    background: #00eaff;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #00aaff;
+}
+
+@keyframes sonic {
+
+    0% {
+        width: 8px;
+        height: 8px;
+        opacity: 1;
+    }
+
+    100% {
+        width: 70px;
+        height: 70px;
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+    width: min(1200px, 94%);
+    margin: auto;
+    padding: 30px 0 80px;
+}
+
+/* HEADER */
+
+.header {
+    text-align: center;
+    padding: 35px 20px 28px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(0, 234, 255, .45);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0, 234, 255, .12),
+            rgba(0, 80, 180, .05)
+        );
+
+    box-shadow:
+        0 0 20px rgba(0, 234, 255, .18),
+        inset 0 0 20px rgba(0, 234, 255, .05);
+
+    font-size: 30px;
+
+    animation: logoPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoPulse {
+    from {
+        box-shadow: 0 0 15px rgba(0,234,255,.15);
+    }
+
+    to {
+        box-shadow:
+            0 0 30px rgba(0,234,255,.35),
+            0 0 60px rgba(0,120,255,.12);
+    }
+}
+
+.header h1 {
+    margin-top: 18px;
+
+    font-size: clamp(25px, 4vw, 44px);
+    letter-spacing: 5px;
+
+    color: #eaffff;
+
+    text-shadow:
+        0 0 10px rgba(0,234,255,.6),
+        0 0 30px rgba(0,150,255,.25);
+}
+
+.header p {
+    margin-top: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 18px;
+    padding: 8px 14px;
+
+    border: 1px solid rgba(0,255,176,.25);
+    border-radius: 50px;
+
+    background: rgba(0,255,176,.035);
+
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+
+    box-shadow: 0 0 12px var(--green);
+
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    from { opacity: .4; }
+    to { opacity: 1; }
+}
+
+/* =========================================================
+   STEPS
+   ========================================================= */
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    margin: 10px 0 25px;
+}
+
+.step {
+    padding: 8px 13px;
+
+    border: 1px solid rgba(0, 220, 255, .12);
+    border-radius: 20px;
+
+    color: #587084;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.step.active {
+    color: var(--cyan);
+
+    border-color: rgba(0,234,255,.5);
+
+    box-shadow:
+        0 0 15px rgba(0,234,255,.12);
+
+    background: rgba(0,234,255,.05);
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.panel {
+    position: relative;
+
+    padding: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(6, 24, 43, .93),
+            rgba(2, 11, 22, .93)
+        );
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.35),
+        inset 0 0 30px rgba(0,220,255,.025);
+
+    overflow: hidden;
+}
+
+.panel::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--cyan),
+            transparent
+        );
+
+    box-shadow: 0 0 15px var(--cyan);
+}
+
+.panel-title {
+    margin-bottom: 8px;
+
+    color: var(--cyan);
+    font-size: 18px;
+    letter-spacing: 2px;
+
+    text-shadow: 0 0 12px rgba(0,234,255,.4);
+}
+
+.panel-subtitle {
+    margin-bottom: 25px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    color: #9bb3c5;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+input,
+select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid rgba(0,220,255,.18);
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(0,0,0,.28);
+    color: #eaffff;
+
+    font-size: 13px;
+
+    transition: .25s;
+}
+
+input::placeholder {
+    color: #4e6678;
+}
+
+input:focus,
+select:focus {
+    border-color: rgba(0,234,255,.7);
+
+    box-shadow:
+        0 0 0 3px rgba(0,234,255,.05),
+        0 0 20px rgba(0,234,255,.12);
+
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-top: 25px;
 }
 
 button {
-    background: #061c2b;
-    color: #00eaff;
-    border: 1px solid #00eaff;
-    padding: 12px 20px;
-    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid rgba(0,234,255,.4);
+    border-radius: 9px;
+
+    padding: 12px 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,150,255,.16),
+            rgba(0,234,255,.05)
+        );
+
+    color: var(--cyan);
+
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .25s;
 }
+
+button:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--cyan);
+
+    box-shadow:
+        0 0 20px rgba(0,234,255,.18);
+}
+
+button.primary {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,180,255,.28),
+            rgba(0,90,180,.18)
+        );
+}
+
+button.green {
+    color: var(--green);
+    border-color: rgba(0,255,176,.4);
+}
+
+button.secondary {
+    color: #8ba3b5;
+    border-color: rgba(120,150,170,.2);
+}
+
+/* =========================================================
+   CONFIG CARDS
+   ========================================================= */
+
+.config-list {
+    display: grid;
+    gap: 14px;
+}
+
+.config-card {
+    padding: 18px;
+
+    border: 1px solid rgba(0,220,255,.13);
+    border-radius: 13px;
+
+    background: rgba(0,0,0,.16);
+
+    transition: .25s;
+}
+
+.config-card:hover {
+    border-color: rgba(0,234,255,.35);
+
+    box-shadow:
+        0 0 20px rgba(0,234,255,.06);
+}
+
+.config-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.config-card-title {
+    color: var(--cyan);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* =========================================================
+   HALL
+   ========================================================= */
+
+.hall-card {
+    padding: 18px;
+
+    border: 1px solid rgba(0,220,255,.15);
+    border-radius: 14px;
+
+    background: rgba(0,0,0,.16);
+}
+
+.hall-card + .hall-card {
+    margin-top: 12px;
+}
+
+/* =========================================================
+   SEATING
+   ========================================================= */
+
+.hall-section {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(0,220,255,.13);
+    border-radius: 15px;
+
+    background: rgba(0,0,0,.14);
+}
+
+.hall-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-bottom: 18px;
+}
+
+.hall-heading h3 {
+    color: var(--cyan);
+    letter-spacing: 1px;
+}
+
+.hall-heading span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.bench-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+.bench {
+    padding: 13px;
+
+    border: 1px solid rgba(0,220,255,.12);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,220,255,.045),
+            rgba(0,0,0,.18)
+        );
+
+    transition: .25s;
+}
+
+.bench:hover {
+    border-color: rgba(0,234,255,.45);
+
+    box-shadow:
+        0 0 18px rgba(0,234,255,.08);
+
+    transform: translateY(-2px);
+}
+
+.bench-number {
+    margin-bottom: 9px;
+
+    color: #638095;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.seat {
+    padding: 8px;
+
+    border-radius: 7px;
+
+    background: rgba(0,0,0,.22);
+
+    font-size: 10px;
+}
+
+.seat + .seat {
+    margin-top: 5px;
+}
+
+.seat-name {
+    color: #eaffff;
+}
+
+.seat-dept {
+    color: var(--cyan);
+    font-size: 9px;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+/* =========================================================
+   STUDENT RESULT
+   ========================================================= */
+
+.student-card {
+    position: relative;
+
+    padding: 22px;
+
+    border: 1px solid rgba(0,234,255,.55);
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(4,27,45,.96),
+            rgba(2,11,22,.96)
+        );
+
+    overflow: hidden;
+
+    animation:
+        resultIn .45s ease-out,
+        resultGlow 2s ease-in-out .45s infinite alternate;
+}
+
+.student-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: -5%;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #00eaff,
+            #00ffb0,
+            #00eaff,
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px #00eaff,
+        0 0 30px #00eaff;
+
+    animation: scan 2.2s linear infinite;
+}
+
+.student-card h3 {
+    margin-bottom: 18px;
+
+    color: var(--green);
+
+    letter-spacing: 1.5px;
+
+    text-shadow:
+        0 0 8px rgba(0,255,176,.7);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 10px;
+
+    border-bottom:
+        1px solid rgba(0,220,255,.08);
+
+    border-radius: 6px;
+
+    transition: .2s;
+}
+
+.detail-row:hover {
+    background: rgba(0,234,255,.04);
+
+    box-shadow:
+        inset 3px 0 0 var(--cyan);
+
+    transform: translateX(4px);
+}
+
+.detail-row span:first-child {
+    color: #6f899d;
+    font-size: 11px;
+}
+
+.detail-row span:last-child {
+    color: #eaffff;
+    font-size: 12px;
+    text-align: right;
+
+    text-shadow:
+        0 0 8px rgba(0,234,255,.3);
+}
+
+@keyframes resultIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes resultGlow {
+    from {
+        box-shadow:
+            0 0 12px rgba(0,234,255,.22);
+    }
+
+    to {
+        box-shadow:
+            0 0 28px rgba(0,234,255,.4),
+            0 0 55px rgba(0,120,255,.12);
+    }
+}
+
+@keyframes scan {
+    from {
+        top: -5%;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    to {
+        top: 105%;
+        opacity: 0;
+    }
+}
+
+.scanning {
+    padding: 30px;
+
+    text-align: center;
+
+    border: 1px solid rgba(0,234,255,.18);
+    border-radius: 12px;
+
+    color: var(--cyan);
+
+    letter-spacing: 2px;
+
+    animation: scanning 800ms infinite alternate;
+}
+
+@keyframes scanning {
+    from {
+        opacity: .45;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.not-found {
+    padding: 25px;
+
+    text-align: center;
+
+    color: #ff7180;
+
+    border: 1px solid rgba(255,80,100,.2);
+    border-radius: 12px;
+
+    background: rgba(255,50,70,.035);
+}
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .app {
+        width: 94%;
+        padding-top: 10px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: auto;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .bench-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .detail-row span:last-child {
+        text-align: left;
+    }
+
+}
+
 </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            ⚡
+        </div>
+
+        <h1>SMART EXAM CELL</h1>
+
+        <p>
+            JARVIS X • EXAM HALL ALLOCATION & STUDENT LOCATOR
+        </p>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         STEPS
+         ===================================================== -->
+
+    <div class="steps">
+
+        <div class="step active" id="step1">
+            01 • DEPARTMENTS
+        </div>
+
+        <div class="step" id="step2">
+            02 • SUBJECTS
+        </div>
+
+        <div class="step" id="step3">
+            03 • HALLS
+        </div>
+
+        <div class="step" id="step4">
+            04 • SEATING
+        </div>
+
+        <div class="step" id="step5">
+            05 • LOCATOR
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 1
+         ===================================================== -->
+
+    <section class="panel" id="screen1">
+
+        <div class="panel-title">
+            EXAMINATION REQUIREMENTS
+        </div>
+
+        <div class="panel-subtitle">
+            Configure departments and student strength before allocation.
+        </div>
+
+        <div class="grid">
+
+            <div class="field">
+
+                <label>
+                    Number of Departments
+                </label>
+
+                <input
+                    id="departmentCount"
+                    type="number"
+                    min="1"
+                    max="20"
+                    placeholder="Example: 5"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Number of Examination Halls
+                </label>
+
+                <input
+                    id="hallCount"
+                    type="number"
+                    min="1"
+                    max="100"
+                    placeholder="Example: 10"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="btn-row">
+
+            <button
+                class="primary"
+                onclick="createDepartments()"
+            >
+                NEXT → DEPARTMENTS
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 2
+         ===================================================== -->
+
+    <section
+        class="panel hidden"
+        id="screen2"
+    >
+
+        <div class="panel-title">
+            DEPARTMENT CONFIGURATION
+        </div>
+
+        <div class="panel-subtitle">
+            Enter department name and total students.
+        </div>
+
+        <div
+            class="config-list"
+            id="departmentList"
+        ></div>
+
+        <div class="btn-row">
+
+            <button
+                class="secondary"
+                onclick="showScreen(1)"
+            >
+                ← BACK
+            </button>
+
+            <button
+                class="primary"
+                onclick="createSubjects()"
+            >
+                NEXT → SUBJECTS
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 3
+         ===================================================== -->
+
+    <section
+        class="panel hidden"
+        id="screen3"
+    >
+
+        <div class="panel-title">
+            SUBJECT CONFIGURATION
+        </div>
+
+        <div class="panel-subtitle">
+            Enter the examination subject for every department.
+        </div>
+
+        <div
+            class="config-list"
+            id="subjectList"
+        ></div>
+
+        <div class="btn-row">
+
+            <button
+                class="secondary"
+                onclick="showScreen(2)"
+            >
+                ← BACK
+            </button>
+
+            <button
+                class="primary"
+                onclick="createHalls()"
+            >
+                NEXT → HALLS
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 4A HALL CONFIG
+         ===================================================== -->
+
+    <section
+        class="panel hidden"
+        id="screen4"
+    >
+
+        <div class="panel-title">
+            EXAMINATION HALL CONFIGURATION
+        </div>
+
+        <div class="panel-subtitle">
+            Enter hall name and maximum seating capacity.
+        </div>
+
+        <div
+            class="config-list"
+            id="hallList"
+        ></div>
+
+        <div class="btn-row">
+
+            <button
+                class="secondary"
+                onclick="showScreen(3)"
+            >
+                ← BACK
+            </button>
+
+            <button
+                class="green"
+                onclick="generateSystem()"
+            >
+                GENERATE SMART SEATING ⚡
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 4B SEATING
+         ===================================================== -->
+
+    <section
+        class="panel hidden"
+        id="screen5"
+    >
+
+        <div class="panel-title">
+            SMART SEATING ARRANGEMENT
+        </div>
+
+        <div class="panel-subtitle">
+            Two students per bench • Departments distributed across halls.
+        </div>
+
+        <div id="seatingOutput"></div>
+
+        <div class="btn-row">
+
+            <button
+                class="primary"
+                onclick="showLocator()"
+            >
+                CONTINUE → STUDENT LOCATOR
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 5 LOCATOR
+         ===================================================== -->
+
+    <section
+        class="panel hidden"
+        id="screen6"
+    >
+
+        <div class="panel-title">
+            STUDENT LOCATOR
+        </div>
+
+        <div class="panel-subtitle">
+            Search using student name or register number.
+        </div>
+
+        <div class="search-box">
+
+            <input
+                id="studentSearch"
+                type="text"
+                placeholder="Enter student name / register number..."
+                onkeydown="if(event.key === 'Enter') searchStudent()"
+            >
+
+            <button
+                class="primary"
+                onclick="searchStudent()"
+            >
+                SEARCH
+            </button>
+
+        </div>
+
+        <div id="searchResult"></div>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+let departments = [];
+let halls = [];
+let students = [];
+
+
+/* =========================================================
+   SCREEN CONTROL
+   ========================================================= */
+
+function showScreen(number) {
+
+    const screens = [
+        "screen1",
+        "screen2",
+        "screen3",
+        "screen4",
+        "screen5",
+        "screen6"
+    ];
+
+    screens.forEach((id, index) => {
+
+        document
+            .getElementById(id)
+            .classList.toggle(
+                "hidden",
+                index !== number - 1
+            );
+
+    });
+
+
+    document
+        .querySelectorAll(".step")
+        .forEach((step, index) => {
+
+            step.classList.toggle(
+                "active",
+                index === number - 1
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   STEP 1 → DEPARTMENTS
+   ========================================================= */
+
+function createDepartments() {
+
+    const count =
+        Number(
+            document.getElementById(
+                "departmentCount"
+            ).value
+        );
+
+    const hallCount =
+        Number(
+            document.getElementById(
+                "hallCount"
+            ).value
+        );
+
+
+    if (
+        !count ||
+        count < 1 ||
+        !hallCount ||
+        hallCount < 1
+    ) {
+
+        alert(
+            "Please enter department and hall count."
+        );
+
+        return;
+    }
+
+
+    departments = [];
+
+
+    const list =
+        document.getElementById(
+            "departmentList"
+        );
+
+    list.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        list.innerHTML += `
+
+            <div class="config-card">
+
+                <div class="config-card-header">
+
+                    <div class="config-card-title">
+                        DEPARTMENT ${i + 1}
+                    </div>
+
+                </div>
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+                            Department Name
+                        </label>
+
+                        <input
+                            id="deptName${i}"
+                            placeholder="Example: CSE"
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+                            Student Count
+                        </label>
+
+                        <input
+                            id="deptStudents${i}"
+                            type="number"
+                            min="1"
+                            placeholder="Example: 50"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    showScreen(2);
+}
+
+
+/* =========================================================
+   STEP 2 → SUBJECTS
+   ========================================================= */
+
+function createSubjects() {
+
+    departments = [];
+
+
+    const count =
+        Number(
+            document.getElementById(
+                "departmentCount"
+            ).value
+        );
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const name =
+            document
+                .getElementById(
+                    `deptName${i}`
+                )
+                .value
+                .trim();
+
+
+        const studentCount =
+            Number(
+                document
+                    .getElementById(
+                        `deptStudents${i}`
+                    )
+                    .value
+            );
+
+
+        if (
+            !name ||
+            !studentCount
+        ) {
+
+            alert(
+                `Please complete Department ${i + 1}.`
+            );
+
+            return;
+        }
+
+
+        departments.push({
+
+            name: name,
+
+            students: studentCount,
+
+            subject: ""
+
+        });
+
+    }
+
+
+    const list =
+        document.getElementById(
+            "subjectList"
+        );
+
+    list.innerHTML = "";
+
+
+    departments.forEach(
+        (dept, index) => {
+
+            list.innerHTML += `
+
+                <div class="config-card">
+
+                    <div class="config-card-header">
+
+                        <div class="config-card-title">
+                            ${escapeHTML(dept.name)}
+                        </div>
+
+                        <span style="
+                            color:#61798d;
+                            font-size:10px;
+                        ">
+                            ${dept.students} STUDENTS
+                        </span>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+                            Examination Subject
+                        </label>
+
+                        <input
+                            id="subject${index}"
+                            placeholder="Example: Data Structures"
+                        >
+
+                    </div>
+
+                </div>
+            `;
+
+        }
+    );
+
+
+    showScreen(3);
+}
+
+
+/* =========================================================
+   STEP 3 → HALLS
+   ========================================================= */
+
+function createHalls() {
+
+    departments.forEach(
+        (dept, index) => {
+
+            const subject =
+                document
+                    .getElementById(
+                        `subject${index}`
+                    )
+                    .value
+                    .trim();
+
+            if (!subject) {
+                throwError(
+                    `Please enter subject for ${dept.name}.`
+                );
+            }
+
+            dept.subject = subject;
+
+        }
+    );
+
+
+    const count =
+        Number(
+            document.getElementById(
+                "hallCount"
+            ).value
+        );
+
+
+    const list =
+        document.getElementById(
+            "hallList"
+        );
+
+    list.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        list.innerHTML += `
+
+            <div class="hall-card">
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+                            Hall ${i + 1} Name
+                        </label>
+
+                        <input
+                            id="hallName${i}"
+                            value="HALL ${String(i + 1).padStart(2, "0")}"
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+                            Hall Capacity
+                        </label>
+
+                        <input
+                            id="hallCapacity${i}"
+                            type="number"
+                            min="1"
+                            placeholder="Example: 60"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    showScreen(4);
+}
+
+
+/* =========================================================
+   GENERATE STUDENTS
+   ========================================================= */
+
+function generateStudents() {
+
+    students = [];
+
+
+    departments.forEach(
+        (dept, deptIndex) => {
+
+            for (
+                let i = 1;
+                i <= dept.students;
+                i++
+            ) {
+
+                const number =
+                    String(i)
+                    .padStart(3, "0");
+
+
+                const deptCode =
+                    dept.name
+                    .replace(
+                        /[^A-Za-z]/g,
+                        ""
+                    )
+                    .substring(0, 2)
+                    .toUpperCase();
+
+
+                students.push({
+
+                    name:
+                        `${dept.name} Student ${number}`,
+
+                    register:
+                        `26${deptCode}${number}`,
+
+                    department:
+                        dept.name,
+
+                    year:
+                        "II YEAR",
+
+                    subject:
+                        dept.subject,
+
+                    hall:
+                        "",
+
+                    seat:
+                        ""
+
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SMART SEATING
+   ========================================================= */
+
+function generateSystem() {
+
+    halls = [];
+
+
+    const count =
+        Number(
+            document.getElementById(
+                "hallCount"
+            ).value
+        );
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const name =
+            document
+                .getElementById(
+                    `hallName${i}`
+                )
+                .value
+                .trim();
+
+
+        const capacity =
+            Number(
+                document
+                    .getElementById(
+                        `hallCapacity${i}`
+                    )
+                    .value
+            );
+
+
+        if (
+            !name ||
+            !capacity
+        ) {
+
+            alert(
+                `Please complete Hall ${i + 1}.`
+            );
+
+            return;
+        }
+
+
+        halls.push({
+
+            name: name,
+
+            capacity: capacity,
+
+            seats: []
+
+        });
+
+    }
+
+
+    generateStudents();
+
+
+    const totalCapacity =
+        halls.reduce(
+            (sum, hall) =>
+                sum + hall.capacity,
+            0
+        );
+
+
+    if (
+        totalCapacity <
+        students.length
+    ) {
+
+        alert(
+            `Not enough hall capacity.\n\nStudents: ${students.length}\nCapacity: ${totalCapacity}`
+        );
+
+        return;
+    }
+
+
+    /*
+
+       DISTRIBUTE STUDENTS
+       DEPARTMENT-BY-DEPARTMENT
+
+    */
+
+    const departmentQueues =
+        departments.map(
+            dept =>
+                students.filter(
+                    student =>
+                        student.department ===
+                        dept.name
+                )
+        );
+
+
+    let queueIndex = 0;
+
+
+    halls.forEach(
+        hall => {
+
+            const benchCount =
+                Math.ceil(
+                    hall.capacity / 2
+                );
+
+
+            for (
+                let bench = 1;
+                bench <= benchCount;
+                bench++
+            ) {
+
+                const seats = [];
+
+
+                /* FIRST STUDENT */
+
+                const first =
+                    getNextStudent(
+                        departmentQueues,
+                        queueIndex
+                    );
+
+
+                if (first) {
+
+                    first.hall =
+                        hall.name;
+
+                    first.seat =
+                        `B${String(bench).padStart(2,"0")}-L`;
+
+                    seats.push(first);
+
+                    queueIndex =
+                        (queueIndex + 1) %
+                        departmentQueues.length;
+
+                }
+
+
+                /* SECOND STUDENT */
+
+                let second =
+                    getNextStudent(
+                        departmentQueues,
+                        queueIndex,
+                        first
+                    );
+
+
+                if (
+                    second &&
+                    seats.length < 2
+                ) {
+
+                    second.hall =
+                        hall.name;
+
+                    second.seat =
+                        `B${String(bench).padStart(2,"0")}-R`;
+
+                    seats.push(second);
+
+                    queueIndex =
+                        (queueIndex + 1) %
+                        departmentQueues.length;
+
+                }
+
+
+                hall.seats.push({
+
+                    bench: bench,
+
+                    students: seats
+
+                });
+
+            }
+
+        }
+    );
+
+
+    renderSeating();
+
+    showScreen(5);
+}
+
+
+/* =========================================================
+   GET NEXT STUDENT
+   ========================================================= */
+
+function getNextStudent(
+    queues,
+    startIndex,
+    firstStudent = null
+) {
+
+    for (
+        let i = 0;
+        i < queues.length;
+        i++
+    ) {
+
+        const index =
+            (startIndex + i) %
+            queues.length;
+
+
+        if (
+            queues[index] &&
+            queues[index].length
+        ) {
+
+            /* Avoid same department beside same department
+               whenever another department is available */
+
+            if (
+                firstStudent &&
+                queues[index][0].department ===
+                firstStudent.department
+            ) {
+
+                continue;
+            }
+
+
+            return queues[index].shift();
+
+        }
+
+    }
+
+
+    /* If only same department remains */
+
+    for (
+        let i = 0;
+        i < queues.length;
+        i++
+    ) {
+
+        if (
+            queues[i] &&
+            queues[i].length
+        ) {
+
+            return queues[i].shift();
+
+        }
+
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   RENDER SEATING
+   ========================================================= */
+
+function renderSeating() {
+
+    const output =
+        document.getElementById(
+            "seatingOutput"
+        );
+
+
+    output.innerHTML = "";
+
+
+    halls.forEach(
+        hall => {
+
+            const section =
+                document.createElement(
+                    "div"
+                );
+
+            section.className =
+                "hall-section";
+
+
+            section.innerHTML = `
+
+                <div class="hall-heading">
+
+                    <h3>
+                        ${escapeHTML(hall.name)}
+                    </h3>
+
+                    <span>
+                        ${hall.capacity}
+                        SEAT CAPACITY
+                    </span>
+
+                </div>
+
+                <div class="bench-grid"></div>
+            `;
+
+
+            const grid =
+                section.querySelector(
+                    ".bench-grid"
+                );
+
+
+            hall.seats.forEach(
+                bench => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "bench";
+
+
+                    let seatHTML = "";
+
+
+                    if (
+                        bench.students.length === 0
+                    ) {
+
+                        seatHTML = `
+                            <div class="seat">
+                                <span class="seat-name">
+                                    EMPTY
+                                </span>
+                            </div>
+                        `;
+
+                    }
+
+
+                    bench.students.forEach(
+                        student => {
+
+                            seatHTML += `
+
+                                <div class="seat">
+
+                                    <div class="seat-name">
+                                        ${escapeHTML(student.name)}
+                                    </div>
+
+                                    <div class="seat-dept">
+                                        ${escapeHTML(student.department)}
+                                    </div>
+
+                                    <div style="
+                                        margin-top:4px;
+                                        color:#657f92;
+                                        font-size:8px;
+                                    ">
+                                        ${escapeHTML(student.register)}
+                                        •
+                                        ${escapeHTML(student.seat)}
+                                    </div>
+
+                                </div>
+                            `;
+
+                        }
+                    );
+
+
+                    card.innerHTML = `
+
+                        <div class="bench-number">
+                            BENCH ${String(
+                                bench.bench
+                            ).padStart(2,"0")}
+                        </div>
+
+                        ${seatHTML}
+
+                    `;
+
+
+                    grid.appendChild(card);
+
+                }
+            );
+
+
+            output.appendChild(section);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOCATOR
+   ========================================================= */
+
+function showLocator() {
+
+    showScreen(6);
+
+    document
+        .getElementById(
+            "studentSearch"
+        )
+        .focus();
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function searchStudent() {
+
+    const query =
+        document
+            .getElementById(
+                "studentSearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const result =
+        document.getElementById(
+            "searchResult"
+        );
+
+
+    if (!query) {
+
+        result.innerHTML = `
+            <div class="not-found">
+                ⚠ PLEASE ENTER STUDENT NAME
+                OR REGISTER NUMBER
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* SCANNING */
+
+    result.innerHTML = `
+
+        <div class="scanning">
+
+            ◉
+
+            <br><br>
+
+            SCANNING STUDENT DATABASE...
+
+            <div style="
+                margin-top:8px;
+                color:#50697d;
+                font-size:9px;
+            ">
+                SEARCHING: ${escapeHTML(query)}
+            </div>
+
+        </div>
+    `;
+
+
+    setTimeout(
+        () => {
+
+            const found =
+                students.find(
+                    student =>
+
+                        student.name
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        student.register
+                            .toLowerCase()
+                            .includes(query)
+                );
+
+
+            if (!found) {
+
+                result.innerHTML = `
+
+                    <div class="not-found">
+
+                        ❌ STUDENT NOT FOUND
+
+                        <div style="
+                            margin-top:10px;
+                            font-size:10px;
+                            color:#6d8495;
+                        ">
+                            Try student name or
+                            register number.
+                        </div>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            result.innerHTML = `
+
+                <div class="student-card">
+
+                    <h3>
+                        ● STUDENT LOCATED ✓
+                    </h3>
+
+
+                    <div class="detail-row">
+                        <span>Student Name</span>
+                        <span>
+                            ${escapeHTML(found.name)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Register Number</span>
+                        <span>
+                            ${escapeHTML(found.register)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Department</span>
+                        <span>
+                            ${escapeHTML(found.department)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Year</span>
+                        <span>
+                            ${escapeHTML(found.year)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Subject</span>
+                        <span>
+                            ${escapeHTML(found.subject)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Exam Hall</span>
+                        <span style="
+                            color:#00ffb0;
+                            text-shadow:
+                            0 0 12px rgba(0,255,176,.7);
+                        ">
+                            ${escapeHTML(found.hall)}
+                        </span>
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Bench / Seat</span>
+                        <span style="
+                            color:#00eaff;
+                            text-shadow:
+                            0 0 12px rgba(0,234,255,.7);
+                        ">
+                            ${escapeHTML(found.seat)}
+                        </span>
+                    </div>
+
+
+                    <div style="
+                        margin-top:18px;
+                        padding:11px;
+                        text-align:center;
+
+                        color:#00ffb0;
+
+                        border:
+                            1px solid
+                            rgba(0,255,176,.18);
+
+                        border-radius:8px;
+
+                        background:
+                            rgba(0,255,176,.035);
+
+                        font-size:10px;
+
+                        letter-spacing:1.5px;
+                    ">
+                        ✓ LOCATION VERIFIED
+                    </div>
+
+                </div>
+            `;
+
+        },
+
+        650
+    );
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function throwError(message) {
+
+    alert(message);
+
+    throw new Error(message);
+
+}
+
+
+/* =========================================================
+   HTML SAFETY
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================================================
+   SONIC CURSOR
+   ========================================================= */
+
+let lastX = 0;
+let lastY = 0;
+let sonicTimer = null;
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        const dx =
+            event.clientX - lastX;
+
+        const dy =
+            event.clientY - lastY;
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        lastX = event.clientX;
+        lastY = event.clientY;
+
+
+        /* Prevent too many ripples */
+
+        if (
+            distance < 45
+        ) return;
+
+
+        clearTimeout(
+            sonicTimer
+        );
+
+
+        sonicTimer =
+            setTimeout(
+                () => {
+
+                    const ripple =
+                        document.createElement(
+                            "div"
+                        );
+
+                    ripple.className =
+                        "sonic-ripple";
+
+
+                    ripple.style.left =
+                        event.clientX + "px";
+
+                    ripple.style.top =
+                        event.clientY + "px";
+
+
+                    document.body.appendChild(
+                        ripple
+                    );
+
+
+                    setTimeout(
+                        () => ripple.remove(),
+                        750
+                    );
+
+                },
+
+                20
+            );
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL
+   ========================================================= */
+
+showScreen(1);
+
+</script>
+
+</body>
+</html>
